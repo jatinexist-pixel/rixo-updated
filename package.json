@@ -1,18 +1,13 @@
 {
-  "name": "rixo-ai",
+  "name": "rixo-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "@capacitor/cli": "^8.0.1",
-    "@capacitor/core": "^8.0.1"
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "@google/generative-ai": "^0.1.1"
   }
 }
