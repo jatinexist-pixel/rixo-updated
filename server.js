@@ -6,18 +6,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Gemini API Setup
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+// Chat Endpoint
 app.post('/chat', async (req, res) => {
     try {
+        const userMessage = req.body.message;
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const result = await model.generateContent(req.body.message);
+        const result = await model.generateContent(userMessage);
         const response = await result.response;
-        res.json({ reply: response.text() });
+        const text = response.text();
+        res.json({ reply: text });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ error: "API Error" });
     }
 });
 
+// Start Server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(Server is Live on port ${PORT}));
+app.listen(PORT, () => {
+    console.log("Server is running on port " + PORT);
+});
