@@ -5,29 +5,22 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors({ origin: '*' }));
 
-// Health check
 app.get('/', (req, res) => {
-    res.json({ 
-        status: 'Rixo AI Server Live!', 
-        timestamp: new Date().toISOString() 
-    });
+    res.json({ status: 'Rixo AI Server Live!' });
 });
 
-// Chat endpoint
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
-        
         if (!message || message.trim().length === 0) {
             return res.status(400).json({ error: 'No message provided' });
         }
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        // ✅ Fixed model name
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
         
         const result = await model.generateContent(message);
         const reply = result.response.text();
@@ -36,19 +29,11 @@ app.post('/chat', async (req, res) => {
         
     } catch (error) {
         console.error('Chat error:', error.message);
-        res.status(500).json({ 
-            error: 'AI service unavailable',
-            details: error.message 
-        });
+        res.status(500).json({ error: 'AI service unavailable' });
     }
-});
-
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({ error: 'Endpoint not found' });
 });
 
 const port = process.env.PORT || 10000;
 app.listen(port, '0.0.0.0', () => {
-    console.log("Rixo server running on port " + port);  // NO EMOJIS, NO TEMPLATE LITERALS
+    console.log("Rixo server running on port " + port);
 });
