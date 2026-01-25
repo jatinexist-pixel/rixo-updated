@@ -10,62 +10,52 @@ app.use(bodyParser.json());
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// 🔥 FIXED: Gemini v1beta Working Model + Endpoint
-const GEMINI_MODEL = "gemini-1.5-flash";
-const GEMINI_URL = https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY};
+const MODEL = "gemini-1.5-flash";
 
-// =============================
-// API ROUTE FOR AI RESPONSE
-// =============================
+const GEMINI_URL =
+  https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY};
+
 app.post("/chat", async (req, res) => {
   try {
-    const userMessage = req.body.message;
+    const userText = req.body.message;
 
-    if (!userMessage) {
-      return res.status(400).json({ error: "Message is required" });
+    if (!userText) {
+      return res.status(400).json({ error: "Message is required." });
     }
 
-    // Gemini request body
-    const requestBody = {
+    const body = {
       contents: [
         {
-          parts: [{ text: userMessage }]
+          parts: [{ text: userText }]
         }
       ]
     };
 
-    // Call Gemini API
-    const response = await fetch(GEMINI_URL, {
+    const result = await fetch(GEMINI_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(body)
     });
 
-    const data = await response.json();
+    const data = await result.json();
 
-    // Error handling
     if (data.error) {
-      console.error("Gemini API Error:", data.error);
       return res.status(500).json({ error: data.error.message });
     }
 
-    const aiText =
+    const reply =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response generated.";
+      "I couldn't generate a response.";
 
-    res.json({ reply: aiText });
+    res.json({ reply });
 
-  } catch (err) {
-    console.error("Server Error:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+  } catch (error) {
+    console.error("Gemini error:", error);
+    res.status(500).json({ error: "Server Error" });
   }
 });
 
-// =============================
-// START SERVER
-// =============================
 const PORT = process.env.PORT || 10000;
-
 app.listen(PORT, () => {
-  console.log(🔥 Rixo Server Running on PORT: ${PORT});
+  console.log("🔥 Rixo Server is running on port", PORT);
 });
