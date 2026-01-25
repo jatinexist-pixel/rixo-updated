@@ -6,10 +6,10 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: '*' // सभी domains को allow
+    origin: '*'
 }));
 
-// Health check endpoint
+// Health check
 app.get('/', (req, res) => {
     res.json({ 
         status: 'Rixo AI Server Live!', 
@@ -26,7 +26,6 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ error: 'No message provided' });
         }
 
-        // Gemini AI initialization
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         
@@ -38,7 +37,7 @@ app.post('/chat', async (req, res) => {
     } catch (error) {
         console.error('Chat error:', error.message);
         res.status(500).json({ 
-            error: 'AI service unavailable', 
+            error: 'AI service unavailable',
             details: error.message 
         });
     }
@@ -51,5 +50,5 @@ app.use((req, res) => {
 
 const port = process.env.PORT || 10000;
 app.listen(port, '0.0.0.0', () => {
-    console.log(✅ Rixo server running on port ${port});
+    console.log("Rixo server running on port " + port);  // NO EMOJIS, NO TEMPLATE LITERALS
 });
