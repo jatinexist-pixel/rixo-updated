@@ -1,10 +1,10 @@
 {
   "name": "rixo-ai",
   "version": "1.0.0",
+  "description": "Rixo AI Chatbot Server",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
