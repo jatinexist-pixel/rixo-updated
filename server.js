@@ -1,36 +1,71 @@
-require('dotenv').config();
-const express = require('express');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-const cors = require('cors');
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import fetch from "node-fetch";
 
 const app = express();
-app.use(express.json());
+
 app.use(cors());
+app.use(bodyParser.json());
 
-// Render ke Environment variables se key uthayega
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-app.post('/chat', async (req, res) => {
-    try {
-        const { message } = req.body;
-        if (!message) return res.status(400).json({ error: "Message missing" });
+// 🔥 FIXED: Gemini v1beta Working Model + Endpoint
+const GEMINI_MODEL = "gemini-1.5-flash";
+const GEMINI_URL = https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY};
 
-        // Flash 1.5 use karna hai - bina kisi version bracket ke
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+// =============================
+// API ROUTE FOR AI RESPONSE
+// =============================
+app.post("/chat", async (req, res) => {
+  try {
+    const userMessage = req.body.message;
 
-        const result = await model.generateContent(message);
-        const response = await result.response;
-        const text = response.text();
-
-        res.json({ reply: text });
-    } catch (error) {
-        console.error("Gemini Error:", error.message);
-        // Error message ko detail mein bhejna taaki humein pata chale
-        res.status(500).json({ error: "AI Error", details: error.message });
+    if (!userMessage) {
+      return res.status(400).json({ error: "Message is required" });
     }
+
+    // Gemini request body
+    const requestBody = {
+      contents: [
+        {
+          parts: [{ text: userMessage }]
+        }
+      ]
+    };
+
+    // Call Gemini API
+    const response = await fetch(GEMINI_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody)
+    });
+
+    const data = await response.json();
+
+    // Error handling
+    if (data.error) {
+      console.error("Gemini API Error:", data.error);
+      return res.status(500).json({ error: data.error.message });
+    }
+
+    const aiText =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No response generated.";
+
+    res.json({ reply: aiText });
+
+  } catch (err) {
+    console.error("Server Error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
+// =============================
+// START SERVER
+// =============================
 const PORT = process.env.PORT || 10000;
+
 app.listen(PORT, () => {
-    console.log("Rixo Server is Live on Port " + PORT);
+  console.log(🔥 Rixo Server Running on PORT: ${PORT});
 });
