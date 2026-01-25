@@ -1,14 +1,18 @@
 require('dotenv').config();
 const express = require('express');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const OpenAI = require('openai');
 const cors = require('cors');
 
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
 app.get('/', (req, res) => {
-    res.json({ status: 'Rixo AI Server Live!' });
+    res.json({ status: 'Rixo AI Server Live! (OpenAI Powered)' });
 });
 
 app.post('/chat', async (req, res) => {
@@ -18,17 +22,16 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ error: 'No message provided' });
         }
 
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // ✅ Fixed model name
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",  // Free tier friendly
+            messages: [{ role: "user", content: message }]
+        });
         
-        const result = await model.generateContent(message);
-        const reply = result.response.text();
-        
+        const reply = completion.choices[0].message.content;
         res.json({ reply: reply });
         
     } catch (error) {
-        console.error('Chat error:', error.message);
+        console.error('OpenAI error:', error.message);
         res.status(500).json({ error: 'AI service unavailable' });
     }
 });
