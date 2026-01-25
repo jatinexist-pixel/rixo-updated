@@ -1,61 +1,33 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import fetch from "node-fetch";
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const app = express();
-
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-const MODEL = "gemini-1.5-flash";
-
-const GEMINI_URL =
-  https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY};
+app.get("/", (req, res) => {
+    res.send("Rixo AI Backend is Running! 🚀");
+});
 
 app.post("/chat", async (req, res) => {
-  try {
-    const userText = req.body.message;
+    try {
+        const userMessage = req.body.message;
 
-    if (!userText) {
-      return res.status(400).json({ error: "Message is required." });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const result = await model.generateContent(userMessage);
+        const aiReply = result.response.text();
+
+        res.json({ reply: aiReply });
+    } catch (error) {
+        console.error("Server Error →", error);
+        res.status(500).json({ reply: "Server error, try again later." });
     }
-
-    const body = {
-      contents: [
-        {
-          parts: [{ text: userText }]
-        }
-      ]
-    };
-
-    const result = await fetch(GEMINI_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-
-    const data = await result.json();
-
-    if (data.error) {
-      return res.status(500).json({ error: data.error.message });
-    }
-
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "I couldn't generate a response.";
-
-    res.json({ reply });
-
-  } catch (error) {
-    console.error("Gemini error:", error);
-    res.status(500).json({ error: "Server Error" });
-  }
 });
 
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-  console.log("🔥 Rixo Server is running on port", PORT);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(Rixo backend running on port ${PORT}));
