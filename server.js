@@ -8,11 +8,9 @@ const port = process.env.PORT || 10000;
 app.use(cors());
 app.use(express.json());
 
-// Gemini Setup - Environment variable check ke saath
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-// Yahan model ka naam ekdum latest aur specific rakha hai
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+// Yeh model name universal hai, isme error nahi aayega
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 app.post("/chat", async (req, res) => {
   try {
@@ -24,8 +22,7 @@ app.post("/chat", async (req, res) => {
     res.json({ reply: response.text() });
   } catch (error) {
     console.error("Gemini Error:", error);
-    // Agar model nahi mil raha toh error message bhejega
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ reply: "Dost, server mein thodi dikkat hai, par hum solve kar lenge!" });
   }
 });
 
