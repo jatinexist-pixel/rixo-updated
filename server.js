@@ -3,40 +3,32 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000; // Render ke liye 10000 best hai
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Gemini Setup
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-// Chat Route
+// Yahan maine "gemini-pro" kar diya hai jo jyada stable hai
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
-    if (!message) {
-      return res.status(400).json({ error: "Message is required" });
-    }
-
     const result = await model.generateContent(message);
     const response = await result.response;
-    const text = response.text();
-    
-    res.json({ reply: text });
+    res.json({ reply: response.text() });
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Gemini Error:", error);
     res.status(500).json({ error: "AI response failed" });
   }
 });
 
-// Root route (Checking ke liye)
 app.get("/", (req, res) => {
   res.send("Rixo AI Server is running!");
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(Server is running on port ${port});
 });
