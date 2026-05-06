@@ -9,25 +9,32 @@ app.use(cors());
 app.use(express.json());
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-// Yeh model name universal hai, isme error nahi aayega
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+// Updated model config for stability and professional English responses
+const model = genAI.getGenerativeModel({ 
+    model: "gemini-1.5-flash",
+    systemInstruction: "You are Rixo AI, a professional and intelligent assistant. You must always communicate in professional English. Ensure your responses are helpful, clear, and sophisticated."
+});
 
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
-    if (!message) return res.status(400).json({ error: "No message" });
+    if (!message) return res.status(400).json({ error: "No message provided" });
 
     const result = await model.generateContent(message);
     const response = await result.response;
-    res.json({ reply: response.text() });
+    const text = response.text();
+    
+    res.json({ reply: text });
   } catch (error) {
     console.error("Gemini Error:", error);
-    res.status(500).json({ reply: "Dost, server mein thodi dikkat hai, par hum solve kar lenge!" });
+    // Professional English error fallback
+    res.status(500).json({ reply: "I am currently experiencing a technical difficulty. Please try again shortly." });
   }
 });
 
 app.get("/", (req, res) => {
-  res.send("Rixo Server is Active!");
+  res.send("Rixo Professional Server is Online.");
 });
 
 app.listen(port, () => {
