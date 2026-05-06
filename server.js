@@ -1,6 +1,6 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import { GoogleGenAI } from "@google/genai";
 
 const app = express();
 const port = process.env.PORT || 10000;
@@ -9,16 +9,11 @@ app.use(cors());
 app.use(express.json());
 
 // 🔑 Initialize Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-// ✅ FIXED MODEL (no more 404 error)
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.0-pro",
-  systemInstruction:
-    "You are Rixo AI, a professional and intelligent assistant. Always reply in professional English."
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY
 });
 
-// ✅ Chat API
+// ✅ Chat route
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -27,25 +22,17 @@ app.post("/chat", async (req, res) => {
       return res.status(400).json({ error: "No message provided" });
     }
 
-    const result = await model.generateContent({
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: message }]
-        }
-      ]
+    const response = await ai.models.generateContent({
+      model: "gemini-1.5-flash",
+      contents: message
     });
 
-    const response = await result.response;
-    const text = response.text();
-
-    res.json({ reply: text });
+    res.json({ reply: response.text });
 
   } catch (error) {
-    console.error("FULL ERROR:", error);
-
+    console.error("ERROR:", error);
     res.status(500).json({
-      reply: "I am currently experiencing a technical difficulty. Please try again shortly."
+      reply: "I am currently experiencing a technical issue. Please try again shortly."
     });
   }
 });
@@ -53,18 +40,21 @@ app.post("/chat", async (req, res) => {
 // ✅ Test route (VERY IMPORTANT)
 app.get("/test", async (req, res) => {
   try {
-    const result = await model.generateContent("Say hello professionally");
-    const text = result.response.text();
-    res.send(text);
+    const response = await ai.models.generateContent({
+      model: "gemini-1.5-flash",
+      contents: "Say hello professionally"
+    });
+
+    res.send(response.text);
   } catch (e) {
     console.error(e);
-    res.send("Error in test route");
+    res.send("Error");
   }
 });
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("Rixo Professional Server is Online.");
+  res.send("Rixo AI server is running 🚀");
 });
 
 app.listen(port, () => {
