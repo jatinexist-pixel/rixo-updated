@@ -1,29 +1,43 @@
 import express from 'express';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import fetch from 'node-fetch'; // Agar error aaye toh 'npm install node-fetch' kar lena
 
-dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-// Sabse zyada compatible model
-const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
+const API_KEY = process.env.GEMINI_API_KEY;
 
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
-        const result = await model.generateContent(message);
-        const response = await result.response;
-        res.json({ reply: response.text() });
+        
+        // Direct Google API Endpoint (v1 stable version)
+        const url = https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY};
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: message }] }]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+            console.error("Google Error:", data.error);
+            return res.status(500).json({ reply: "Google API Error: " + data.error.message });
+        }
+
+        const botReply = data.candidates[0].content.parts[0].text;
+        res.json({ reply: botReply });
+
     } catch (error) {
-        console.error("API Error Details:", error);
-        res.status(500).json({ reply: "Bhai, API ne phir mana kar diya. Key check kar." });
+        console.error("Server Error:", error);
+        res.status(500).json({ reply: "Backend me dikkat hai bhai." });
     }
 });
 
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log("Server Live on " + PORT));
+app.listen(PORT, () => console.log("Server running on " + PORT));
