@@ -1,79 +1,42 @@
-import express from "express";
-import cors from "cors";
-import fetch from "node-fetch";
+import express from 'express';
+import cors from 'cors';
+import fetch from 'node-fetch';
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
 const API_KEY = process.env.GEMINI_API_KEY;
 
-// Test route
-app.get("/", (req, res) => {
-    res.send("Server is running");
-});
-
-app.post("/chat", async (req, res) => {
+app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
+        
+        // URL dhyan se dekho, semicolon backtick ke bahar hai
+        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
 
-        if (!message) {
-            return res.status(400).json({
-                reply: "Message required"
-            });
-        }
-
-        const response = await fetch(
-            https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY},
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            parts: [
-                                {
-                                    text: message
-                                }
-                            ]
-                        }
-                    ]
-                })
-            }
-        );
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: message }] }]
+            })
+        });
 
         const data = await response.json();
-
-        console.log(data);
-
+        
         if (data.error) {
-            return res.status(500).json({
-                reply: data.error.message
-            });
+            return res.status(500).json({ reply: "Google Error: " + data.error.message });
         }
 
-        const botReply =
-            data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-            "No response";
-
-        res.json({
-            reply: botReply
-        });
+        const botReply = data.candidates[0].content.parts[0].text;
+        res.json({ reply: botReply });
 
     } catch (error) {
         console.error("Server Error:", error);
-
-        res.status(500).json({
-            reply: "Backend error"
-        });
+        res.status(500).json({ reply: "Connection Error!" });
     }
 });
 
 const PORT = process.env.PORT || 10000;
-
-app.listen(PORT, () => {
-    console.log(Server running on port ${PORT});
-});
+app.listen(PORT, () => console.log("Server Live"));
