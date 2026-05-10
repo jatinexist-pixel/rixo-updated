@@ -11,8 +11,9 @@ const API_KEY = process.env.GEMINI_API_KEY;
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
-        // Direct Google API hit kar rahe hain bina kisi SDK ke
-        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
+        
+        // Dhyaan se dekho, ye backticks () use kiye hain, single quotes nahi
+        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: 'POST',
@@ -32,9 +33,10 @@ app.post('/chat', async (req, res) => {
         res.json({ reply: botReply });
 
     } catch (error) {
+        console.error("Server Error:", error);
         res.status(500).json({ reply: "Backend connection error!" });
     }
 });
 
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log("Server Live"));
+app.listen(PORT, () => console.log("Server Live on Port " + PORT));
