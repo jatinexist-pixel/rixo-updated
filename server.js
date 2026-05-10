@@ -1,62 +1,32 @@
-import express from "express";
-import cors from "cors";
-import { GoogleGenAI } from "@google/genai";
+import express from 'express';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
-const port = process.env.PORT || 10000;
-
 app.use(cors());
 app.use(express.json());
 
-// 🔑 Initialize Gemini
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY
-});
+// Sabse stable model use kar rahe hain
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-// ✅ Chat route
-app.post("/chat", async (req, res) => {
-  try {
-    const { message } = req.body;
+app.post('/chat', async (req, res) => {
+    try {
+        const { message } = req.body;
+        if (!message) return res.status(400).json({ error: "No message provided" });
 
-    if (!message) {
-      return res.status(400).json({ error: "No message provided" });
+        const result = await model.generateContent(message);
+        const response = await result.response;
+        const text = response.text();
+        
+        res.json({ reply: text });
+    } catch (error) {
+        console.error("Backend Error:", error);
+        res.status(500).json({ reply: "Bhai, API side pe kuch locha hai. Key check kar le ek baar." });
     }
-
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: message
-    });
-
-    res.json({ reply: response.text });
-
-  } catch (error) {
-    console.error("ERROR:", error);
-    res.status(500).json({
-      reply: "I am currently experiencing a technical issue. Please try again shortly."
-    });
-  }
 });
 
-// ✅ Test route (VERY IMPORTANT)
-app.get("/test", async (req, res) => {
-  try {
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: "Say hello professionally"
-    });
-
-    res.send(response.text);
-  } catch (e) {
-    console.error(e);
-    res.send("Error");
-  }
-});
-
-// Root route
-app.get("/", (req, res) => {
-  res.send("Rixo AI server is running 🚀");
-});
-
-app.listen(port, () => {
-  console.log("Server running on port " + port);
-});
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(Server running on port ${PORT}));
