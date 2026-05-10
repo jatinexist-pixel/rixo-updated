@@ -12,8 +12,8 @@ app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
         
-        // Dhyaan se dekho, ye backticks () use kiye hain, single quotes nahi
-        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // Sahi URL bina kisi extra symbol ke
+        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
 
         const response = await fetch(url, {
             method: 'POST',
@@ -26,7 +26,7 @@ app.post('/chat', async (req, res) => {
         const data = await response.json();
         
         if (data.error) {
-            return res.status(500).json({ reply: "Google Error: " + data.error.message });
+            return res.status(500).json({ reply: "Google API Error: " + data.error.message });
         }
 
         const botReply = data.candidates[0].content.parts[0].text;
@@ -34,7 +34,7 @@ app.post('/chat', async (req, res) => {
 
     } catch (error) {
         console.error("Server Error:", error);
-        res.status(500).json({ reply: "Backend connection error!" });
+        res.status(500).json({ reply: "Backend me connection ki dikkat hai." });
     }
 });
 
