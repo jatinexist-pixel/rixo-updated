@@ -1,6 +1,7 @@
-import express from 'express';
-import cors from 'cors';
-import fetch from 'node-fetch';
+// index.js
+const express = require('express');
+const cors = require('cors');
+const fetch = require('node-fetch');
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(express.json());
 const API_KEY = process.env.GEMINI_API_KEY;
 
 if (!API_KEY) {
-    console.error("❌ GEMINI_API_KEY environment variable missing!");
+    console.error("❌ GEMINI_API_KEY is missing!");
 }
 
 app.post('/chat', async (req, res) => {
@@ -34,22 +35,22 @@ app.post('/chat', async (req, res) => {
         const data = await response.json();
 
         if (data.error) {
-            console.error("Gemini Error:", data.error);
-            return res.status(500).json({ reply: API Error: ${data.error.message} });
+            console.error("Gemini API Error:", data.error);
+            return res.status(500).json({ reply: API Error: ${data.error.message || 'Unknown'} });
         }
 
-        const botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no response";
+        const botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't get a response";
 
         res.json({ reply: botReply });
 
     } catch (error) {
         console.error("Server Error:", error);
-        res.status(500).json({ reply: "Server error, please try again" });
+        res.status(500).json({ reply: "Server error, please try again later" });
     }
 });
 
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-    console.log(Server running on port ${PORT});
+    console.log(🚀 Server running on port ${PORT});
 });
