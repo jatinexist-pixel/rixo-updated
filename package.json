@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "commonjs",          // ← Yeh rakh do (ya remove bhi kar sakte ho)
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
