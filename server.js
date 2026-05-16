@@ -1,4 +1,3 @@
-// index.js
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
@@ -7,6 +6,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Frontend files serve karne ke liye (index.html, style.css, etc.)
+app.use(express.static('.')); 
 
 const API_KEY = process.env.GEMINI_API_KEY;
 
@@ -22,6 +24,7 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ reply: "Message is required" });
         }
 
+        // Backticks () add kiye hain yahan URL ke dono taraf
         const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
 
         const response = await fetch(url, {
@@ -52,5 +55,5 @@ app.post('/chat', async (req, res) => {
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-    console.log(🚀 Server running on port ${PORT});
+    console.log(🚀 Server running on port ${PORT}`);
 });
