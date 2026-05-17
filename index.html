@@ -2,21 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rixo AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        body { 
-            background: #050508; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            color: #e2e8f0; 
-            margin: 0; 
-            height: 100vh;
-            height: -webkit-fill-available; /* Mobile browsers ke bars ko handle karne ke liye */
+        html, body {
+            background: #050508;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Standard behavior */
+            overflow: hidden;
         }
+        
+        /* Mobile safe area viewport height fix */
+        .app-wrapper {
+            height: 100vh;
+            height: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: #050508;
+        }
+
         .msg-user {
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 18px 18px 4px 18px;
@@ -39,6 +51,7 @@
             background: #0d0f14; 
             border: 1px solid rgba(255,255,255,0.1); 
             border-radius: 28px; 
+            width: 100%;
         }
         .send-btn { 
             background: #06b6d4; 
@@ -49,15 +62,16 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
+            shrink: 0;
         }
         #messages::-webkit-scrollbar { 
             width: 0; 
         }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden justify-center bg-black">
+<body class="flex justify-center bg-black">
 
-    <main class="flex flex-col w-full sm:max-w-md h-full bg-[#050508] sm:border-x border-white/5 relative">
+    <div class="app-wrapper max-w-md sm:border-x border-white/5">
         
         <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#050508]/90 backdrop-blur-md shrink-0">
             <div class="flex items-center gap-2">
@@ -69,13 +83,13 @@
             <i data-lucide="more-horizontal" class="text-gray-500"></i>
         </header>
 
-        <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4 pb-24">
+        <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
             <div class="flex justify-start">
                 <div class="msg-bot text-white">Hi! I am Rixo. How can I help you?</div>
             </div>
         </div>
 
-        <div class="absolute bottom-0 left-0 w-full p-4 bg-[#050508]/95 backdrop-blur-md border-t border-white/5 z-20">
+        <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0 safe-bottom">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
                     class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm" 
@@ -86,7 +100,7 @@
                 </button>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
         lucide.createIcons();
@@ -97,15 +111,13 @@
             const input = document.getElementById("userInput");
             const text = input.value.trim();
             if (!text) return;
-
             addMessage(text, "user");
             input.value = "";
+
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
             loader.className = "flex justify-start animate-pulse";
-            
-            // Fixed: Standard string use kiya hai string templates ki jagah syntax error se bachne ke liye
             loader.innerHTML = '<div class="msg-bot text-gray-500 text-xs">Rixo is thinking...</div>';
             document.getElementById("messages").appendChild(loader);
 
@@ -139,13 +151,9 @@
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
             div.className = "flex " + (sender === "user" ? "justify-end" : "justify-start");
-            
-            // Fixed dynamic class syntax safely
             div.innerHTML = '<div class="msg-' + sender + '">' + text + '</div>';
-            
             messages.appendChild(div);
             
-            // Smooth scroll to bottom
             setTimeout(() => {
                 messages.scrollTop = messages.scrollHeight;
             }, 50);
