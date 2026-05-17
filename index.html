@@ -12,47 +12,51 @@
         html, body { 
             margin: 0; padding: 0; height: 100%; overflow: hidden;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* ----- DARK THEME (DEFAULT) ----- */
-        body.dark-mode { background: #000; color: #e2e8f0; }
-        body.dark-mode .app-container { background-color: #050508; background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 16px 16px; }
-        body.dark-mode .header-el { background: rgba(5, 5, 8, 0.9); border-color: rgba(255, 255, 255, 0.05); }
-        body.dark-mode .status-bar { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05); color: #64748b; }
+        body.dark-mode { background: #000000; color: #e2e8f0; }
+        body.dark-mode .app-container { background-color: #050508; background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 16px 16px; }
+        body.dark-mode .header-el { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.06); }
         body.dark-mode .msg-bot { background: #11141b; border-color: rgba(255, 255, 255, 0.08); color: #ffffff; }
         body.dark-mode .msg-user { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; }
-        body.dark-mode .input-container { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.02); }
+        body.dark-mode .input-container { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.06); }
         body.dark-mode .input-bar { background: #0d0f14; border-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
-        body.dark-mode .pill-card { background: #11141b; border-color: rgba(255, 255, 255, 0.05); color: #94a3b8; }
+        body.dark-mode .pill-card { background: #11141b; border-color: rgba(255, 255, 255, 0.06); color: #94a3b8; }
         body.dark-mode .popover-menu { background: #0d1017; border-color: rgba(255, 255, 255, 0.08); color: #e2e8f0; }
+        body.dark-mode .clear-btn { color: #94a3b8; }
         body.dark-mode .clear-btn:hover { color: #f87171; background: rgba(248, 113, 113, 0.05); }
         body.dark-mode .icon-highlight { color: #06b6d4; }
         body.dark-mode .footer-text { color: #475569; }
         body.dark-mode .send-btn { background: #06b6d4; color: #000000; }
+        body.dark-mode .header-icon-btn { color: #94a3b8; }
+        body.dark-mode .header-icon-btn:hover { color: #ffffff; }
 
-        /* ----- PREMIUM ANTI-GLARE LIGHT MODE (STRICTLY NO WHITE, NO PINK, NO CYAN) ----- */
+        /* ----- PREMIUM ANTI-GLARE LIGHT MODE (PASTEL BROWN / SOOTHING SAND) ----- */
         body.light-mode { background: #dfdacb; color: #2e2c2f; }
         body.light-mode .app-container { background-color: #dfdacb; background-image: radial-gradient(rgba(46, 44, 47, 0.06) 1px, transparent 1px); background-size: 16px 16px; }
         body.light-mode .header-el { background: #d0c9b5; border-color: #b0a790; }
-        body.light-mode .status-bar { background: #b0a790; border-color: #968d77; color: #2e2c2f; font-weight: 600; }
-        body.light-mode .msg-bot { background: #d7cfba; border-color: #b0a790; color: #2e2c2f; box-shadow: 0 4px 10px rgba(0,0,0,0.03); font-weight: 500; }
-        body.light-mode .msg-user { background: #c5b3ce; color: #2e2c2f; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.3); font-weight: 600; border: 1px solid #b69fc2; }
+        body.light-mode .msg-bot { background: #d7cfba; border-color: #b0a790; color: #2e2c2f; box-shadow: 0 4px 14px rgba(0,0,0,0.02); font-weight: 500; }
+        body.light-mode .msg-user { background: #c5b3ce; color: #2e2c2f; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.25); font-weight: 600; border: 1px solid #b69fc2; }
         body.light-mode .input-container { background: #d0c9b5; border-color: #b0a790; }
         body.light-mode .input-bar { background: #dfdacb; border-color: #b0a790; color: #2e2c2f; }
         body.light-mode .pill-card { background: #d7cfba; border-color: #b0a790; color: #2e2c2f; }
-        body.light-mode .popover-menu { background: #dfdacb; border-color: #b0a790; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+        body.light-mode .popover-menu { background: #dfdacb; border-color: #b0a790; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
         body.light-mode .popover-menu button { color: #2e2c2f !important; }
         body.light-mode .popover-menu button:hover { background: #c5b3ce; }
-        body.light-mode .clear-btn:hover { color: #2e2c2f; background: rgba(0, 0, 0, 0.06); }
+        body.light-mode .clear-btn { color: #2e2c2f; }
+        body.light-mode .clear-btn:hover { background: rgba(0, 0, 0, 0.05); }
         body.light-mode .text-white { color: #2e2c2f; }
         body.light-mode h1 { color: #2e2c2f; }
         body.light-mode .icon-highlight { color: #2e2c2f; }
         body.light-mode .footer-text { color: #696459; font-weight: 600; }
-        body.light-mode ::placeholder { color: #696459; opacity: 0.8; }
+        body.light-mode ::placeholder { color: #696459; opacity: 0.7; }
         body.light-mode .send-btn { background: #c5b3ce; color: #2e2c2f; border: 1px solid #b69fc2; }
+        body.light-mode .header-icon-btn { color: #2e2c2f; }
+        body.light-mode .header-icon-btn:hover { opacity: 0.8; }
 
-        /* Structural Framework Configurations */
+        /* Structural Layout System */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; border-width: 1px; }
@@ -70,6 +74,10 @@
         
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Smooth Drawer Slide Velocity Animation */
+        .welcome-drawer { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); max-height: 300px; opacity: 1; overflow: hidden; }
+        .welcome-drawer.collapsed { max-height: 0; opacity: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; transform: translateY(-10px); }
     </style>
 </head>
 <body class="dark-mode flex justify-center items-center">
@@ -84,11 +92,14 @@
                 <h1 class="font-bold text-sm tracking-tight text-white transition-all">Rixo AI</h1>
             </div>
             
-            <div class="flex items-center gap-1.5">
-                <button onclick="clearChatHistoryStream()" class="p-2 text-gray-400 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
+            <div class="flex items-center gap-1">
+                <button onclick="toggleFeaturePillDeckDrawer()" class="p-2 header-icon-btn rounded-lg transition-all flex items-center justify-center" title="Toggle Feature Panel">
+                    <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                </button>
+                <button onclick="clearChatHistoryStream()" class="p-2 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
-                <button onclick="toggleThreeDotsMenu(event)" class="p-2 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-colors">
+                <button onclick="toggleThreeDotsMenu(event)" class="p-2 header-icon-btn rounded-lg flex items-center justify-center transition-colors">
                     <i data-lucide="more-vertical" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -103,18 +114,10 @@
             </div>
         </header>
 
-        <div class="status-bar h-7 border-b text-[10px] tracking-wider px-4 flex items-center justify-between font-mono shrink-0 transition-all">
-            <div class="flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span>
-                <span>SYSTEM: READY</span>
-            </div>
-            <div>CORE V3.0 • SECURE</div>
-        </div>
-
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
             
-            <div class="flex flex-col gap-4 items-start w-full" id="welcomeDashboard">
-                <div class="msg-bot">Hi! I am Rixo. How can I help you today?</div>
+            <div class="flex flex-col gap-3 items-start w-full welcome-drawer mb-2" id="welcomeDashboard">
+                <div class="msg-bot w-full">Hi! I am Rixo. How can I help you today?</div>
                 
                 <div class="grid grid-cols-1 gap-2 w-full mt-1">
                     <button onclick="injectPresetPromptTask('joke')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
@@ -140,6 +143,8 @@
                     </button>
                 </div>
             </div>
+
+            <div id="chatHistoryDumpDeck" class="flex flex-col gap-4 w-full"></div>
 
         </div>
 
@@ -167,7 +172,14 @@
         window.addEventListener("DOMContentLoaded", () => {
             loadSavedEngineLogs();
             switchThemeModeEngine(localStorage.getItem("rixo_style_theme") || "dark");
-            lucide.createIcons();
+            
+            // Explicitly Attach Input Node Keypress Matrix Terminal Flow Event Interface
+            document.getElementById("userInput").addEventListener("keypress", (e) => {
+                if(e.key === "Enter") {
+                    e.preventDefault();
+                    handleManualUserSubmission();
+                }
+            });
         });
 
         function switchThemeModeEngine(themeMode) {
@@ -188,12 +200,17 @@
             document.getElementById("threeDotsMenu").classList.toggle("hidden");
         }
 
+        function toggleFeaturePillDeckDrawer() {
+            document.getElementById("welcomeDashboard").classList.toggle("collapsed");
+            scrollTimelineToBottom();
+        }
+
         window.addEventListener("click", () => {
             document.getElementById("threeDotsMenu").classList.add("hidden");
         });
 
         async function injectPresetPromptTask(type) {
-            document.getElementById("welcomeDashboard").style.display = "none";
+            document.getElementById("welcomeDashboard").classList.add("collapsed");
             
             let systemInstructionString = "";
             let userDisplayMessage = "";
@@ -221,7 +238,7 @@
             const text = input.value.trim();
             if (!text) return;
 
-            document.getElementById("welcomeDashboard").style.display = "none";
+            document.getElementById("welcomeDashboard").classList.add("collapsed");
 
             appendChatMessageNode(text, "user");
             globalChatHistory.push({ role: "user", content: text });
@@ -244,7 +261,7 @@
                     <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
                     <span class="w-2 h-2 rounded-full bg-neutral-300 loader-dot"></span>
                 </div>`;
-            document.getElementById("messages").appendChild(loader);
+            document.getElementById("chatHistoryDumpDeck").appendChild(loader);
             scrollTimelineToBottom();
 
             try {
@@ -275,7 +292,7 @@
         }
 
         function appendChatMessageNode(text, sender) {
-            const messagesContainer = document.getElementById("messages");
+            const dumpContainer = document.getElementById("chatHistoryDumpDeck");
             const wrapperDiv = document.createElement("div");
             wrapperDiv.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
             
@@ -286,18 +303,16 @@
                 wrapperDiv.innerHTML = `<div class="msg-user">${text}</div>`;
             }
             
-            messagesContainer.appendChild(wrapperDiv);
+            dumpContainer.appendChild(wrapperDiv);
             scrollTimelineToBottom();
         }
 
         function clearChatHistoryStream() {
             globalChatHistory = [];
             localStorage.removeItem("rixo_single_timeline_store");
-            document.getElementById("messages").innerHTML = "";
-            document.getElementById("welcomeDashboard").style.display = "flex";
-            document.getElementById("messages").appendChild(document.getElementById("welcomeDashboard"));
+            document.getElementById("chatHistoryDumpDeck").innerHTML = "";
+            document.getElementById("welcomeDashboard").classList.remove("collapsed");
             scrollTimelineToBottom();
-            lucide.createIcons();
         }
 
         function saveSavedEngineLogs() {
@@ -309,7 +324,7 @@
             if(databaseLogLogs) {
                 globalChatHistory = JSON.parse(databaseLogLogs);
                 if(globalChatHistory.length > 0) {
-                    document.getElementById("welcomeDashboard").style.display = "none";
+                    document.getElementById("welcomeDashboard").classList.add("collapsed");
                     globalChatHistory.forEach(msg => {
                         appendChatMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
                     });
@@ -319,10 +334,12 @@
 
         function scrollTimelineToBottom() {
             const messagesWindow = document.getElementById("messages");
-            setTimeout(() => { messagesWindow.scrollTop = messagesWindow.scrollHeight; }, 30);
-        }
+            setTimeout(() => { messagesWindow.scrollTop = messages Window.scrollHeight; }, 40);
 
-        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") handleManualUserSubmission(); });
-    </script>
+}
+
+</script>
+
 </body>
+
 </html>
