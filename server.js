@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const axios = require('axios'); // Upgraded to Axios for zero URL parse issues
+const axios = require('axios');
 
 const app = express();
 
@@ -29,19 +29,18 @@ app.post('/chat', async (req, res) => {
 
         const systemPrompt = {
             role: "system",
-            content: "You are Rixo, a cool, witty, and highly intelligent AI companion. Keep casual talk, greetings, or short answers strictly to 1-2 friendly sentences. NEVER use huge paragraphs for basic chit-chat. If the user asks for a joke, tell a fresh, funny, and unique joke. If they say 'another', 'one more', or continue the topic, read the chat history to understand the context and give a completely new joke or relevant reply. CRITICAL: If the user asks for code, programming scripts, or technical algorithms, provide the full, complete code block wrapped inside triple backticks (```) properly formatted. Never refuse to give full code."
+            content: "You are Rixo, a cool, witty AI friend. CRITICAL: Keep casual talk, jokes, or greetings strictly to 1-2 short sentences. NEVER use paragraphs for basic chat. Remember the chat history context to answer continuous questions like 'another one' or 'why?'. If the user asks for code, provide the full clean code wrapped in triple backticks (```)."
         };
 
         const combinedMessages = [systemPrompt, ...history];
 
-        // Using Axios to guarantee clean HTTP parsing with OpenRouter
         const response = await axios.post(
             "[https://openrouter.ai/api/v1/chat/completions](https://openrouter.ai/api/v1/chat/completions)",
             {
                 model: "meta-llama/llama-3-70b-instruct", 
                 messages: combinedMessages,
                 temperature: 0.85,
-                max_tokens: 1200
+                max_tokens: 1000
             },
             {
                 headers: {
