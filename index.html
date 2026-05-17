@@ -49,8 +49,8 @@
             loader.id = loaderId;
             loader.className = "flex justify-start msg-anim";
             
-            // Premium Animated Dots instead of plain text
-            loader.innerHTML = '<div class="msg-bot flex items-center gap-1.5 py-3 px-4"><span class="text-xs text-gray-400 mr-1">Rixo</span><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            // FIXED QUOTES ISSUE HERE: Safely wrapped html string
+            loader.innerHTML = '<div class="msg-bot flex items-center gap-1.5 py-3 px-4"><span class="text-xs text-gray-400 mr-1">Rixo is thinking</span><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
             document.getElementById("messages").appendChild(loader);
             
             const messagesContainer = document.getElementById("messages");
@@ -84,7 +84,7 @@
 
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
-            const div = document.createElement("div");
+                const div = document.createElement("div");
             div.className = "flex msg-anim " + (sender === "user" ? "justify-end" : "justify-start");
             div.innerHTML = '<div class="msg-' + sender + '">' + text + '</div>';
             messages.appendChild(div);
