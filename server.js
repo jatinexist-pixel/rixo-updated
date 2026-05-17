@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const API_KEY = process.env.GEMINI_API_KEY;
+console.log(API_KEY);
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
@@ -41,6 +42,7 @@ app.post('/chat', async (req, res) => {
         });
 
         const data = await response.json();
+        console.log(data);
 
         if (data.error) {
             return res.status(500).json({
