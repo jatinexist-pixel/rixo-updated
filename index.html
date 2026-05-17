@@ -6,7 +6,7 @@
     <title>Rixo AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         html, body { 
@@ -33,7 +33,6 @@
             background-size: 16px 16px;
         }
 
-        /* User Message with crisp pure white text */
         .msg-user {
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 18px 18px 4px 18px;
@@ -43,15 +42,32 @@
             font-weight: 500;
         }
         
-        /* Bot Message with Premium Typing Smooth Fade-in */
+        /* Fixed: Bot Message container built for code formatting and line-breaks */
         .msg-bot {
-            background: #11141b; border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #11141b; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 18px 18px 18px 4px;
-            padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.5;
+            padding: 12px 16px; 
+            font-size: 0.9rem; 
+            max-width: 85%; 
+            line-height: 1.6;
             position: relative;
-            user-select: none;
-            -webkit-user-select: none;
+            user-select: text;
+            -webkit-user-select: text;
+            /* Ensures raw code text skips letters mixing and processes new lines natively */
+            white-space: pre-wrap; 
+            word-break: break-word;
             animation: premiumFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Specialized presentation layer inside response elements for code blocks */
+        .msg-bot code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #22d3ee;
         }
 
         @keyframes premiumFade {
@@ -59,7 +75,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Pulsing Dot Loader for Engine Thinking State */
         .loader-dot { animation: dotPulse 1.2s infinite ease-in-out both; }
         .loader-dot:nth-child(2) { animation-delay: 0.2s; }
         .loader-dot:nth-child(3) { animation-delay: 0.4s; }
@@ -106,21 +121,19 @@
             
             <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                 <div class="flex justify-start w-full">
-                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">
-                        Hi! I am Rixo. How can I help you?
-                    </div>
+                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you?</div>
                 </div>
 
                 <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                    <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Give me a creative ideas setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
                         <span>Tell a Joke</span>
                     </button>
-                    <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Give me a short coding tip or template structure')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
                         <span>Code Help</span>
                     </button>
-                    <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('What is the most interesting thing about AI models?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
                         <span>AI Insights</span>
                     </button>
@@ -158,7 +171,6 @@
     </div>
 
     <script>
-        // Init Icons Properly
         lucide.createIcons();
 
         const SERVER_URL = "/chat"; 
@@ -206,20 +218,18 @@
             messages.innerHTML = `
                 <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                     <div class="flex justify-start w-full">
-                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">
-                            Hi! I am Rixo. How can I help you?
-                        </div>
+                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you?</div>
                     </div>
                     <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                        <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Give me a creative ideas setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
                             <span>Tell a Joke</span>
                         </button>
-                        <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Give me a short coding tip or template structure')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
                             <span>Code Help</span>
                         </button>
-                        <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('What is the most interesting thing about AI models?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
                             <span>AI Insights</span>
                         </button>
@@ -234,20 +244,8 @@
             scrollChatToBottom();
         }
 
-        async function sendMessage() {
-            const input = document.getElementById("userInput");
-            const text = input.value.trim();
-            if (!text) return;
-
-            const suggestions = document.getElementById("suggestions");
-            if (suggestions) suggestions.style.display = "none";
-
-            addMessage(text, "user");
-            
-            apiHistoryArray.push({ role: "user", content: text });
-            saveChatHistory(); 
-            input.value = "";
-
+        // Standard API Request Processing Logic Engine
+        async function executeBackendCall(promptText) {
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
@@ -266,7 +264,7 @@
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
-                        message: text,
+                        message: promptText,
                         history: apiHistoryArray 
                     })
                 });
@@ -287,13 +285,31 @@
             }
         }
 
+        async function sendMessage() {
+            const input = document.getElementById("userInput");
+            const text = input.value.trim();
+            if (!text) return;
+
+            const suggestions = document.getElementById("suggestions");
+            if (suggestions) suggestions.style.display = "none";
+
+            addMessage(text, "user");
+            apiHistoryArray.push({ role: "user", content: text });
+            saveChatHistory(); 
+            input.value = "";
+
+            await executeBackendCall(text);
+        }
+
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
             div.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
             
             if (sender === "bot") {
-                div.innerHTML = `<div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">${text}</div>`;
+                // Formatting handler for code markers or blocks returned by standard formatting
+                let processedText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+                div.innerHTML = `<div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">${processedText}</div>`;
             } else {
                 div.innerHTML = `<div class="msg-user">${text}</div>`;
             }
@@ -302,9 +318,14 @@
             scrollChatToBottom();
         }
 
+        // Fixed: Suggestions click triggers backend request directly without displaying user text bubble
         function useSuggestion(phrase) {
-            document.getElementById("userInput").value = phrase;
-            sendMessage();
+            const suggestions = document.getElementById("suggestions");
+            if (suggestions) suggestions.style.display = "none";
+
+            // Push quietly to system array tracking history flows
+            apiHistoryArray.push({ role: "user", content: phrase });
+            executeBackendCall(phrase);
         }
 
         function saveChatHistory() {
