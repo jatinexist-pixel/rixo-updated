@@ -27,27 +27,27 @@
         body.dark-mode .popover-menu { background: #0d1017; border-color: rgba(255, 255, 255, 0.08); color: #e2e8f0; }
         body.dark-mode .clear-btn:hover { color: #f87171; background: rgba(248, 113, 113, 0.05); }
 
-        /* ----- ULTRA-PREMIUM NO-COLORS LIGHT THEME ----- */
-        body.light-mode { background: #f4f4f6; color: #1a1a1c; }
-        body.light-mode .app-container { background-color: #f9f9fb; background-image: radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px); background-size: 16px 16px; }
-        body.light-mode .header-el { background: #f9f9fb; border-color: rgba(0, 0, 0, 0.05); }
-        body.light-mode .msg-bot { background: #eaeaea; border-color: rgba(0, 0, 0, 0.02); color: #1a1a1c; }
-        body.light-mode .msg-user { background: #1a1a1c; color: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06); }
-        body.light-mode .input-container { background: #f9f9fb; border-color: rgba(0, 0, 0, 0.02); }
-        body.light-mode .input-bar { background: #eaeaea; border-color: rgba(0, 0, 0, 0.04); color: #1a1a1c; }
-        body.light-mode .pill-btn { background: #eaeaea; border-color: rgba(0, 0, 0, 0.03); color: #2e2e31; }
-        body.light-mode .popover-menu { background: #1a1a1c; border-color: rgba(0, 0, 0, 0.1); color: #ffffff; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-        body.light-mode .clear-btn:hover { color: #9c8070; background: rgba(156, 128, 112, 0.06); }
-        body.light-mode .text-white { color: #1a1a1c; }
-        body.light-mode h1 { color: #1a1a1c; }
-        body.light-mode .popover-menu button { color: #ffffff !important; }
-        body.light-mode .popover-menu button:hover { background: rgba(255, 255, 255, 0.08); }
+        /* ----- PREMIUM PASTEL MODE THEME ----- */
+        body.pastel-mode { background: #eae9df; color: #3d3a3e; }
+        body.pastel-mode .app-container { background-color: #f4f3ea; background-image: radial-gradient(rgba(61, 58, 62, 0.03) 1px, transparent 1px); background-size: 16px 16px; }
+        body.pastel-mode .header-el { background: #f4f3ea; border-color: rgba(61, 58, 62, 0.08); }
+        body.pastel-mode .msg-bot { background: #fdfdfb; border-color: rgba(61, 58, 62, 0.05); color: #3d3a3e; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        body.pastel-mode .msg-user { background: #c5b3ce; color: #3d3a3e; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.3); font-weight: 600; }
+        body.pastel-mode .input-container { background: #f4f3ea; border-color: rgba(61, 58, 62, 0.05); }
+        body.pastel-mode .input-bar { background: #fdfdfb; border-color: rgba(197, 179, 206, 0.3); color: #3d3a3e; }
+        body.pastel-mode .pill-btn { background: #fdfdfb; border-color: rgba(61, 58, 62, 0.08); color: #3d3a3e; font-weight: 500; }
+        body.pastel-mode .popover-menu { background: #ffffff; border-color: rgba(61, 58, 62, 0.15); color: #3d3a3e; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        body.pastel-mode .clear-btn:hover { color: #c2b2b4; background: rgba(194, 178, 180, 0.15); }
+        body.pastel-mode .text-white { color: #3d3a3e; }
+        body.pastel-mode h1 { color: #3d3a3e; }
+        body.pastel-mode .popover-menu button { color: #3d3a3e !important; }
+        body.pastel-mode .popover-menu button:hover { background: #f4f3ea; }
 
         /* Common Core Structural Elements */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
-        .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; font-weight: 500; }
+        .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #1a1a1c; }
+        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #3d3a3e; }
         body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
 
         @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -56,9 +56,9 @@
         .loader-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes dotPulse { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
 
-        .input-bar { border-width: 1px; border-radius: 28px; }
+        .input-bar { border-width: 1px; border-radius: 28px; transition: border 0.2s; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; }
-        body.light-mode .send-btn { background: #1a1a1c; color: #fff; }
+        body.pastel-mode .send-btn { background: #c5b3ce; color: #3d3a3e; }
         
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
@@ -93,8 +93,8 @@
             </div>
 
             <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-40 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
-                <button onclick="switchTheme('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
-                    <i data-lucide="sun" class="w-3.5 h-3.5 text-neutral-400"></i> Light Mode
+                <button onclick="switchTheme('pastel')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
+                    <i data-lucide="palette" class="w-3.5 h-3.5 text-purple-400"></i> Pastel Mode
                 </button>
                 <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-cyan-400"></i> Absolute Dark
@@ -123,9 +123,9 @@
         
         let sessionStore = {
             main: { historyArray: [], welcomeActive: true },
-            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me an extremely funny modern joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor.", headerIcon: "smile" },
-            code: { historyArray: [], welcomeActive: false, initialPrompt: "Ask me what language or project I need help coding right now. Do not generate code yet.", headerIcon: "code-2" },
-            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Share some interesting insights about AI scaling models without using any emojis.", headerIcon: "brain" }
+            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me an extremely funny fresh joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor. Default response language must be English unless the historical context implies otherwise.", headerIcon: "smile" },
+            code: { historyArray: [], welcomeActive: false, initialPrompt: "Respond with exactly: 'How can I help you with coding? 💻'", headerIcon: "code-2" },
+            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Respond with exactly: 'What would you like to know about AI? 🚀'", headerIcon: "brain" }
         };
 
         const SERVER_URL = "/chat";
@@ -137,11 +137,11 @@
         });
 
         function switchTheme(themeMode) {
-            if(themeMode === "light") {
+            if(themeMode === "pastel") {
                 document.body.classList.remove("dark-mode");
-                document.body.classList.add("light-mode");
+                document.body.classList.add("pastel-mode");
             } else {
-                document.body.classList.remove("light-mode");
+                document.body.classList.remove("pastel-mode");
                 document.body.classList.add("dark-mode");
             }
             localStorage.setItem("rixo_style_theme", themeMode);
@@ -267,8 +267,9 @@
                 if (element) element.style.display = "none";
             }
 
-            // Append specific logic constraints to character personality rules based on active route session settings
-            let customizedRoutePrompt = text;
+            // Universal language guardrail: Default to English unless user queries in Hindi/Hinglish
+            let customizedRoutePrompt = text + " (Note: Respond in English language by default. However, if the user input phrase is explicitly written in Hindi/Hinglish language, then match that language structure directly in your response.)";
+            
             if (activeRoomRoute === 'joke') {
                 customizedRoutePrompt += " (Act as a pure funny comedian persona and use expressive funny emojis like 😂, 🤣 or 💀 in the text body response)";
             } else if (activeRoomRoute === 'code' || activeRoomRoute === 'insights') {
