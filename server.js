@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Static files serve karne ke liye perfect setup
+// Static files (HTML, CSS, JS) serve karne ke liye setup
 app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req, res) => {
@@ -24,8 +24,14 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ reply: "Message is required" });
         }
 
-        // FIXED: Pure code se backticks hata diye hain, ab simple single quotes aur + use kiya hai
-        const response = await fetch(
+        if (!API_KEY) {
+            console.error("❌ API Key Missing in Vercel!");
+            return res.status(500).json({ reply: "API Key Config Missing" });
+        }
+
+        // NO BACKTICKS HERE: Simple single/double quotes used everywhere
+        // Primary Model: Google Gemini 2.0 Flash (Highly Stable and Free)
+        let response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
                 method: "POST",
@@ -34,35 +40,47 @@ app.post('/chat', async (req, res) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "deepseek/deepseek-chat:free",
-                    messages: [
-                        {
-                            role: "user",
-                            content: message
-                        }
-                    ]
+                    model: "google/gemini-2.0-flash-exp:free",
+                    messages: [{ role: "user", content: message }]
                 })
             }
         );
 
-        const data = await response.json();
+        let data = await response.json();
+        console.log("OpenRouter Primary Attempt Data:", JSON.stringify(data, null, 2));
 
-        console.log("OpenRouter Response:", JSON.stringify(data, null, 2));
-
-        // Safe response checking
-        const botReply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content
+        let botReply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content
             ? data.choices[0].message.content
-            : "No response from AI";
+            : null;
 
-        res.json({
-            reply: botReply
-        });
+        // Backup Fallback Model: DeepSeek Chat Free
+        if (!botReply) {
+            console.log("Primary model failed, trying deepseek backup...");
+            response = await fetch(
+                "https://openrouter.ai/api/v1/chat/completions",
+                {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + API_KEY,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek/deepseek-chat:free",
+                        messages: [{ role: "user", content: message }]
+                    })
+                }
+            );
+            data = await response.json();
+            botReply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content
+                ? data.choices[0].message.content
+                : "No response from AI models at the moment.";
+        }
+
+        res.json({ reply: botReply });
 
     } catch (error) {
         console.error("Server Error:", error);
-        res.status(500).json({
-            reply: "Server error"
-        });
+        res.status(500).json({ reply: "Server error caught" });
     }
 });
 
