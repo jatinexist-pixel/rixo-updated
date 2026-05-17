@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Frontend files serve karne ke liye (index.html, style.css, etc.)
+// Frontend files (index.html, style.css, etc.) serve karne ke liye
 app.use(express.static('.')); 
 
 const API_KEY = process.env.GEMINI_API_KEY;
@@ -24,7 +24,7 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ reply: "Message is required" });
         }
 
-        // Backticks () add kiye hain yahan URL ke dono taraf
+        // URL ke dono taraf backticks () lagaye hain taaki SyntaxError na aaye
         const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
 
         const response = await fetch(url, {
