@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* Base Root Parameters for Smooth Theme Interpolation */
         html, body { 
             margin: 0; padding: 0; height: 100%; overflow: hidden;
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -26,25 +25,27 @@
         body.dark-mode .input-bar { background: #0d0f14; border-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
         body.dark-mode .pill-btn { background: #11141b; border-color: rgba(255, 255, 255, 0.05); color: #94a3b8; }
         body.dark-mode .popover-menu { background: #0d1017; border-color: rgba(255, 255, 255, 0.08); color: #e2e8f0; }
+        body.dark-mode .clear-btn:hover { color: #f87171; background: rgba(248, 113, 113, 0.05); }
 
-        /* ----- ULTRA-PREMIUM PASTEL LIGHT THEME ----- */
-        body.light-mode { background: #f4f5f9; color: #1e293b; }
-        body.light-mode .app-container { background-color: #f8fafc; background-image: radial-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px); background-size: 16px 16px; }
-        body.light-mode .header-el { background: rgba(255, 255, 255, 0.85); border-color: rgba(99, 102, 241, 0.08); shadow: 0 4px 30px rgba(0,0,0,0.02); }
-        body.light-mode .msg-bot { background: #ffffff; border-color: rgba(99, 102, 241, 0.12); color: #334155; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.04); }
-        body.light-mode .msg-user { background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%); color: #ffffff; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.2); }
-        body.light-mode .input-container { background: rgba(248, 250, 252, 0.9); border-color: rgba(99, 102, 241, 0.05); }
-        body.light-mode .input-bar { background: #ffffff; border-color: rgba(99, 102, 241, 0.15); color: #1e293b; box-shadow: inset 0 2px 4px rgba(0,0,0,0.01); }
-        body.light-mode .pill-btn { background: #eef2ff; border-color: rgba(99, 102, 241, 0.1); color: #4f46e5; }
-        body.light-mode .popover-menu { background: #ffffff; border-color: rgba(0, 0, 0, 0.06); color: #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        /* ----- ULTRA-PREMIUM MINIMALIST LIGHT THEME ----- */
+        body.light-mode { background: #f5f5f7; color: #1c1c1e; }
+        body.light-mode .app-container { background-color: #fafafa; background-image: radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px); background-size: 16px 16px; }
+        body.light-mode .header-el { background: rgba(250, 250, 250, 0.9); border-color: rgba(0, 0, 0, 0.04); box-shadow: 0 2px 12px rgba(0,0,0,0.01); }
+        body.light-mode .msg-bot { background: #f0f0f3; border-color: rgba(0, 0, 0, 0.03); color: #2c2c2e; box-shadow: 0 2px 8px rgba(0,0,0,0.01); }
+        body.light-mode .msg-user { background: linear-gradient(135deg, #3a3a3c 0%, #1c1c1e 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+        body.light-mode .input-container { background: rgba(250, 250, 250, 0.95); border-color: rgba(0, 0, 0, 0.02); }
+        body.light-mode .input-bar { background: #f0f0f3; border-color: rgba(0, 0, 0, 0.05); color: #1c1c1e; }
+        body.light-mode .pill-btn { background: #f0f0f3; border-color: rgba(0, 0, 0, 0.04); color: #48484a; }
+        body.light-mode .popover-menu { background: #fcfcfd; border-color: rgba(0, 0, 0, 0.08); color: #1c1c1e; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        body.light-mode .clear-btn:hover { color: #a98477; background: rgba(169, 132, 119, 0.08); }
         body.light-mode .text-white { color: inherit; }
-        body.light-mode h1 { color: #0f172a; }
+        body.light-mode h1 { color: #1c1c1e; }
 
-        /* General Common Structural Style Hooks */
+        /* Common Core Layout System Styles */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; font-weight: 500; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.05); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #4f46e5; }
+        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #1c1c1e; }
         body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
 
         @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -55,7 +56,7 @@
 
         .input-bar { border-width: 1px; border-radius: 28px; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; }
-        body.light-mode .send-btn { background: #6366f1; color: #fff; }
+        body.light-mode .send-btn { background: #1c1c1e; color: #fff; }
         
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
@@ -69,7 +70,7 @@
         
         <header class="h-14 flex items-center justify-between px-4 border-b header-el backdrop-blur-md shrink-0 z-20 relative">
             <div class="flex items-center gap-2">
-                <button id="backToMainBtn" onclick="routeToSession('main')" class="hidden p-1.5 mr-1 rounded-lg bg-gray-500/10 text-gray-400 hover:text-white flex items-center justify-center transition-all">
+                <button id="backToMainBtn" onclick="routeToSession('main')" class="hidden p-1.5 mr-1 rounded-lg bg-gray-500/10 text-gray-400 hover:text-black flex items-center justify-center transition-all">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 </button>
                 <div id="dynamicIconContainer" class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
@@ -82,19 +83,19 @@
             </div>
             
             <div class="flex items-center gap-1.5">
-                <button onclick="triggerClearCurrentSession()" class="p-2 text-gray-500 hover:text-red-400 rounded-lg transition-colors flex items-center justify-center" title="Clear This Space">
-                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                <button onclick="triggerClearCurrentSession()" class="p-2 text-gray-400 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat Stream">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
                 <button onclick="toggleThreeDotsMenu(event)" class="p-2 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-colors">
                     <i data-lucide="more-vertical" class="w-4 h-4"></i>
                 </button>
             </div>
 
-            <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-44 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
-                <button onclick="switchTheme('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-medium rounded-lg hover:bg-indigo-500/10 transition-all">
-                    <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-500"></i> Pastel Light Mode
+            <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-40 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
+                <button onclick="switchTheme('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg hover:bg-black/[0.03] transition-all">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-neutral-500"></i> Light Mode
                 </button>
-                <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-medium rounded-lg hover:bg-cyan-500/10 transition-all">
+                <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg hover:bg-white/[0.04] transition-all">
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-cyan-400"></i> Absolute Dark
                 </button>
             </div>
@@ -117,7 +118,6 @@
     </div>
 
     <script>
-        // Session memory tracks separate historical routes in real-time
         let activeRoomRoute = "main"; 
         
         let sessionStore = {
@@ -156,12 +156,10 @@
             document.getElementById("threeDotsMenu").classList.add("hidden");
         });
 
-        // Router engine manages separate sandboxed visual stacks
         function routeToSession(targetRoom) {
             activeRoomRoute = targetRoom;
             renderActiveRoomStage();
             
-            // Fixed: Auto run engine execution if room space is clean and requires automated initialization prompt
             if(targetRoom !== 'main' && sessionStore[targetRoom].historyArray.length === 0) {
                 executeEngineBackendOperation(sessionStore[targetRoom].initialPrompt);
             }
@@ -169,7 +167,7 @@
 
         function renderActiveRoomStage() {
             const container = document.getElementById("messages");
-            container.innerHTML = ""; // Wipe active frame canvas view
+            container.innerHTML = ""; 
             
             const backBtn = document.getElementById("backToMainBtn");
             const ctxTag = document.getElementById("headerContextTag");
@@ -180,7 +178,6 @@
                 backBtn.classList.add("hidden");
                 ctxTag.classList.add("hidden");
                 mainTitle.innerText = "Rixo AI";
-                // Fixed: Default Main Lightning Bolt Icon with forced Cyan color
                 iconContainer.innerHTML = `<i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>`;
 
                 if(sessionStore.main.welcomeActive) {
@@ -211,12 +208,10 @@
                 ctxTag.innerText = `${activeRoomRoute} session window`;
                 mainTitle.innerText = activeRoomRoute === 'joke' ? 'Jokes Station' : activeRoomRoute === 'code' ? 'Code Matrix' : 'AI Lab';
                 
-                // Fixed: Dynamic Session Icons with specific forced Cyan color
                 const currentIcon = sessionStore[activeRoomRoute].headerIcon;
                 iconContainer.innerHTML = `<i data-lucide="${currentIcon}" class="w-4 h-4 text-cyan-500"></i>`;
             }
 
-            // Repopulate messages specifically saved to the individual sandboxed database flow Array
             sessionStore[activeRoomRoute].historyArray.forEach(msg => {
                 appendUIMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
             });
