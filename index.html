@@ -42,7 +42,6 @@
             font-weight: 500;
         }
         
-        /* Fixed: Bot Message container built for code formatting and line-breaks */
         .msg-bot {
             background: #11141b; 
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -54,13 +53,11 @@
             position: relative;
             user-select: text;
             -webkit-user-select: text;
-            /* Ensures raw code text skips letters mixing and processes new lines natively */
             white-space: pre-wrap; 
             word-break: break-word;
-            animation: premiumFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Specialized presentation layer inside response elements for code blocks */
         .msg-bot code {
             font-family: 'JetBrains Mono', monospace;
             background: rgba(0, 0, 0, 0.4);
@@ -71,7 +68,7 @@
         }
 
         @keyframes premiumFade {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -121,21 +118,21 @@
             
             <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                 <div class="flex justify-start w-full">
-                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you?</div>
+                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today? ✨</div>
                 </div>
 
                 <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                    <button onclick="useSuggestion('Give me a creative ideas setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Tell me an extremely funny, modern dark humor joke or roast')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>Tell a Joke</span>
+                        <span>Tell a Joke 🔥</span>
                     </button>
-                    <button onclick="useSuggestion('Give me a short coding tip or template structure')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Give me a professional clean coding template or expert technical structure setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>Code Help</span>
+                        <span>Code Help 💻</span>
                     </button>
-                    <button onclick="useSuggestion('What is the most interesting thing about AI models?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Share some mind-blowing futuristic insights about advanced AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>AI Insights</span>
+                        <span>AI Insights 🚀</span>
                     </button>
                 </div>
             </div>
@@ -189,7 +186,7 @@
 
         function scrollChatToBottom() {
             const messages = document.getElementById("messages");
-            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 60);
+            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 30);
         }
 
         function startPress(element) {
@@ -218,20 +215,20 @@
             messages.innerHTML = `
                 <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                     <div class="flex justify-start w-full">
-                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you?</div>
+                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today? ✨</div>
                     </div>
                     <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                        <button onclick="useSuggestion('Give me a creative ideas setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Tell me an extremely funny, modern dark humor joke or roast')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>Tell a Joke</span>
+                            <span>Tell a Joke 🔥</span>
                         </button>
-                        <button onclick="useSuggestion('Give me a short coding tip or template structure')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Give me a professional clean coding template or expert technical structure setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>Code Help</span>
+                            <span>Code Help 💻</span>
                         </button>
-                        <button onclick="useSuggestion('What is the most interesting thing about AI models?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Share some mind-blowing futuristic insights about advanced AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>AI Insights</span>
+                            <span>AI Insights 🚀</span>
                         </button>
                     </div>
                 </div>
@@ -244,7 +241,6 @@
             scrollChatToBottom();
         }
 
-        // Standard API Request Processing Logic Engine
         async function executeBackendCall(promptText) {
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
@@ -277,11 +273,11 @@
                     apiHistoryArray.push({ role: "assistant", content: data.reply });
                     saveChatHistory(); 
                 } else {
-                    addMessage("Server issue. Please try again.", "bot");
+                    addMessage("Server issue. Please try again. ⚠️", "bot");
                 }
 
             } catch (err) {
-                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed.</div>`;
+                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed. ❌</div>`;
             }
         }
 
@@ -307,7 +303,6 @@
             div.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
             
             if (sender === "bot") {
-                // Formatting handler for code markers or blocks returned by standard formatting
                 let processedText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
                 div.innerHTML = `<div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">${processedText}</div>`;
             } else {
@@ -318,12 +313,10 @@
             scrollChatToBottom();
         }
 
-        // Fixed: Suggestions click triggers backend request directly without displaying user text bubble
         function useSuggestion(phrase) {
             const suggestions = document.getElementById("suggestions");
             if (suggestions) suggestions.style.display = "none";
 
-            // Push quietly to system array tracking history flows
             apiHistoryArray.push({ role: "user", content: phrase });
             executeBackendCall(phrase);
         }
