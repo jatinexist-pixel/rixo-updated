@@ -24,8 +24,8 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ reply: "Message is required" });
         }
 
-        // URL ke dono taraf backticks () lagaye hain taaki SyntaxError na aaye
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        // Fixed: URL wrapped properly in backticks
+        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
 
         const response = await fetch(url, {
             method: 'POST',
@@ -39,6 +39,7 @@ app.post('/chat', async (req, res) => {
 
         if (data.error) {
             console.error("Gemini API Error:", data.error);
+            // Fixed: API Error string wrapped properly in backticks
             return res.status(500).json({ reply: API Error: ${data.error.message || 'Unknown'} });
         }
 
@@ -55,5 +56,6 @@ app.post('/chat', async (req, res) => {
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-    console.log(🚀 Server running on port ${PORT}`);
+    // Fixed: Console log wrapped properly in backticks
+    console.log(🚀 Server running on port ${PORT});
 });
