@@ -6,10 +6,9 @@
     <title>Rixo AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* Mobile height engine fixes */
         html, body { 
             background: #000; 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -22,7 +21,7 @@
         
         .app-wrapper {
             height: 100vh;
-            height: -webkit-fill-available; /* Fixed dynamic viewport for mobile safari/chrome */
+            height: -webkit-fill-available;
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -30,17 +29,18 @@
 
         .tech-bg {
             background-color: #050508;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 16px 16px;
         }
 
+        /* User Message with crisp pure white text */
         .msg-user {
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 18px 18px 4px 18px;
             padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end;
             box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
-            color: #000;
-            font-weight: 600;
+            color: #ffffff; /* Explicitly forced clean white */
+            font-weight: 500;
         }
         
         .msg-bot {
@@ -52,10 +52,32 @@
             -webkit-user-select: none;
         }
 
-        .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; }
+        /* Smooth Cinematic Typing Reveal Animation */
+        .typing-reveal {
+            display: inline-block;
+            animation: textFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(3px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pulsing Dot Loader for Engine Thinking State */
+        .loader-dot {
+            animation: dotPulse 1.2s infinite ease-in-out both;
+        }
+        .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
         
-        /* Smooth Native Scrollbar Hiding */
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -85,6 +107,23 @@
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
         </header>
+
+        <div class="px-6 py-2 bg-[#090a0f] border-b border-white/[0.03] flex justify-between items-center text-[10px] font-mono text-gray-500 shrink-0">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    ENGINE: READY
+                </span>
+                <span class="flex items-center gap-1">
+                    <i data-lucide="activity" class="w-3 h-3 text-cyan-500"></i>
+                    PING: <span id="latencyWidget" class="text-gray-400">0ms</span>
+                </span>
+            </div>
+            <div class="flex items-center gap-1 text-gray-400">
+                <i data-lucide="clock" class="w-3 h-3 text-gray-500"></i>
+                <span id="sessionTime">00:00:00</span>
+            </div>
+        </div>
 
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
             
@@ -152,18 +191,24 @@
         window.addEventListener("DOMContentLoaded", () => {
             loadChatHistory();
             scrollChatToBottom();
+            initClock();
         });
 
-        // Soft internal page resize focus monitors for mobile keyboards
         window.visualViewport?.addEventListener('resize', () => {
             scrollChatToBottom();
         });
 
+        // Professional Clock Widget logic
+        function initClock() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById("sessionTime").innerText = now.toTimeString().split(' ')[0];
+            }, 1000);
+        }
+
         function scrollChatToBottom() {
             const messages = document.getElementById("messages");
-            setTimeout(() => {
-                messages.scrollTop = messages.scrollHeight;
-            }, 60);
+            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 60);
         }
 
         function startPress(element) {
@@ -215,6 +260,7 @@
             localStorage.removeItem("rixo_chat_history");
             localStorage.removeItem("rixo_api_array");
             apiHistoryArray = [];
+            document.getElementById("latencyWidget").innerText = "0ms";
             closeMenu();
             lucide.createIcons();
             scrollChatToBottom();
@@ -234,13 +280,21 @@
             saveChatHistory(); 
             input.value = "";
 
+            // Modern Thinking Loader Layout Setup
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
-            loader.className = "flex justify-start animate-pulse mb-4";
-            loader.innerHTML = `<div class="msg-bot text-gray-500 text-xs">Rixo is thinking...</div>`;
+            loader.className = "flex justify-start mb-2";
+            loader.innerHTML = `
+                <div class="msg-bot flex items-center gap-1.5 px-4 py-3">
+                    <span class="w-2 h-2 rounded-full bg-cyan-500 loader-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-cyan-500 loader-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-cyan-500 loader-dot"></span>
+                </div>`;
             document.getElementById("messages").appendChild(loader);
             scrollChatToBottom();
+
+            const startTime = performance.now(); // Start network metrics latency tracking
 
             try {
                 const response = await fetch(SERVER_URL, {
@@ -255,8 +309,12 @@
                 const data = await response.json();
                 document.getElementById(loaderId).remove();
 
+                // Stop tracking latency metrics
+                const duration = Math.round(performance.now() - startTime);
+                document.getElementById("latencyWidget").innerText = duration + "ms";
+
                 if (data.reply) {
-                    addMessage(data.reply, "bot");
+                    addMessageAnimated(data.reply, "bot");
                     apiHistoryArray.push({ role: "assistant", content: data.reply });
                     saveChatHistory(); 
                 } else {
@@ -281,6 +339,39 @@
             
             messages.appendChild(div);
             scrollChatToBottom();
+        }
+
+        // Feature: Premium Dynamic Text Char-by-Char Typing Simulation Reveal
+        function addMessageAnimated(text, sender) {
+            const messages = document.getElementById("messages");
+            const div = document.createElement("div");
+            div.className = "flex w-full justify-start";
+            
+            const msgBox = document.createElement("div");
+            msgBox.className = "msg-bot text-white";
+            msgBox.setAttribute("onmousedown", "startPress(this)");
+            msgBox.setAttribute("onmouseup", "endPress()");
+            msgBox.setAttribute("ontouchstart", "startPress(this)");
+            msgBox.setAttribute("ontouchend", "endPress()");
+            
+            div.appendChild(msgBox);
+            messages.appendChild(div);
+            
+            // Fast premium staggered delay mapping logic
+            let currentStr = "";
+            let words = text.split(" ");
+            let i = 0;
+            
+            function typeWord() {
+                if (i < words.length) {
+                    currentStr += (i === 0 ? "" : " ") + words[i];
+                    msgBox.innerHTML = `<span class="typing-reveal">${currentStr}</span>`;
+                    i++;
+                    scrollChatToBottom();
+                    setTimeout(typeWord, 35); // Fast fluid premium typing pace (35ms per word group)
+                }
+            }
+            typeWord();
         }
 
         function useSuggestion(phrase) {
@@ -326,9 +417,3 @@
                     messages.forEach(msg => { addMessage(msg.text, msg.sender); });
                 }
             }
-        }
-        
-        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") sendMessage(); });
-    </script>
-</body>
-</html>
