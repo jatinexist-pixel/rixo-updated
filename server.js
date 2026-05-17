@@ -27,7 +27,6 @@ app.post('/chat', async (req, res) => {
             return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
         }
 
-        // Fast aur stable global model use kiya hai jo instantly reply karega
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
@@ -37,19 +36,19 @@ app.post('/chat', async (req, res) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "google/gemini-2.5-flash", // Super fast model, delay nahi karega
+                    model: "google/gemini-2.5-flash",
                     messages: [
                         {
                             role: "system",
-                            content: "You are Rixo, a friendly and cool companion. For casual talks, greetings, 'hi', 'hello', or normal chat, reply extremely shortly in just 1 or 2 lines like a friend on WhatsApp. Do not use heavy vocabulary or long paragraphs for general chat. However, if the user asks an educational, technical, coding, mathematical, or knowledge-based question, provide a detailed, well-structured paragraph or code explanation."
+                            content: "You are Rixo, a friendly and cool companion. For casual talks, greetings, 'hi', 'hello', or normal chat, reply extremely shortly in just 1 or 2 lines like a friend on WhatsApp. Do not write long paragraphs for general chat. If the user asks for a joke, tell a totally unique, funny, and fresh joke every time. Do not repeat the same joke. However, if the user asks an educational, technical, coding, mathematical, or knowledge-based question, provide a detailed, well-structured paragraph or code explanation."
                         },
                         {
                             role: "user",
                             content: message
                         }
                     ],
-                    temperature: 0.7,
-                    max_tokens: 500 // Tokens limit set ki taaki faltu lamba reply block ho sake
+                    temperature: 0.9, // Higher temperature so AI gives totally unique, non-repeating jokes
+                    max_tokens: 500
                 })
             }
         );
