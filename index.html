@@ -30,30 +30,31 @@
         body.dark-mode .icon-highlight { color: #06b6d4; }
         body.dark-mode .footer-text { color: #475569; }
 
-        /* ----- PREMIUM HIGH-CONTRAST LIGHT MODE (STRICTLY NO WHITE, NO CYAN, NO PINK) ----- */
-        body.light-mode { background: #eae9df; color: #2e2c2f; }
-        body.light-mode .app-container { background-color: #eae9df; background-image: radial-gradient(rgba(46, 44, 47, 0.05) 1px, transparent 1px); background-size: 16px 16px; }
-        body.light-mode .header-el { background: #eae9df; border-color: #c2b2b4; }
-        body.light-mode .status-bar { background: #c2b2b4; border-color: #a6a49a; color: #2e2c2f; font-weight: 600; }
-        body.light-mode .msg-bot { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 4px 10px rgba(0,0,0,0.04); font-weight: 500; }
-        body.light-mode .msg-user { background: #c5b3ce; color: #2e2c2f; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.4); font-weight: 600; border: 1px solid #b69fc2; }
-        body.light-mode .input-container { background: #eae9df; border-color: #c2b2b4; }
-        body.light-mode .input-bar { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; }
-        body.light-mode .pill-card { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; }
-        body.light-mode .popover-menu { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        /* ----- PREMIUM ANTI-GLARE LIGHT MODE (PASTEL BROWN / WARM SAND) ----- */
+        body.light-mode { background: #dfdacb; color: #2e2c2f; }
+        body.light-mode .app-container { background-color: #dfdacb; background-image: radial-gradient(rgba(46, 44, 47, 0.06) 1px, transparent 1px); background-size: 16px 16px; }
+        body.light-mode .header-el { background: #d0c9b5; border-color: #b0a790; }
+        body.light-mode .status-bar { background: #b0a790; border-color: #968d77; color: #2e2c2f; font-weight: 600; }
+        body.light-mode .msg-bot { background: #d7cfba; border-color: #b0a790; color: #2e2c2f; box-shadow: 0 4px 10px rgba(0,0,0,0.03); font-weight: 500; }
+        body.light-mode .msg-user { background: #c5b3ce; color: #2e2c2f; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.3); font-weight: 600; border: 1px solid #b69fc2; }
+        body.light-mode .input-container { background: #d0c9b5; border-color: #b0a790; }
+        body.light-mode .input-bar { background: #dfdacb; border-color: #b0a790; color: #2e2c2f; }
+        body.light-mode .pill-card { background: #d7cfba; border-color: #b0a790; color: #2e2c2f; }
+        body.light-mode .popover-menu { background: #dfdacb; border-color: #b0a790; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
         body.light-mode .popover-menu button { color: #2e2c2f !important; }
         body.light-mode .popover-menu button:hover { background: #c5b3ce; }
-        body.light-mode .clear-btn:hover { color: #2e2c2f; background: rgba(0, 0, 0, 0.05); }
+        body.light-mode .clear-btn:hover { color: #2e2c2f; background: rgba(0, 0, 0, 0.06); }
         body.light-mode .text-white { color: #2e2c2f; }
         body.light-mode h1 { color: #2e2c2f; }
         body.light-mode .icon-highlight { color: #2e2c2f; }
-        body.light-mode .footer-text { color: #757169; font-weight: 600; }
+        body.light-mode .footer-text { color: #696459; font-weight: 600; }
+        body.light-mode ::placeholder { color: #696459; opacity: 0.8; }
 
         /* Structural Essentials */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; border-width: 1px; }
-        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.05); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #2e2c2f; }
+        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.06); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #2e2c2f; }
         body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
 
         @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -146,7 +147,7 @@
         <div class="p-4 border-t input-container shrink-0 flex flex-col gap-2">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
-                    class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-gray-500" 
+                    class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-neutral-500" 
                     placeholder="Message Rixo...">
                 <button id="sendBtnSubmit" onclick="handleManualUserSubmission()" class="send-btn">
                     <i data-lucide="arrow-up" class="w-5 h-5 stroke-[3px]"></i>
@@ -239,9 +240,9 @@
             loader.className = "flex justify-start mb-2";
             loader.innerHTML = `
                 <div class="msg-bot flex items-center gap-1.5 px-4 py-3">
+                    <span class="w-2 h-2 rounded-full bg-neutral-500 loader-dot"></span>
                     <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
-                    <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
-                    <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-neutral-300 loader-dot"></span>
                 </div>`;
             document.getElementById("messages").appendChild(loader);
             scrollTimelineToBottom();
@@ -262,65 +263,3 @@
                 if (data.reply) {
                     appendChatMessageNode(data.reply, "bot");
                     globalChatHistory.push({ role: "assistant", content: data.reply });
-                    saveSavedEngineLogs(); 
-                } else {
-                    appendChatMessageNode("Server connection timeout. Please check console logs.", "bot");
-                }
-            } catch (err) {
-                if(document.getElementById(loaderId)) {
-                    document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Engine terminal pipeline failure.</div>`;
-                }
-            }
-        }
-
-        function appendChatMessageNode(text, sender) {
-            const messagesContainer = document.getElementById("messages");
-            const wrapperDiv = document.createElement("div");
-            wrapperDiv.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
-            
-            if (sender === "bot") {
-                let formattedMarkdownText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-                wrapperDiv.innerHTML = `<div class="msg-bot">${formattedMarkdownText}</div>`;
-            } else {
-                wrapperDiv.innerHTML = `<div class="msg-user">${text}</div>`;
-            }
-            
-            messagesContainer.appendChild(wrapperDiv);
-            scrollTimelineToBottom();
-        }
-
-        function clearChatHistoryStream() {
-            globalChatHistory = [];
-            localStorage.removeItem("rixo_single_timeline_store");
-            document.getElementById("messages").innerHTML = "";
-            document.getElementById("welcomeDashboard").style.display = "flex";
-            document.getElementById("messages").appendChild(document.getElementById("welcomeDashboard"));
-            scrollTimelineToBottom();
-        }
-
-        function saveSavedEngineLogs() {
-            localStorage.setItem("rixo_single_timeline_store", JSON.stringify(globalChatHistory));
-        }
-
-        function loadSavedEngineLogs() {
-            const databaseLogLogs = localStorage.getItem("rixo_single_timeline_store");
-            if(databaseLogLogs) {
-                globalChatHistory = JSON.parse(databaseLogLogs);
-                if(globalChatHistory.length > 0) {
-                    document.getElementById("welcomeDashboard").style.display = "none";
-                    globalChatHistory.forEach(msg => {
-                        appendChatMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
-                    });
-                }
-            }
-        }
-
-        function scrollTimelineToBottom() {
-            const messagesWindow = document.getElementById("messages");
-            setTimeout(() => { messagesWindow.scrollTop = messagesWindow.scrollHeight; }, 30);
-        }
-
-        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") handleManualUserSubmission(); });
-    </script>
-</body>
-</html>
