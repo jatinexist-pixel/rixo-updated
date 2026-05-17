@@ -45,9 +45,15 @@ app.post('/chat', async (req, res) => {
 
         console.log(data);
 
-        const botReply =
-            data?.choices?.[0]?.message?.content ||
-            "No response";
+        console.log(JSON.stringify(data, null, 2));
+
+const botReply =
+    data.choices &&
+    data.choices[0] &&
+    data.choices[0].message &&
+    data.choices[0].message.content
+        ? data.choices[0].message.content
+        : "No response from AI";
 
         res.json({
             reply: botReply
