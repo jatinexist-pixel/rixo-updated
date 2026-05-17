@@ -27,7 +27,6 @@ app.post('/chat', async (req, res) => {
             return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
         }
 
-        // FIXED: Using "openrouter/auto" which automatically selects an available running model
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
@@ -39,6 +38,11 @@ app.post('/chat', async (req, res) => {
                 body: JSON.stringify({
                     model: "openrouter/auto", 
                     messages: [
+                        {
+                            // SYSTEM PROMPT ADDED: Ab ye dost ki tarah chote reply dega, bas technical sawaal par bade paragraphs dega
+                            role: "system",
+                            content: "You are Rixo, a close friend of the user. Keep your casual chat greetings and regular conversation extremely short, witty, and friendly (just like a friend on WhatsApp). Do not write paragraphs for normal talks. However, if the user asks for pure knowledge, programming, logic, definitions, or college-related educational questions, then provide comprehensive, clear, and structured long paragraphs or code blocks as an expert guide."
+                        },
                         {
                             role: "user",
                             content: message
