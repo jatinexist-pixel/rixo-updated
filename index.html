@@ -19,8 +19,9 @@
         body.dark-mode { background: #000; color: #e2e8f0; }
         body.dark-mode .app-container { background-color: #050508; background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 16px 16px; }
         body.dark-mode .header-el { background: rgba(5, 5, 8, 0.9); border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-mode .status-bar { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05); color: #64748b; }
         body.dark-mode .msg-bot { background: #11141b; border-color: rgba(255, 255, 255, 0.08); color: #ffffff; }
-        body.dark-mode .msg-user { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1); }
+        body.dark-mode .msg-user { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; }
         body.dark-mode .input-container { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.02); }
         body.dark-mode .input-bar { background: #0d0f14; border-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
         body.dark-mode .pill-card { background: #11141b; border-color: rgba(255, 255, 255, 0.05); color: #94a3b8; }
@@ -29,29 +30,30 @@
         body.dark-mode .icon-highlight { color: #06b6d4; }
         body.dark-mode .footer-text { color: #475569; }
 
-        /* ----- PREMIUM PANTONE PASTEL MODE (NO CYAN, NO BLUE OUTLINES, NO WHITE BACKGROUND) ----- */
-        body.pastel-mode { background: #eae9df; color: #3d3a3e; }
-        body.pastel-mode .app-container { background-color: #f4f3ea; background-image: radial-gradient(rgba(61, 58, 62, 0.02) 1px, transparent 1px); background-size: 16px 16px; }
-        body.pastel-mode .header-el { background: #f4f3ea; border-color: rgba(194, 178, 180, 0.4); }
-        body.pastel-mode .msg-bot { background: #fbfbfa; border-color: rgba(194, 178, 180, 0.3); color: #3d3a3e; box-shadow: 0 2px 8px rgba(0,0,0,0.01); }
-        body.pastel-mode .msg-user { background: #c5b3ce; color: #3d3a3e; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.2); font-weight: 500; }
-        body.pastel-mode .input-container { background: #f4f3ea; border-color: rgba(194, 178, 180, 0.3); }
-        body.pastel-mode .input-bar { background: #fbfbfa; border-color: #c2b2b4; color: #3d3a3e; }
-        body.pastel-mode .pill-card { background: #fbfbfa; border-color: #c2b2b4; color: #3d3a3e; }
-        body.pastel-mode .popover-menu { background: #fbfbfa; border-color: #c2b2b4; color: #3d3a3e; box-shadow: 0 8px 24px rgba(61,58,62,0.1); }
-        body.pastel-mode .clear-btn:hover { color: #c2b2b4; background: rgba(194, 178, 180, 0.2); }
-        body.pastel-mode .text-white { color: #3d3a3e; }
-        body.pastel-mode h1 { color: #3d3a3e; }
-        body.pastel-mode .popover-menu button { color: #3d3a3e !important; }
-        body.pastel-mode .popover-menu button:hover { background: #eae9df; }
-        body.pastel-mode .icon-highlight { color: #c2b2b4; }
-        body.pastel-mode .footer-text { color: #a6a49a; }
+        /* ----- PREMIUM HIGH-CONTRAST LIGHT MODE (NO WHITE, NO CYAN) ----- */
+        body.light-mode { background: #eae9df; color: #2e2c2f; }
+        body.light-mode .app-container { background-color: #eae9df; background-image: radial-gradient(rgba(46, 44, 47, 0.05) 1px, transparent 1px); background-size: 16px 16px; }
+        body.light-mode .header-el { background: #f3cfd3; border-color: #c2b2b4; }
+        body.light-mode .status-bar { background: #f4f3ea; border-color: #c2b2b4; color: #524f54; font-weight: 600; }
+        body.light-mode .msg-bot { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 4px 10px rgba(0,0,0,0.04); font-weight: 500; }
+        body.light-mode .msg-user { background: #c5b3ce; color: #2e2c2f; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.4); font-weight: 600; border: 1px solid #b69fc2; }
+        body.light-mode .input-container { background: #f3cfd3; border-color: #c2b2b4; }
+        body.light-mode .input-bar { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; }
+        body.light-mode .pill-card { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; }
+        body.light-mode .popover-menu { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        body.light-mode .popover-menu button { color: #2e2c2f !important; }
+        body.light-mode .popover-menu button:hover { background: #f3cfd3; }
+        body.light-mode .clear-btn:hover { color: #8a7376; background: rgba(0, 0, 0, 0.05); }
+        body.light-mode .text-white { color: #2e2c2f; }
+        body.light-mode h1 { color: #2e2c2f; }
+        body.light-mode .icon-highlight { color: #8a7376; }
+        body.light-mode .footer-text { color: #757169; font-weight: 600; }
 
-        /* Common Layout Configurations */
+        /* Common Core Structural Elements */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
-        .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #3d3a3e; }
+        .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; border-width: 1px; }
+        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.05); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #2e2c2f; }
         body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
 
         @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -62,7 +64,7 @@
 
         .input-bar { border-width: 1px; border-radius: 28px; transition: all 0.2s; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; }
-        body.pastel-mode .send-btn { background: #c5b3ce; color: #3d3a3e; }
+        body.light-mode .send-btn { background: #c5b3ce; color: #2e2c2f; border: 1px solid #b69fc2; }
         
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
@@ -74,7 +76,7 @@
 
     <div class="app-wrapper max-w-md border-x border-white/5 relative app-container transition-all">
         
-        <header class="h-14 flex items-center justify-between px-4 border-b header-el backdrop-blur-md shrink-0 z-20 relative">
+        <header class="h-14 flex items-center justify-between px-4 border-b header-el shrink-0 z-20 relative">
             <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/5 flex items-center justify-center">
                     <i data-lucide="zap" class="w-4 h-4 icon-highlight"></i>
@@ -92,14 +94,22 @@
             </div>
 
             <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-40 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
-                <button onclick="switchThemeModeEngine('pastel')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
-                    <i data-lucide="palette" class="w-3.5 h-3.5 icon-highlight"></i> Pastel Mode
+                <button onclick="switchThemeModeEngine('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 icon-highlight"></i> Light Mode
                 </button>
                 <button onclick="switchThemeModeEngine('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-slate-400"></i> Absolute Dark
                 </button>
             </div>
         </header>
+
+        <div class="status-bar h-7 border-b text-[10px] tracking-wider px-4 flex items-center justify-between font-mono shrink-0 transition-all">
+            <div class="flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span>
+                <span>SYSTEM: READY</span>
+            </div>
+            <div>CORE V3.0 • SECURE</div>
+        </div>
 
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
             
@@ -124,18 +134,18 @@
 
         </div>
 
-        <div class="p-4 backdrop-blur-md border-t input-container shrink-0 flex flex-col gap-2">
+        <div class="p-4 border-t input-container shrink-0 flex flex-col gap-2">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
                     class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-gray-500" 
                     placeholder="Message Rixo...">
-                <button onclick="handleManualUserSubmission()" class="send-btn">
+                <button id="sendBtnSubmit" onclick="handleManualUserSubmission()" class="send-btn">
                     <i data-lucide="arrow-up" class="w-5 h-5 stroke-[3px]"></i>
                 </button>
             </div>
             
-            <div class="text-center text-[10px] uppercase tracking-widest font-mono font-medium opacity-60 footer-text py-0.5">
-                Rixo AI Engine v3.0 • Secure Encryption Matrix
+            <div class="text-center text-[10px] uppercase tracking-widest font-mono font-medium opacity-70 footer-text py-0.5">
+                Rixo AI Engine Matrix • Powered by Local Architecture
             </div>
         </div>
 
@@ -152,11 +162,11 @@
         });
 
         function switchThemeModeEngine(themeMode) {
-            if(themeMode === "pastel") {
+            if(themeMode === "light") {
                 document.body.classList.remove("dark-mode");
-                document.body.classList.add("pastel-mode");
+                document.body.classList.add("light-mode");
             } else {
-                document.body.classList.remove("pastel-mode");
+                document.body.classList.remove("light-mode");
                 document.body.classList.add("dark-mode");
             }
             localStorage.setItem("rixo_style_theme", themeMode);
@@ -172,9 +182,8 @@
             document.getElementById("threeDotsMenu").classList.add("hidden");
         });
 
-        // Fixed: Combined routing prompt tasks instantly running on the main timeline frame array
+        // Fixed: Integrated feature auto-triggers on the single dashboard plane frame array
         async function injectPresetPromptTask(type) {
-            // Hide welcome screen module cards elements dynamically on action trigger
             document.getElementById("welcomeDashboard").style.display = "none";
             
             let systemInstructionString = "";
@@ -195,7 +204,7 @@
             globalChatHistory.push({ role: "user", content: userDisplayMessage });
             saveSavedEngineLogs();
 
-            await transmissionLogEngine(systemInstructionString);
+            await transmissionLogEngine(systemInstructionString, type);
         }
 
         async function handleManualUserSubmission() {
@@ -203,7 +212,6 @@
             const text = input.value.trim();
             if (!text) return;
 
-            // Clear visual clutter dashboards if active
             document.getElementById("welcomeDashboard").style.display = "none";
 
             appendChatMessageNode(text, "user");
@@ -211,13 +219,12 @@
             saveSavedEngineLogs();
             input.value = "";
 
-            // Dynamic background injection parameters tracking localization translation logic rules
             let injectionPrompt = text + " (Note: Respond in English language by default. However, if the user input phrase is explicitly written in Hindi/Hinglish language, then match that language structure directly in your response.)";
             
-            await transmissionLogEngine(injectionPrompt);
+            await transmissionLogEngine(injectionPrompt, "normal");
         }
 
-        async function transmissionLogEngine(promptInstructionText) {
+        async function transmissionLogEngine(promptInstructionText, type) {
             const loaderId = "loader-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
@@ -252,7 +259,9 @@
                     appendChatMessageNode("Server connection timeout. Please check console logs.", "bot");
                 }
             } catch (err) {
-                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Engine terminal pipeline failure.</div>`;
+                if(document.getElementById(loaderId)) {
+                    document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Engine terminal pipeline failure.</div>`;
+                }
             }
         }
 
