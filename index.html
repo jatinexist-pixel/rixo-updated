@@ -41,12 +41,14 @@
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
         #messages::-webkit-scrollbar { width: 0; }
 
-        /* --- TYPING DOTS ANIMATION --- */
-        .typing-dots {
+        /* --- CLEAN TYPING DOTS ANIMATION --- */
+        .typing-container {
             display: flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
+            justify-content: center;
+            gap: 5px;
+            padding: 4px 6px;
+            height: 14px;
         }
         .dot {
             width: 6px;
@@ -87,7 +89,7 @@
         <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
-                    class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm" 
+                    class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm"
                     placeholder="Message Rixo..."
                     autocomplete="off">
                 <button onclick="sendMessage()" class="send-btn">
@@ -96,6 +98,7 @@
             </div>
         </div>
     </div>
+
     <script>
         lucide.createIcons();
 
@@ -114,8 +117,8 @@
             loader.id = loaderId;
             loader.className = "flex justify-start";
             
-            // FIXED EXTRA CLEAN STRING: Koi quotes ya brackets ka crash nahi ho sakta
-            loader.innerHTML = '<div class="msg-bot text-gray-400 text-sm flex items-center gap-2"><span>Rixo is thinking</span><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';
+            // FIXED: Hata diya text, ab sirf clean dynamic jumping dots dikhenge
+            loader.innerHTML = '<div class="msg-bot"><div class="typing-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';
             document.getElementById("messages").appendChild(loader);
             
             const box = document.getElementById("messages");
