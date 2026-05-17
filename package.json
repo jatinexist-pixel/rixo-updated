@@ -1,14 +1,14 @@
 {
-  "name": "rixo",
+  "name": "rixo-ai",
   "version": "1.0.0",
+  "description": "Rixo AI Chat Application",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "express": "^4.19.2",
     "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "node-fetch": "^2.7.0"
-    "axios":^1.6.8"
+    "axios": "^1.6.8"
   }
 }
