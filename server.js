@@ -34,7 +34,7 @@ app.post('/chat', async (req, res) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "deepseek/deepseek-chat-v3-0324:free",
+                    model: "deepseek/deepseek-chat:free",
                     messages: [
                         {
                             role: "user",
