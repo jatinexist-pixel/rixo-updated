@@ -56,7 +56,7 @@
         body.light-mode .header-icon-btn { color: #2e2c2f; }
         body.light-mode .header-icon-btn:hover { opacity: 0.8; }
 
-        /* Structural Layout System */
+        /* Structural Layout Configuration */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; border-width: 1px; }
@@ -75,8 +75,8 @@
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Smooth Drawer Slide Velocity Animation */
-        .welcome-drawer { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); max-height: 300px; opacity: 1; overflow: hidden; }
+        /* Smooth Drawer Slide Animations */
+        .welcome-drawer { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); max-height: 400px; opacity: 1; overflow: hidden; }
         .welcome-drawer.collapsed { max-height: 0; opacity: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; transform: translateY(-10px); }
     </style>
 </head>
@@ -173,8 +173,8 @@
             loadSavedEngineLogs();
             switchThemeModeEngine(localStorage.getItem("rixo_style_theme") || "dark");
             
-            // Explicitly Attach Input Node Keypress Matrix Terminal Flow Event Interface
-            document.getElementById("userInput").addEventListener("keypress", (e) => {
+            // Hardbind explicit listener targeting submission text execution pipeline
+            document.getElementById("userInput").addEventListener("keydown", (e) => {
                 if(e.key === "Enter") {
                     e.preventDefault();
                     handleManualUserSubmission();
@@ -192,17 +192,21 @@
             }
             localStorage.setItem("rixo_style_theme", themeMode);
             document.getElementById("threeDotsMenu").classList.add("hidden");
+            
+            // Explicitly force full-tree re-render of vector nodes to preserve asset visibility
             lucide.createIcons();
         }
 
         function toggleThreeDotsMenu(e) {
             e.stopPropagation();
             document.getElementById("threeDotsMenu").classList.toggle("hidden");
+            lucide.createIcons();
         }
 
         function toggleFeaturePillDeckDrawer() {
             document.getElementById("welcomeDashboard").classList.toggle("collapsed");
             scrollTimelineToBottom();
+            lucide.createIcons();
         }
 
         window.addEventListener("click", () => {
@@ -305,14 +309,17 @@
             
             dumpContainer.appendChild(wrapperDiv);
             scrollTimelineToBottom();
+            lucide.createIcons(); // Instantly process freshly added SVG icon frames
         }
 
         function clearChatHistoryStream() {
             globalChatHistory = [];
             localStorage.removeItem("rixo_single_timeline_store");
             document.getElementById("chatHistoryDumpDeck").innerHTML = "";
+            document.getElementById("welcomeDashboard").style.display = "flex";
             document.getElementById("welcomeDashboard").classList.remove("collapsed");
             scrollTimelineToBottom();
+            lucide.createIcons();
         }
 
         function saveSavedEngineLogs() {
@@ -330,16 +337,13 @@
                     });
                 }
             }
+            lucide.createIcons();
         }
 
         function scrollTimelineToBottom() {
             const messagesWindow = document.getElementById("messages");
-            setTimeout(() => { messagesWindow.scrollTop = messages Window.scrollHeight; }, 40);
-
-}
-
-</script>
-
+            setTimeout(() => { messagesWindow.scrollTop = messagesWindow.scrollHeight; }, 30);
+        }
+    </script>
 </body>
-
 </html>
