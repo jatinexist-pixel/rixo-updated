@@ -56,6 +56,10 @@
         }
         .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; width: 100%; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
+        
+        /* Mobile scrollbar hide fix for suggestion capsules */
+        .scroll-hide::-webkit-scrollbar { display: none; width: 0; height: 0; }
+        .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
         #messages::-webkit-scrollbar { width: 0; }
 
         /* --- STABLE PREMIUM TYPING BUBBLE --- */
@@ -107,16 +111,16 @@
 
         <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0">
             
-            <div id="suggestions" class="flex gap-2 mb-3 overflow-x-auto pb-1">
-                <button onclick="useSuggestion('Tell me a completely random, fresh and funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+            <div id="suggestions" class="flex gap-2 mb-3 overflow-x-auto pb-1 scroll-hide w-full">
+                <button onclick="useSuggestion('Tell me a completely random, fresh and funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                     Tell a Joke
                 </button>
-                <button onclick="useSuggestion('Give me a quick programming tip or a short coding challenge')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                <button onclick="useSuggestion('Give me a quick programming tip or a short coding challenge')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
                     Code Help
                 </button>
-                <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
                     AI Insights
                 </button>
@@ -128,7 +132,7 @@
                     placeholder="Message Rixo..."
                     autocomplete="off">
                 <button onclick="sendMessage()" class="send-btn">
-                    <svg class="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                    <svg class="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
                 </button>
             </div>
         </div>
@@ -139,12 +143,13 @@
 
         function formatAIResponse(text) {
             let clean = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            clean = clean.replace(/`([\s\S]*?)```/g, function(match, codeBody) {
+            clean = clean.replace(/```([\s\S]*?)```/g, function(match, codeBody) {
                 return '<pre><code>' + codeBody.trim() + '</code></pre>';
             });
             clean = clean.replace(/`([^`]+)`/g, '<code>$1</code>');
             return clean;
         }
+
         async function sendMessage() {
             const input = document.getElementById("userInput");
             const text = input.value.trim();
@@ -197,7 +202,7 @@
             
             if (sender === "bot") {
                 let parsedText = formatAIResponse(text);
-                div.innerHTML = '<div class="msg-bot text-white flex flex-col gap-1 w-full"><div>' + parsedText + '</div><button onclick="copyToClipboard(this)" class="self-end text-gray-500 hover:text-cyan-400 mt-1 transition-colors" title="Copy Reply"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>';
+                div.innerHTML = '<div class="msg-bot text-white flex flex-col gap-1 w-full"><div>' + parsedText + '</div><button onclick="copyToClipboard(this)" class="self-end text-gray-500 hover:text-cyan-400 mt-1 transition-colors"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>';
             } else {
                 div.innerHTML = '<div class="msg-user">' + text + '</div>';
             }
