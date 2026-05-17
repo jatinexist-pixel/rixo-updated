@@ -27,7 +27,7 @@ app.post('/chat', async (req, res) => {
             return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
         }
 
-        // FIXED: Using standard quotes and a 100% working stable free model on OpenRouter
+        // FIXED: Using "openrouter/auto" which automatically selects an available running model
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
@@ -37,7 +37,7 @@ app.post('/chat', async (req, res) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "google/gemini-2.0-flash-exp:free",
+                    model: "openrouter/auto", 
                     messages: [
                         {
                             role: "user",
@@ -50,14 +50,13 @@ app.post('/chat', async (req, res) => {
 
         const data = await response.json();
 
-        // Agar OpenRouter koi error bhej raha hai toh screen par dikhega
         if (data.error) {
             return res.json({ reply: "OpenRouter Error: " + data.error.message });
         }
 
         const botReply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content
             ? data.choices[0].message.content
-            : "No response from OpenRouter model. Status: " + response.status;
+            : "No response from OpenRouter Auto routing.";
 
         res.json({
             reply: botReply
