@@ -40,6 +40,29 @@
         .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; width: 100%; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
         #messages::-webkit-scrollbar { width: 0; }
+
+        /* --- TYPING DOTS ANIMATION --- */
+        .typing-dots {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: #06b6d4;
+            border-radius: 50%;
+            display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
     </style>
 </head>
 <body class="flex justify-center bg-black">
@@ -73,7 +96,6 @@
             </div>
         </div>
     </div>
-
     <script>
         lucide.createIcons();
 
@@ -88,10 +110,12 @@
             input.value = "";
 
             const loaderId = "l-" + Date.now();
-                const loader = document.createElement("div");
+            const loader = document.createElement("div");
             loader.id = loaderId;
             loader.className = "flex justify-start";
-            loader.innerHTML = '<div class="msg-bot text-gray-500 text-xs">Rixo is thinking...</div>';
+            
+            // FIXED EXTRA CLEAN STRING: Koi quotes ya brackets ka crash nahi ho sakta
+            loader.innerHTML = '<div class="msg-bot text-gray-400 text-sm flex items-center gap-2"><span>Rixo is thinking</span><div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';
             document.getElementById("messages").appendChild(loader);
             
             const box = document.getElementById("messages");
