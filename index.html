@@ -23,27 +23,31 @@
         body.dark-mode .msg-user { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1); }
         body.dark-mode .input-container { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.02); }
         body.dark-mode .input-bar { background: #0d0f14; border-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
-        body.dark-mode .pill-btn { background: #11141b; border-color: rgba(255, 255, 255, 0.05); color: #94a3b8; }
+        body.dark-mode .pill-card { background: #11141b; border-color: rgba(255, 255, 255, 0.05); color: #94a3b8; }
         body.dark-mode .popover-menu { background: #0d1017; border-color: rgba(255, 255, 255, 0.08); color: #e2e8f0; }
         body.dark-mode .clear-btn:hover { color: #f87171; background: rgba(248, 113, 113, 0.05); }
+        body.dark-mode .icon-highlight { color: #06b6d4; }
+        body.dark-mode .footer-text { color: #475569; }
 
-        /* ----- PREMIUM PASTEL MODE THEME ----- */
+        /* ----- PREMIUM PANTONE PASTEL MODE (NO CYAN, NO BLUE OUTLINES, NO WHITE BACKGROUND) ----- */
         body.pastel-mode { background: #eae9df; color: #3d3a3e; }
-        body.pastel-mode .app-container { background-color: #f4f3ea; background-image: radial-gradient(rgba(61, 58, 62, 0.03) 1px, transparent 1px); background-size: 16px 16px; }
-        body.pastel-mode .header-el { background: #f4f3ea; border-color: rgba(61, 58, 62, 0.08); }
-        body.pastel-mode .msg-bot { background: #fdfdfb; border-color: rgba(61, 58, 62, 0.05); color: #3d3a3e; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        body.pastel-mode .msg-user { background: #c5b3ce; color: #3d3a3e; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.3); font-weight: 600; }
-        body.pastel-mode .input-container { background: #f4f3ea; border-color: rgba(61, 58, 62, 0.05); }
-        body.pastel-mode .input-bar { background: #fdfdfb; border-color: rgba(197, 179, 206, 0.3); color: #3d3a3e; }
-        body.pastel-mode .pill-btn { background: #fdfdfb; border-color: rgba(61, 58, 62, 0.08); color: #3d3a3e; font-weight: 500; }
-        body.pastel-mode .popover-menu { background: #ffffff; border-color: rgba(61, 58, 62, 0.15); color: #3d3a3e; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-        body.pastel-mode .clear-btn:hover { color: #c2b2b4; background: rgba(194, 178, 180, 0.15); }
+        body.pastel-mode .app-container { background-color: #f4f3ea; background-image: radial-gradient(rgba(61, 58, 62, 0.02) 1px, transparent 1px); background-size: 16px 16px; }
+        body.pastel-mode .header-el { background: #f4f3ea; border-color: rgba(194, 178, 180, 0.4); }
+        body.pastel-mode .msg-bot { background: #fbfbfa; border-color: rgba(194, 178, 180, 0.3); color: #3d3a3e; box-shadow: 0 2px 8px rgba(0,0,0,0.01); }
+        body.pastel-mode .msg-user { background: #c5b3ce; color: #3d3a3e; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.2); font-weight: 500; }
+        body.pastel-mode .input-container { background: #f4f3ea; border-color: rgba(194, 178, 180, 0.3); }
+        body.pastel-mode .input-bar { background: #fbfbfa; border-color: #c2b2b4; color: #3d3a3e; }
+        body.pastel-mode .pill-card { background: #fbfbfa; border-color: #c2b2b4; color: #3d3a3e; }
+        body.pastel-mode .popover-menu { background: #fbfbfa; border-color: #c2b2b4; color: #3d3a3e; box-shadow: 0 8px 24px rgba(61,58,62,0.1); }
+        body.pastel-mode .clear-btn:hover { color: #c2b2b4; background: rgba(194, 178, 180, 0.2); }
         body.pastel-mode .text-white { color: #3d3a3e; }
         body.pastel-mode h1 { color: #3d3a3e; }
         body.pastel-mode .popover-menu button { color: #3d3a3e !important; }
-        body.pastel-mode .popover-menu button:hover { background: #f4f3ea; }
+        body.pastel-mode .popover-menu button:hover { background: #eae9df; }
+        body.pastel-mode .icon-highlight { color: #c2b2b4; }
+        body.pastel-mode .footer-text { color: #a6a49a; }
 
-        /* Common Core Structural Elements */
+        /* Common Layout Configurations */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -56,7 +60,7 @@
         .loader-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes dotPulse { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
 
-        .input-bar { border-width: 1px; border-radius: 28px; transition: border 0.2s; }
+        .input-bar { border-width: 1px; border-radius: 28px; transition: all 0.2s; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; }
         body.pastel-mode .send-btn { background: #c5b3ce; color: #3d3a3e; }
         
@@ -72,19 +76,14 @@
         
         <header class="h-14 flex items-center justify-between px-4 border-b header-el backdrop-blur-md shrink-0 z-20 relative">
             <div class="flex items-center gap-2">
-                <button id="backToMainBtn" onclick="routeToSession('main')" class="hidden p-1.5 mr-1 rounded-lg bg-gray-500/10 text-gray-400 hover:text-black flex items-center justify-center transition-all">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                </button>
-                <div id="dynamicIconContainer" class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                    <i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>
+                <div class="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/5 flex items-center justify-center">
+                    <i data-lucide="zap" class="w-4 h-4 icon-highlight"></i>
                 </div>
-                <div class="flex flex-col">
-                    <h1 class="font-bold text-sm tracking-tight text-white transition-all" id="headerTitle">Rixo AI</h1>
-                </div>
+                <h1 class="font-bold text-sm tracking-tight text-white transition-all">Rixo AI</h1>
             </div>
             
             <div class="flex items-center gap-1.5">
-                <button onclick="triggerClearCurrentSession()" class="p-2 text-gray-400 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
+                <button onclick="clearChatHistoryStream()" class="p-2 text-gray-400 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
                 <button onclick="toggleThreeDotsMenu(event)" class="p-2 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-colors">
@@ -93,50 +92,66 @@
             </div>
 
             <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-40 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
-                <button onclick="switchTheme('pastel')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
-                    <i data-lucide="palette" class="w-3.5 h-3.5 text-purple-400"></i> Pastel Mode
+                <button onclick="switchThemeModeEngine('pastel')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
+                    <i data-lucide="palette" class="w-3.5 h-3.5 icon-highlight"></i> Pastel Mode
                 </button>
-                <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
-                    <i data-lucide="moon" class="w-3.5 h-3.5 text-cyan-400"></i> Absolute Dark
+                <button onclick="switchThemeModeEngine('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
+                    <i data-lucide="moon" class="w-3.5 h-3.5 text-slate-400"></i> Absolute Dark
                 </button>
             </div>
         </header>
 
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
+            
+            <div class="flex flex-col gap-4 items-start w-full" id="welcomeDashboard">
+                <div class="msg-bot">Hi! I am Rixo. How can I help you today?</div>
+                
+                <div class="grid grid-cols-1 gap-2 w-full mt-1">
+                    <button onclick="injectPresetPromptTask('joke')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
+                        <span class="text-xs font-semibold">Tell a Joke</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                    <button onclick="injectPresetPromptTask('code')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
+                        <span class="text-xs font-semibold">Code Help</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                    <button onclick="injectPresetPromptTask('insights')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
+                        <span class="text-xs font-semibold">AI Insights</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                </div>
             </div>
 
-        <div class="p-4 backdrop-blur-md border-t input-container shrink-0">
+        </div>
+
+        <div class="p-4 backdrop-blur-md border-t input-container shrink-0 flex flex-col gap-2">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
                     class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-gray-500" 
                     placeholder="Message Rixo...">
-                <button onclick="handleUserMessageTransmission()" class="send-btn">
+                <button onclick="handleManualUserSubmission()" class="send-btn">
                     <i data-lucide="arrow-up" class="w-5 h-5 stroke-[3px]"></i>
                 </button>
+            </div>
+            
+            <div class="text-center text-[10px] uppercase tracking-widest font-mono font-medium opacity-60 footer-text py-0.5">
+                Rixo AI Engine v3.0 • Secure Encryption Matrix
             </div>
         </div>
 
     </div>
 
     <script>
-        let activeRoomRoute = "main"; 
-        
-        let sessionStore = {
-            main: { historyArray: [], welcomeActive: true },
-            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me an extremely funny fresh joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor. Default response language must be English unless the historical context implies otherwise.", headerIcon: "smile" },
-            code: { historyArray: [], welcomeActive: false, initialPrompt: "Respond with exactly: 'How can I help you with coding? 💻'", headerIcon: "code-2" },
-            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Respond with exactly: 'What would you like to know about AI? 🚀'", headerIcon: "brain" }
-        };
-
+        let globalChatHistory = [];
         const SERVER_URL = "/chat";
 
         window.addEventListener("DOMContentLoaded", () => {
-            loadAllStateFromStorage();
-            renderActiveRoomStage();
-            switchTheme(localStorage.getItem("rixo_style_theme") || "dark");
+            loadSavedEngineLogs();
+            switchThemeModeEngine(localStorage.getItem("rixo_style_theme") || "dark");
+            lucide.createIcons();
         });
 
-        function switchTheme(themeMode) {
+        function switchThemeModeEngine(themeMode) {
             if(themeMode === "pastel") {
                 document.body.classList.remove("dark-mode");
                 document.body.classList.add("pastel-mode");
@@ -157,87 +172,72 @@
             document.getElementById("threeDotsMenu").classList.add("hidden");
         });
 
-        function routeToSession(targetRoom) {
-            activeRoomRoute = targetRoom;
-            renderActiveRoomStage();
+        // Fixed: Combined routing prompt tasks instantly running on the main timeline frame array
+        async function injectPresetPromptTask(type) {
+            // Hide welcome screen module cards elements dynamically on action trigger
+            document.getElementById("welcomeDashboard").style.display = "none";
             
-            if(targetRoom !== 'main' && sessionStore[targetRoom].historyArray.length === 0) {
-                executeEngineBackendOperation(sessionStore[targetRoom].initialPrompt);
-            }
-        }
+            let systemInstructionString = "";
+            let userDisplayMessage = "";
 
-        function renderActiveRoomStage() {
-            const container = document.getElementById("messages");
-            container.innerHTML = ""; 
-            
-            const backBtn = document.getElementById("backToMainBtn");
-            const mainTitle = document.getElementById("headerTitle");
-            const iconContainer = document.getElementById("dynamicIconContainer");
-
-            if(activeRoomRoute === "main") {
-                backBtn.classList.add("hidden");
-                mainTitle.innerText = "Rixo AI";
-                iconContainer.innerHTML = `<i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>`;
-
-                if(sessionStore.main.welcomeActive) {
-                    container.innerHTML = `
-                        <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
-                            <div class="flex justify-start w-full">
-                                <div class="msg-bot">Hi! I am Rixo. How can I help you today?</div>
-                            </div>
-                            <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                                <button onclick="routeToSession('joke')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                                    <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>Tell a Joke</span>
-                                </button>
-                                <button onclick="routeToSession('code')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                                    <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>Code Help</span>
-                                </button>
-                                <button onclick="routeToSession('insights')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                                    <i data-lucide="brain" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>AI Insights</span>
-                                </button>
-                            </div>
-                        </div>`;
-                }
-            } else {
-                backBtn.classList.remove("hidden");
-                mainTitle.innerText = activeRoomRoute === 'joke' ? 'Jokes Station' : activeRoomRoute === 'code' ? 'Code Matrix' : 'AI Lab';
-                
-                const currentIcon = sessionStore[activeRoomRoute].headerIcon;
-                iconContainer.innerHTML = `<i data-lucide="${currentIcon}" class="w-4 h-4 text-cyan-500"></i>`;
+            if (type === 'joke') {
+                userDisplayMessage = "Tell me a joke";
+                systemInstructionString = "Tell me an extremely funny fresh joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor. Default response language must be English unless user text context implies otherwise.";
+            } else if (type === 'code') {
+                userDisplayMessage = "How can I help you with coding?";
+                systemInstructionString = "Respond exactly with: 'How can I help you with coding? 💻' (Do not use any other text or additional emojis outside this layout rule constraint)";
+            } else if (type === 'insights') {
+                userDisplayMessage = "What would you like to know about AI?";
+                systemInstructionString = "Respond exactly with: 'What would you like to know about AI? 🚀' (Do not use any other text or additional emojis outside this layout rule constraint)";
             }
 
-            sessionStore[activeRoomRoute].historyArray.forEach(msg => {
-                appendUIMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
-            });
+            appendChatMessageNode(userDisplayMessage, "user");
+            globalChatHistory.push({ role: "user", content: userDisplayMessage });
+            saveSavedEngineLogs();
 
-            lucide.createIcons();
-            scrollChatToBottom();
+            await transmissionLogEngine(systemInstructionString);
         }
 
-        async function executeEngineBackendOperation(userInputPromptText) {
-            const loaderId = "l-" + Date.now();
+        async function handleManualUserSubmission() {
+            const input = document.getElementById("userInput");
+            const text = input.value.trim();
+            if (!text) return;
+
+            // Clear visual clutter dashboards if active
+            document.getElementById("welcomeDashboard").style.display = "none";
+
+            appendChatMessageNode(text, "user");
+            globalChatHistory.push({ role: "user", content: text });
+            saveSavedEngineLogs();
+            input.value = "";
+
+            // Dynamic background injection parameters tracking localization translation logic rules
+            let injectionPrompt = text + " (Note: Respond in English language by default. However, if the user input phrase is explicitly written in Hindi/Hinglish language, then match that language structure directly in your response.)";
+            
+            await transmissionLogEngine(injectionPrompt);
+        }
+
+        async function transmissionLogEngine(promptInstructionText) {
+            const loaderId = "loader-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
             loader.className = "flex justify-start mb-2";
             loader.innerHTML = `
                 <div class="msg-bot flex items-center gap-1.5 px-4 py-3">
-                    <span class="w-2 h-2 rounded-full bg-cyan-500 loader-dot"></span>
-                    <span class="w-2 h-2 rounded-full bg-cyan-500 loader-dot"></span>
-                    <span class="w-2 h-2 rounded-full bg-cyan-500 loader-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
                 </div>`;
             document.getElementById("messages").appendChild(loader);
-            scrollChatToBottom();
+            scrollTimelineToBottom();
 
             try {
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
-                        message: userInputPromptText,
-                        history: sessionStore[activeRoomRoute].historyArray 
+                        message: promptInstructionText,
+                        history: globalChatHistory 
                     })
                 });
 
@@ -245,87 +245,65 @@
                 document.getElementById(loaderId).remove();
 
                 if (data.reply) {
-                    appendUIMessageNode(data.reply, "bot");
-                    sessionStore[activeRoomRoute].historyArray.push({ role: "assistant", content: data.reply });
-                    saveAllStateToStorage(); 
+                    appendChatMessageNode(data.reply, "bot");
+                    globalChatHistory.push({ role: "assistant", content: data.reply });
+                    saveSavedEngineLogs(); 
                 } else {
-                    appendUIMessageNode("Server issue. Please try again.", "bot");
+                    appendChatMessageNode("Server connection timeout. Please check console logs.", "bot");
                 }
             } catch (err) {
-                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed.</div>`;
+                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Engine terminal pipeline failure.</div>`;
             }
         }
 
-        async function handleUserMessageTransmission() {
-            const input = document.getElementById("userInput");
-            const text = input.value.trim();
-            if (!text) return;
-
-            if (activeRoomRoute === 'main' && sessionStore.main.welcomeActive) {
-                sessionStore.main.welcomeActive = false;
-                const element = document.getElementById("suggestions");
-                if (element) element.style.display = "none";
-            }
-
-            // Universal language guardrail: Default to English unless user queries in Hindi/Hinglish
-            let customizedRoutePrompt = text + " (Note: Respond in English language by default. However, if the user input phrase is explicitly written in Hindi/Hinglish language, then match that language structure directly in your response.)";
-            
-            if (activeRoomRoute === 'joke') {
-                customizedRoutePrompt += " (Act as a pure funny comedian persona and use expressive funny emojis like 😂, 🤣 or 💀 in the text body response)";
-            } else if (activeRoomRoute === 'code' || activeRoomRoute === 'insights') {
-                customizedRoutePrompt += " (Strictly do not use any emojis in this technical response layout)";
-            }
-
-            appendUIMessageNode(text, "user");
-            sessionStore[activeRoomRoute].historyArray.push({ role: "user", content: text });
-            saveAllStateToStorage(); 
-            input.value = "";
-
-            await executeEngineBackendOperation(customizedRoutePrompt);
-        }
-
-        function appendUIMessageNode(text, sender) {
-            const messages = document.getElementById("messages");
-            const div = document.createElement("div");
-            div.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
+        function appendChatMessageNode(text, sender) {
+            const messagesContainer = document.getElementById("messages");
+            const wrapperDiv = document.createElement("div");
+            wrapperDiv.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
             
             if (sender === "bot") {
-                let processedText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-                div.innerHTML = `<div class="msg-bot">${processedText}</div>`;
+                let formattedMarkdownText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+                wrapperDiv.innerHTML = `<div class="msg-bot">${formattedMarkdownText}</div>`;
             } else {
-                div.innerHTML = `<div class="msg-user">${text}</div>`;
+                wrapperDiv.innerHTML = `<div class="msg-user">${text}</div>`;
             }
             
-            messages.appendChild(div);
-            scrollChatToBottom();
+            messagesContainer.appendChild(wrapperDiv);
+            scrollTimelineToBottom();
         }
 
-        function triggerClearCurrentSession() {
-            sessionStore[activeRoomRoute].historyArray = [];
-            if(activeRoomRoute === 'main') {
-                sessionStore.main.welcomeActive = true;
+        function clearChatHistoryStream() {
+            globalChatHistory = [];
+            localStorage.removeItem("rixo_single_timeline_store");
+            document.getElementById("messages").innerHTML = "";
+            document.getElementById("welcomeDashboard").style.display = "flex";
+            document.getElementById("messages").appendChild(document.getElementById("welcomeDashboard"));
+            scrollTimelineToBottom();
+        }
+
+        function saveSavedEngineLogs() {
+            localStorage.setItem("rixo_single_timeline_store", JSON.stringify(globalChatHistory));
+        }
+
+        function loadSavedEngineLogs() {
+            const databaseLogLogs = localStorage.getItem("rixo_single_timeline_store");
+            if(databaseLogLogs) {
+                globalChatHistory = JSON.parse(databaseLogLogs);
+                if(globalChatHistory.length > 0) {
+                    document.getElementById("welcomeDashboard").style.display = "none";
+                    globalChatHistory.forEach(msg => {
+                        appendChatMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
+                    });
+                }
             }
-            renderActiveRoomStage();
-            saveAllStateToStorage();
         }
 
-        function saveAllStateToStorage() {
-            localStorage.setItem("rixo_multiverse_store", JSON.stringify(sessionStore));
+        function scrollTimelineToBottom() {
+            const messagesWindow = document.getElementById("messages");
+            setTimeout(() => { messagesWindow.scrollTop = messagesWindow.scrollHeight; }, 30);
         }
 
-        function loadAllStateFromStorage() {
-            const savedStateData = localStorage.getItem("rixo_multiverse_store");
-            if(savedStateData) {
-                sessionStore = JSON.parse(savedStateData);
-            }
-        }
-
-        function scrollChatToBottom() {
-            const messages = document.getElementById("messages");
-            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 30);
-        }
-
-        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") handleUserMessageTransmission(); });
+        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") handleManualUserSubmission(); });
     </script>
 </body>
 </html>
