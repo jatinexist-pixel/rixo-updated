@@ -6,9 +6,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(__dirname));
+
 const API_KEY = process.env.GEMINI_API_KEY;
 app.get('/', (req, res) => {
-    res.send('Server is running');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/chat', async (req, res) => {
