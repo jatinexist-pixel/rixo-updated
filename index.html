@@ -1,28 +1,71 @@
-<div class="app-wrapper max-w-md sm:border-x border-white/5 z-10">
-        
-        <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#050508]/80 backdrop-blur-md shrink-0 z-10">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Rixo AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        html, body { 
+            background: #050508; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            color: #e2e8f0; 
+            margin: 0; 
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .app-wrapper {
+            height: 100vh;
+            height: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: #050508;
+        }
+        .msg-user {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            border-radius: 18px 18px 4px 18px;
+            padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+        }
+        .msg-bot {
+            background: #11141b; border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px 18px 18px 4px;
+            padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.5;
+        }
+        .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; width: 100%; }
+        .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
+        #messages::-webkit-scrollbar { width: 0; }
+    </style>
+</head>
+<body class="flex justify-center bg-black">
+
+    <div class="app-wrapper max-w-md sm:border-x border-white/5">
+        <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#050508]/90 backdrop-blur-md shrink-0">
             <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
                     <i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>
                 </div>
                 <h1 class="font-bold text-base tracking-tight text-white">Rixo AI</h1>
             </div>
-            <button class="hover:bg-white/5 p-1 rounded-full transition-colors">
-                <i data-lucide="sparkles" class="w-4 h-4 text-cyan-500"></i>
-            </button>
+            <i data-lucide="more-horizontal" class="text-gray-500"></i>
         </header>
 
-        <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4 z-10">
-            <div class="flex justify-start msg-anim">
-                <div class="msg-bot text-white">Hi! I am Rixo. How can I help you today?</div>
+        <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
+            <div class="flex justify-start">
+                <div class="msg-bot text-white">Hi! I am Rixo. How can I help you?</div>
             </div>
         </div>
 
-        <div class="p-4 bg-[#050508]/90 backdrop-blur-md border-t border-white/5 shrink-0 z-10">
+        <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
                     class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm" 
-                    placeholder="Ask Rixo anything..."
+                    placeholder="Message Rixo..."
                     autocomplete="off">
                 <button onclick="sendMessage()" class="send-btn">
                     <i data-lucide="arrow-up" class="w-5 h-5 stroke-[3px]"></i>
@@ -45,16 +88,14 @@
             input.value = "";
 
             const loaderId = "l-" + Date.now();
-            const loader = document.createElement("div");
+                const loader = document.createElement("div");
             loader.id = loaderId;
-            loader.className = "flex justify-start msg-anim";
-            
-            // FIXED QUOTES ISSUE HERE: Safely wrapped html string
-            loader.innerHTML = '<div class="msg-bot flex items-center gap-1.5 py-3 px-4"><span class="text-xs text-gray-400 mr-1">Rixo is thinking</span><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            loader.className = "flex justify-start";
+            loader.innerHTML = '<div class="msg-bot text-gray-500 text-xs">Rixo is thinking...</div>';
             document.getElementById("messages").appendChild(loader);
             
-            const messagesContainer = document.getElementById("messages");
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            const box = document.getElementById("messages");
+            box.scrollTop = box.scrollHeight;
 
             try {
                 const response = await fetch(SERVER_URL, {
@@ -64,7 +105,6 @@
                 });
 
                 const data = await response.json();
-                
                 const currentLoader = document.getElementById(loaderId);
                 if (currentLoader) currentLoader.remove();
 
@@ -77,15 +117,15 @@
             } catch (err) {
                 const currentLoader = document.getElementById(loaderId);
                 if (currentLoader) {
-                    currentLoader.innerHTML = '<div class="msg-bot text-red-400 text-xs">Error: Could not connect to Rixo server.</div>';
+                    currentLoader.innerHTML = '<div class="msg-bot text-red-400 text-xs">Error: Connection issue.</div>';
                 }
             }
         }
 
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
-                const div = document.createElement("div");
-            div.className = "flex msg-anim " + (sender === "user" ? "justify-end" : "justify-start");
+            const div = document.createElement("div");
+            div.className = "flex " + (sender === "user" ? "justify-end" : "justify-start");
             div.innerHTML = '<div class="msg-' + sender + '">' + text + '</div>';
             messages.appendChild(div);
             
