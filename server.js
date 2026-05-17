@@ -5,6 +5,13 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+const path = require('path');
+
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.use(express.static(__dirname));
 
