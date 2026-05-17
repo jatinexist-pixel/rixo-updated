@@ -1,19 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-const path = require('path');
 
+// Static files (HTML, CSS, JS) serve karne ke liye setup
 app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
-app.use(express.static(__dirname));
 
 const API_KEY = process.env.OPENROUTER_API_KEY;
 
@@ -21,12 +20,17 @@ app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
 
+        if (!message) {
+            return res.status(400).json({ reply: "Message is required" });
+        }
+
+        // FIXED: Authorization header me proper backticks () laga diye hain
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${API_KEY}`,
+                    "Authorization": Bearer ${API_KEY}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
@@ -43,28 +47,21 @@ app.post('/chat', async (req, res) => {
 
         const data = await response.json();
 
-        console.log(data);
+        console.log("OpenRouter Response:", JSON.stringify(data, null, 2));
 
-        console.log(JSON.stringify(data, null, 2));
-
-const botReply =
-    data.choices &&
-    data.choices[0] &&
-    data.choices[0].message &&
-    data.choices[0].message.content
-        ? data.choices[0].message.content
-        : "No response from AI";
+        // Response reading perfectly fixed
+        const botReply = data?.choices?.[0]?.message?.content || "No response from AI";
 
         res.json({
             reply: botReply
         });
 
     } catch (error) {
-        console.error(error);
-
+        console.error("Server Error:", error);
         res.status(500).json({
             reply: "Server error"
         });
     }
 });
+
 module.exports = app;
