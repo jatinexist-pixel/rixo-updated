@@ -39,8 +39,8 @@ app.post('/chat', async (req, res) => {
 
         if (data.error) {
             return res.status(500).json({
-                reply: data.error.message
-            });
+    reply: API Error: ${data.error.message || 'Unknown'}
+});
         }
 
         const botReply =
