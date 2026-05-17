@@ -118,21 +118,21 @@
             
             <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                 <div class="flex justify-start w-full">
-                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today? ✨</div>
+                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today?</div>
                 </div>
 
                 <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                    <button onclick="useSuggestion('Tell me an extremely funny, modern dark humor joke or roast')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Tell me a funny modern joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>Tell a Joke 🔥</span>
+                        <span>Tell a Joke</span>
                     </button>
-                    <button onclick="useSuggestion('Give me a professional clean coding template or expert technical structure setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('trigger_code_help_prompt')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>Code Help 💻</span>
+                        <span>Code Help</span>
                     </button>
-                    <button onclick="useSuggestion('Share some mind-blowing futuristic insights about advanced AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <button onclick="useSuggestion('Share some interesting insights about AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                         <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>AI Insights 🚀</span>
+                        <span>AI Insights</span>
                     </button>
                 </div>
             </div>
@@ -215,20 +215,20 @@
             messages.innerHTML = `
                 <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                     <div class="flex justify-start w-full">
-                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today? ✨</div>
+                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today?</div>
                     </div>
                     <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                        <button onclick="useSuggestion('Tell me an extremely funny, modern dark humor joke or roast')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Tell me a funny modern joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>Tell a Joke 🔥</span>
+                            <span>Tell a Joke</span>
                         </button>
-                        <button onclick="useSuggestion('Give me a professional clean coding template or expert technical structure setup')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('trigger_code_help_prompt')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>Code Help 💻</span>
+                            <span>Code Help</span>
                         </button>
-                        <button onclick="useSuggestion('Share some mind-blowing futuristic insights about advanced AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                        <button onclick="useSuggestion('Share some interesting insights about AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                             <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>AI Insights 🚀</span>
+                            <span>AI Insights</span>
                         </button>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
             scrollChatToBottom();
         }
 
-        async function executeBackendCall(promptText) {
+        async function executeBackendCall(promptText, systemContext = null) {
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
@@ -255,12 +255,15 @@
             document.getElementById("messages").appendChild(loader);
             scrollChatToBottom();
 
+            // Use context instruction if provided for strict assistant behavior steering
+            const finalMessageToSend = systemContext ? systemContext : promptText;
+
             try {
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
-                        message: promptText,
+                        message: finalMessageToSend,
                         history: apiHistoryArray 
                     })
                 });
@@ -273,11 +276,11 @@
                     apiHistoryArray.push({ role: "assistant", content: data.reply });
                     saveChatHistory(); 
                 } else {
-                    addMessage("Server issue. Please try again. ⚠️", "bot");
+                    addMessage("Server issue. Please try again.", "bot");
                 }
 
             } catch (err) {
-                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed. ❌</div>`;
+                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed.</div>`;
             }
         }
 
@@ -317,8 +320,15 @@
             const suggestions = document.getElementById("suggestions");
             if (suggestions) suggestions.style.display = "none";
 
-            apiHistoryArray.push({ role: "user", content: phrase });
-            executeBackendCall(phrase);
+            if (phrase === 'trigger_code_help_prompt') {
+                // Steering instruction tells server to just ask the user what they want to code
+                const systemPrompt = "Ask me what language or project I need help coding right now. Do not generate code yet.";
+                apiHistoryArray.push({ role: "user", content: "I need code help" });
+                executeBackendCall("I need code help", systemPrompt);
+            } else {
+                apiHistoryArray.push({ role: "user", content: phrase });
+                executeBackendCall(phrase);
+            }
         }
 
         function saveChatHistory() {
