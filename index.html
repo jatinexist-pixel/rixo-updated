@@ -27,25 +27,27 @@
         body.dark-mode .popover-menu { background: #0d1017; border-color: rgba(255, 255, 255, 0.08); color: #e2e8f0; }
         body.dark-mode .clear-btn:hover { color: #f87171; background: rgba(248, 113, 113, 0.05); }
 
-        /* ----- ULTRA-PREMIUM MINIMALIST LIGHT THEME ----- */
-        body.light-mode { background: #f5f5f7; color: #1c1c1e; }
-        body.light-mode .app-container { background-color: #fafafa; background-image: radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px); background-size: 16px 16px; }
-        body.light-mode .header-el { background: rgba(250, 250, 250, 0.9); border-color: rgba(0, 0, 0, 0.04); box-shadow: 0 2px 12px rgba(0,0,0,0.01); }
-        body.light-mode .msg-bot { background: #f0f0f3; border-color: rgba(0, 0, 0, 0.03); color: #2c2c2e; box-shadow: 0 2px 8px rgba(0,0,0,0.01); }
-        body.light-mode .msg-user { background: linear-gradient(135deg, #3a3a3c 0%, #1c1c1e 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
-        body.light-mode .input-container { background: rgba(250, 250, 250, 0.95); border-color: rgba(0, 0, 0, 0.02); }
-        body.light-mode .input-bar { background: #f0f0f3; border-color: rgba(0, 0, 0, 0.05); color: #1c1c1e; }
-        body.light-mode .pill-btn { background: #f0f0f3; border-color: rgba(0, 0, 0, 0.04); color: #48484a; }
-        body.light-mode .popover-menu { background: #fcfcfd; border-color: rgba(0, 0, 0, 0.08); color: #1c1c1e; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-        body.light-mode .clear-btn:hover { color: #a98477; background: rgba(169, 132, 119, 0.08); }
-        body.light-mode .text-white { color: inherit; }
-        body.light-mode h1 { color: #1c1c1e; }
+        /* ----- ULTRA-PREMIUM NO-COLORS LIGHT THEME ----- */
+        body.light-mode { background: #f4f4f6; color: #1a1a1c; }
+        body.light-mode .app-container { background-color: #f9f9fb; background-image: radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px); background-size: 16px 16px; }
+        body.light-mode .header-el { background: #f9f9fb; border-color: rgba(0, 0, 0, 0.05); }
+        body.light-mode .msg-bot { background: #eaeaea; border-color: rgba(0, 0, 0, 0.02); color: #1a1a1c; }
+        body.light-mode .msg-user { background: #1a1a1c; color: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06); }
+        body.light-mode .input-container { background: #f9f9fb; border-color: rgba(0, 0, 0, 0.02); }
+        body.light-mode .input-bar { background: #eaeaea; border-color: rgba(0, 0, 0, 0.04); color: #1a1a1c; }
+        body.light-mode .pill-btn { background: #eaeaea; border-color: rgba(0, 0, 0, 0.03); color: #2e2e31; }
+        body.light-mode .popover-menu { background: #1a1a1c; border-color: rgba(0, 0, 0, 0.1); color: #ffffff; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+        body.light-mode .clear-btn:hover { color: #9c8070; background: rgba(156, 128, 112, 0.06); }
+        body.light-mode .text-white { color: #1a1a1c; }
+        body.light-mode h1 { color: #1a1a1c; }
+        body.light-mode .popover-menu button { color: #ffffff !important; }
+        body.light-mode .popover-menu button:hover { background: rgba(255, 255, 255, 0.08); }
 
-        /* Common Core Layout System Styles */
+        /* Common Core Structural Elements */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; font-weight: 500; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #1c1c1e; }
+        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #1a1a1c; }
         body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
 
         @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -56,7 +58,7 @@
 
         .input-bar { border-width: 1px; border-radius: 28px; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; }
-        body.light-mode .send-btn { background: #1c1c1e; color: #fff; }
+        body.light-mode .send-btn { background: #1a1a1c; color: #fff; }
         
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
@@ -78,12 +80,11 @@
                 </div>
                 <div class="flex flex-col">
                     <h1 class="font-bold text-sm tracking-tight text-white transition-all" id="headerTitle">Rixo AI</h1>
-                    <span class="text-[9px] text-gray-500 uppercase font-mono tracking-wider hidden" id="headerContextTag">Context Room</span>
                 </div>
             </div>
             
             <div class="flex items-center gap-1.5">
-                <button onclick="triggerClearCurrentSession()" class="p-2 text-gray-400 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat Stream">
+                <button onclick="triggerClearCurrentSession()" class="p-2 text-gray-400 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
                 <button onclick="toggleThreeDotsMenu(event)" class="p-2 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-colors">
@@ -92,10 +93,10 @@
             </div>
 
             <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-40 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
-                <button onclick="switchTheme('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg hover:bg-black/[0.03] transition-all">
-                    <i data-lucide="sun" class="w-3.5 h-3.5 text-neutral-500"></i> Light Mode
+                <button onclick="switchTheme('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-neutral-400"></i> Light Mode
                 </button>
-                <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg hover:bg-white/[0.04] transition-all">
+                <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
                     <i data-lucide="moon" class="w-3.5 h-3.5 text-cyan-400"></i> Absolute Dark
                 </button>
             </div>
@@ -122,9 +123,9 @@
         
         let sessionStore = {
             main: { historyArray: [], welcomeActive: true },
-            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me a extremely funny modern joke. Use funny emojis like 😂 or 🤣 in the response.", headerIcon: "smile" },
+            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me an extremely funny modern joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor.", headerIcon: "smile" },
             code: { historyArray: [], welcomeActive: false, initialPrompt: "Ask me what language or project I need help coding right now. Do not generate code yet.", headerIcon: "code-2" },
-            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Share some mind-blowing futuristic insights about advanced AI scaling models", headerIcon: "brain" }
+            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Share some interesting insights about AI scaling models without using any emojis.", headerIcon: "brain" }
         };
 
         const SERVER_URL = "/chat";
@@ -170,13 +171,11 @@
             container.innerHTML = ""; 
             
             const backBtn = document.getElementById("backToMainBtn");
-            const ctxTag = document.getElementById("headerContextTag");
             const mainTitle = document.getElementById("headerTitle");
             const iconContainer = document.getElementById("dynamicIconContainer");
 
             if(activeRoomRoute === "main") {
                 backBtn.classList.add("hidden");
-                ctxTag.classList.add("hidden");
                 mainTitle.innerText = "Rixo AI";
                 iconContainer.innerHTML = `<i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>`;
 
@@ -184,28 +183,26 @@
                     container.innerHTML = `
                         <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                             <div class="flex justify-start w-full">
-                                <div class="msg-bot">Hi! I am Rixo. How can I help you today? ✨</div>
+                                <div class="msg-bot">Hi! I am Rixo. How can I help you today?</div>
                             </div>
                             <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
                                 <button onclick="routeToSession('joke')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                                     <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>Tell a Joke 🔥</span>
+                                    <span>Tell a Joke</span>
                                 </button>
                                 <button onclick="routeToSession('code')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                                     <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>Code Help 💻</span>
+                                    <span>Code Help</span>
                                 </button>
                                 <button onclick="routeToSession('insights')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                                     <i data-lucide="brain" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>AI Insights 🚀</span>
+                                    <span>AI Insights</span>
                                 </button>
                             </div>
                         </div>`;
                 }
             } else {
                 backBtn.classList.remove("hidden");
-                ctxTag.classList.remove("hidden");
-                ctxTag.innerText = `${activeRoomRoute} session window`;
                 mainTitle.innerText = activeRoomRoute === 'joke' ? 'Jokes Station' : activeRoomRoute === 'code' ? 'Code Matrix' : 'AI Lab';
                 
                 const currentIcon = sessionStore[activeRoomRoute].headerIcon;
@@ -270,12 +267,20 @@
                 if (element) element.style.display = "none";
             }
 
+            // Append specific logic constraints to character personality rules based on active route session settings
+            let customizedRoutePrompt = text;
+            if (activeRoomRoute === 'joke') {
+                customizedRoutePrompt += " (Act as a pure funny comedian persona and use expressive funny emojis like 😂, 🤣 or 💀 in the text body response)";
+            } else if (activeRoomRoute === 'code' || activeRoomRoute === 'insights') {
+                customizedRoutePrompt += " (Strictly do not use any emojis in this technical response layout)";
+            }
+
             appendUIMessageNode(text, "user");
             sessionStore[activeRoomRoute].historyArray.push({ role: "user", content: text });
             saveAllStateToStorage(); 
             input.value = "";
 
-            await executeEngineBackendOperation(text);
+            await executeEngineBackendOperation(customizedRoutePrompt);
         }
 
         function appendUIMessageNode(text, sender) {
