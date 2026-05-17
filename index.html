@@ -36,12 +36,13 @@
             background: #11141b; border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 18px 18px 18px 4px;
             padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.5;
+            position: relative;
         }
         .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; width: 100%; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
         #messages::-webkit-scrollbar { width: 0; }
 
-        /* --- HIGHLY PROFESSIONAL TYPING BUBBLE (iOS/ChatGPT Style) --- */
+        /* --- PROFESSIONAL TYPING BUBBLE --- */
         .typing-bubble {
             background: #11141b;
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -59,9 +60,9 @@
         }
         .typing-indicator span {
             display: block;
-            width: 5px; /* Size perfect and professional */
+            width: 5px;
             height: 5px;
-            background: #94a3b8; /* Professional muted slate/silver color */
+            background: #94a3b8;
             border-radius: 50%;
             opacity: 0.4;
             animation: premium-bounce 1.4s infinite ease-in-out;
@@ -72,13 +73,14 @@
 
         @keyframes premium-bounce {
             0%, 100% { transform: translateY(0); opacity: 0.4; }
-            50% { transform: translateY(-5px); opacity: 1; background: #22d3ee; /* Soft transition to premium soft cyan at peak */ }
+            50% { transform: translateY(-5px); opacity: 1; background: #22d3ee; }
         }
     </style>
 </head>
 <body class="flex justify-center bg-black">
 
     <div class="app-wrapper max-w-md sm:border-x border-white/5">
+        
         <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#050508]/90 backdrop-blur-md shrink-0">
             <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
@@ -86,7 +88,9 @@
                 </div>
                 <h1 class="font-bold text-base tracking-tight text-white">Rixo AI</h1>
             </div>
-            <i data-lucide="more-horizontal" class="text-gray-500"></i>
+            <button onclick="clearChat()" class="text-gray-500 hover:text-red-400 p-1.5 rounded-lg transition-colors" title="Clear Chat">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
         </header>
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
             <div class="flex justify-start">
@@ -95,6 +99,19 @@
         </div>
 
         <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0">
+            
+            <div id="suggestions" class="flex gap-2 mb-3 overflow-x-auto pb-1">
+                <button onclick="useSuggestion('Tell me a joke 🎭')" class="bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    🎭 Tell me a joke
+                </button>
+                <button onclick="useSuggestion('Explain Bubble Sort 💻')" class="bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    💻 Code Help
+                </button>
+                <button onclick="useSuggestion('What is AI? 🤖')" class="bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    🤖 What is AI?
+                </button>
+            </div>
+
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
                     class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm" 
@@ -108,6 +125,7 @@
     </div>
 
     <script>
+        // Initialize Lucide Icons initially
         lucide.createIcons();
 
         const SERVER_URL = "/chat"; 
@@ -119,13 +137,15 @@
 
             addMessage(text, "user");
             input.value = "";
+            
+            // Hide suggestions container after first interaction
+            document.getElementById("suggestions").style.display = "none";
 
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
             loader.className = "flex justify-start";
             
-            // NEW: Clean Professional iOS Style Structure
             loader.innerHTML = '<div class="typing-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';
             document.getElementById("messages").appendChild(loader);
             
@@ -156,17 +176,54 @@
                 }
             }
         }
-
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
             div.className = "flex " + (sender === "user" ? "justify-end" : "justify-start");
-            div.innerHTML = '<div class="msg-' + sender + '">' + text + '</div>';
+            
+            if (sender === "bot") {
+                // Added a Copy Button directly integrated inside bot replies natively
+                div.innerHTML = '<div class="msg-bot text-white flex flex-col gap-1"><div>' + text + '</div><button onclick="copyToClipboard(this)" class="self-end text-gray-500 hover:text-cyan-400 mt-1 transition-colors" title="Copy Reply"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button></div>';
+            } else {
+                div.innerHTML = '<div class="msg-user">' + text + '</div>';
+            }
+            
             messages.appendChild(div);
+            
+            // Dynamically create icons for new messages
+            lucide.createIcons();
             
             setTimeout(() => {
                 messages.scrollTop = messages.scrollHeight;
             }, 50);
+        }
+
+        // Feature 1: Quick Suggestions logic
+        function useSuggestion(phrase) {
+            document.getElementById("userInput").value = phrase;
+            sendMessage();
+        }
+
+        // Feature 2: Clear Chat logic
+        function clearChat() {
+            const messages = document.getElementById("messages");
+            messages.innerHTML = '<div class="flex justify-start"><div class="msg-bot text-white">Chat cleared! How can I help you now?</div></div>';
+            document.getElementById("suggestions").style.display = "flex";
+            lucide.createIcons();
+        }
+
+        // Feature 3: Copy to clipboard logic
+        function copyToClipboard(button) {
+            const textToCopy = button.parentElement.firstElementChild.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Temporary feedback icon change
+                button.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5 text-green-400"></i>';
+                lucide.createIcons();
+                setTimeout(() => {
+                    button.innerHTML = '<i data-lucide="copy" class="w-3.5 h-3.5"></i>';
+                    lucide.createIcons();
+                }, 1500);
+            });
         }
         
         document.getElementById("userInput").addEventListener("keypress", (e) => { 
