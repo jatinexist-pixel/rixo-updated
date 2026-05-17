@@ -127,7 +127,7 @@
         const SERVER_URL = "/chat"; 
         let currentTargetMessage = null;
         let pressTimer = null;
-        let apiHistoryArray = []; // State controller for accurate historical API structures
+        let apiHistoryArray = []; 
 
         window.addEventListener("DOMContentLoaded", () => {
             loadChatHistory();
@@ -154,6 +154,7 @@
             }
         }
 
+        // Fixed Clear Functionality with Instant UI Reset
         function triggerClear() {
             const messages = document.getElementById("messages");
             messages.innerHTML = `
@@ -163,9 +164,24 @@
                             Chat cleared! How can I help you now?
                         </div>
                     </div>
+                    <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
+                        <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                            <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
+                            <span>Tell a Joke</span>
+                        </button>
+                        <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                            <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
+                            <span>Code Help</span>
+                        </button>
+                        <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                            <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
+                            <span>AI Insights</span>
+                        </button>
+                    </div>
                 </div>
             `;
             localStorage.removeItem("rixo_chat_history");
+            localStorage.removeItem("rixo_api_array");
             apiHistoryArray = [];
             closeMenu();
             lucide.createIcons();
@@ -181,7 +197,6 @@
 
             addMessage(text, "user");
             
-            // Push structured payload standard schema
             apiHistoryArray.push({ role: "user", content: text });
             saveChatHistory(); 
             input.value = "";
@@ -195,7 +210,6 @@
             document.getElementById("messages").scrollTo({ top: document.getElementById("messages").scrollHeight, behavior: 'smooth' });
 
             try {
-                // Combines both naming keys so server matching won't ever fail
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
