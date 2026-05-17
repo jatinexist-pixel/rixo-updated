@@ -27,8 +27,9 @@ app.post('/chat', async (req, res) => {
             return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
         }
 
+        // Switching to Meta Llama 3 70B (Instruct) for robust custom prompt parsing and perfect coding output
         const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
+            "[https://openrouter.ai/api/v1/chat/completions](https://openrouter.ai/api/v1/chat/completions)",
             {
                 method: "POST",
                 headers: {
@@ -36,19 +37,19 @@ app.post('/chat', async (req, res) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "google/gemini-2.5-flash",
+                    model: "meta-llama/llama-3-70b-instruct", 
                     messages: [
                         {
                             role: "system",
-                            content: "You are Rixo, a friendly and cool companion. For casual talks, greetings, 'hi', 'hello', or normal chat, reply extremely shortly in just 1 or 2 lines like a friend on WhatsApp. Do not write long paragraphs for general chat. If the user asks for a joke, tell a totally unique, funny, and fresh joke every time. Do not repeat the same joke. However, if the user asks an educational, technical, coding, mathematical, or knowledge-based question, provide a detailed, well-structured paragraph or code explanation."
+                            content: "You are Rixo, a cool AI friend. For casual talk or greetings, reply in just 1-2 friendly sentences. Never use paragraphs for basic chit-chat. If the user asks for a joke, tell a completely unique, fresh, and modern joke, using distinct creative contexts each time so it never repeats. CRITICAL: If the user explicitly asks for code, programming scripts, algorithms, or technical queries, you MUST write the complete, clean code block wrapped inside triple backticks (`) so it can render properly. Never refuse to write code."
                         },
                         {
                             role: "user",
                             content: message
                         }
                     ],
-                    temperature: 0.9, // Higher temperature so AI gives totally unique, non-repeating jokes
-                    max_tokens: 500
+                    temperature: 0.95, // Maximize creativity to avoid joke repetition entirely
+                    max_tokens: 1000 // Increased tokens so full code snippets don't get cut off
                 })
             }
         );
