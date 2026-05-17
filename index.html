@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rixo AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap)" rel="stylesheet">
     
     <style>
         html, body { 
@@ -25,7 +25,6 @@
             width: 100%;
             background-color: #050508;
         }
-        /* Fixed bubble layout - dynamically resizes to content */
         .msg-user {
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 18px 18px 4px 18px;
@@ -139,9 +138,7 @@
 
     <script>
         const SERVER_URL = "/chat"; 
-        
-        // This array will hold the local dynamic memory of the conversation
-        let chatHistory = [];
+        let chatHistory = []; // Local dynamic conversation logs
 
         function formatAIResponse(text) {
             let clean = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -161,8 +158,6 @@
             input.value = "";
             
             document.getElementById("suggestions").style.display = "none";
-
-            // Push current user text to global memory
             chatHistory.push({ role: "user", content: text });
 
             const loaderId = "l-" + Date.now();
@@ -176,7 +171,6 @@
             box.scrollTop = box.scrollHeight;
 
             try {
-                // Sending the full dynamic memory array to backend
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -189,7 +183,6 @@
 
                 if (data.reply) {
                     addMessage(data.reply, "bot");
-                    // Push current bot response to global memory
                     chatHistory.push({ role: "assistant", content: data.reply });
                 } else {
                     addMessage("Server issue. Please try again.", "bot");
@@ -203,10 +196,11 @@
             }
         }
 
+        // Clean layout dynamic message node loader
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
-            div.className = "flex " + (sender === "user" ? "justify-end" : "justify-start");
+            div.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
             
             if (sender === "bot") {
                 let parsedText = formatAIResponse(text);
@@ -216,10 +210,7 @@
             }
             
             messages.appendChild(div);
-            
-            setTimeout(() => {
-                messages.scrollTop = messages.scrollHeight;
-            }, 50);
+            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 50);
         }
 
         function useSuggestion(phrase) {
@@ -231,7 +222,7 @@
             const messages = document.getElementById("messages");
             messages.innerHTML = '<div class="flex justify-start"><div class="msg-bot text-white">Chat cleared! How can I help you now?</div></div>';
             document.getElementById("suggestions").style.display = "flex";
-            chatHistory = []; // Wipe out history array context completely on clear
+            chatHistory = [];
         }
 
         function copyToClipboard(button) {
