@@ -1,61 +1,61 @@
 const express = require('express');
 const cors = require('cors');
-const fetch = require('node-fetch');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Frontend files (index.html, style.css, etc.) serve karne ke liye
-app.use(express.static('.')); 
-
 const API_KEY = process.env.GEMINI_API_KEY;
-
-if (!API_KEY) {
-    console.error("❌ GEMINI_API_KEY is missing!");
-}
 
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
 
         if (!message) {
-            return res.status(400).json({ reply: "Message is required" });
+            return res.status(400).json({
+                reply: "Message is required"
+            });
         }
 
-        // Fixed: URL wrapped properly in backticks
-        const url = https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
+        const url =
+            https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY};
 
         const response = await fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: message }] }]
+                contents: [
+                    {
+                        parts: [{ text: message }]
+                    }
+                ]
             })
         });
 
         const data = await response.json();
 
         if (data.error) {
-            console.error("Gemini API Error:", data.error);
-            // Fixed: API Error string wrapped properly in backticks
-            return res.status(500).json({ reply: API Error: ${data.error.message || 'Unknown'} });
+            return res.status(500).json({
+                reply: data.error.message
+            });
         }
 
-        const botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't get a response";
+        const botReply =
+            data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+            "No response";
 
         res.json({ reply: botReply });
 
     } catch (error) {
-        console.error("Server Error:", error);
-        res.status(500).json({ reply: "Server error, please try again later" });
+        console.error(error);
+
+        res.status(500).json({
+            reply: "Server error"
+        });
     }
 });
 
-const PORT = process.env.PORT || 10000;
-
-app.listen(PORT, () => {
-    // Fixed: Console log wrapped properly in backticks
-    console.log(🚀 Server running on port ${PORT});
-});
+module.exports = app;
