@@ -101,14 +101,14 @@
         <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0">
             
             <div id="suggestions" class="flex gap-2 mb-3 overflow-x-auto pb-1">
-                <button onclick="useSuggestion('Tell me a joke 🎭')" class="bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
-                    🎭 Tell me a joke
+                <button onclick="useSuggestion('Tell me a fresh joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-500"></i> Tell me a joke
                 </button>
-                <button onclick="useSuggestion('Explain Bubble Sort 💻')" class="bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
-                    💻 Code Help
+                <button onclick="useSuggestion('Explain Bubble Sort')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <i data-lucide="code" class="w-3.5 h-3.5 text-cyan-500"></i> Code Help
                 </button>
-                <button onclick="useSuggestion('What is AI? 🤖')" class="bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
-                    🤖 What is AI?
+                <button onclick="useSuggestion('What is AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i> What is AI?
                 </button>
             </div>
 
@@ -125,7 +125,6 @@
     </div>
 
     <script>
-        // Initialize Lucide Icons initially
         lucide.createIcons();
 
         const SERVER_URL = "/chat"; 
@@ -138,7 +137,6 @@
             addMessage(text, "user");
             input.value = "";
             
-            // Hide suggestions container after first interaction
             document.getElementById("suggestions").style.display = "none";
 
             const loaderId = "l-" + Date.now();
@@ -176,21 +174,19 @@
                 }
             }
         }
+        // Modified addMessage: Standard single strings inside innerHTML for bulletproof performance
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
             div.className = "flex " + (sender === "user" ? "justify-end" : "justify-start");
             
             if (sender === "bot") {
-                // Added a Copy Button directly integrated inside bot replies natively
                 div.innerHTML = '<div class="msg-bot text-white flex flex-col gap-1"><div>' + text + '</div><button onclick="copyToClipboard(this)" class="self-end text-gray-500 hover:text-cyan-400 mt-1 transition-colors" title="Copy Reply"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button></div>';
             } else {
                 div.innerHTML = '<div class="msg-user">' + text + '</div>';
             }
             
             messages.appendChild(div);
-            
-            // Dynamically create icons for new messages
             lucide.createIcons();
             
             setTimeout(() => {
@@ -198,13 +194,11 @@
             }, 50);
         }
 
-        // Feature 1: Quick Suggestions logic
         function useSuggestion(phrase) {
             document.getElementById("userInput").value = phrase;
             sendMessage();
         }
 
-        // Feature 2: Clear Chat logic
         function clearChat() {
             const messages = document.getElementById("messages");
             messages.innerHTML = '<div class="flex justify-start"><div class="msg-bot text-white">Chat cleared! How can I help you now?</div></div>';
@@ -212,11 +206,9 @@
             lucide.createIcons();
         }
 
-        // Feature 3: Copy to clipboard logic
         function copyToClipboard(button) {
             const textToCopy = button.parentElement.firstElementChild.innerText;
             navigator.clipboard.writeText(textToCopy).then(() => {
-                // Temporary feedback icon change
                 button.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5 text-green-400"></i>';
                 lucide.createIcons();
                 setTimeout(() => {
