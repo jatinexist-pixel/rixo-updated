@@ -9,239 +9,216 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
+        /* Base Root Parameters for Smooth Theme Interpolation */
         html, body { 
-            background: #000; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            color: #e2e8f0; 
-            margin: 0; 
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        
-        .app-wrapper {
-            height: 100vh;
-            height: -webkit-fill-available;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
+            margin: 0; padding: 0; height: 100%; overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        .tech-bg {
-            background-color: #050508;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 16px 16px;
-        }
+        /* ----- DARK THEME (DEFAULT) ----- */
+        body.dark-mode { background: #000; color: #e2e8f0; }
+        body.dark-mode .app-container { background-color: #050508; background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 16px 16px; }
+        body.dark-mode .header-el { background: rgba(5, 5, 8, 0.9); border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-mode .msg-bot { background: #11141b; border-color: rgba(255, 255, 255, 0.08); color: #ffffff; }
+        body.dark-mode .msg-user { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1); }
+        body.dark-mode .input-container { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.02); }
+        body.dark-mode .input-bar { background: #0d0f14; border-color: rgba(255, 255, 255, 0.1); color: #ffffff; }
+        body.dark-mode .pill-btn { background: #11141b; border-color: rgba(255, 255, 255, 0.05); color: #94a3b8; }
+        body.dark-mode .popover-menu { background: #0d1017; border-color: rgba(255, 255, 255, 0.08); color: #e2e8f0; }
 
-        .msg-user {
-            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-            border-radius: 18px 18px 4px 18px;
-            padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
-            color: #ffffff;
-            font-weight: 500;
-        }
-        
-        .msg-bot {
-            background: #11141b; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px 18px 18px 4px;
-            padding: 12px 16px; 
-            font-size: 0.9rem; 
-            max-width: 85%; 
-            line-height: 1.6;
-            position: relative;
-            user-select: text;
-            -webkit-user-select: text;
-            white-space: pre-wrap; 
-            word-break: break-word;
-            animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        /* ----- ULTRA-PREMIUM PASTEL LIGHT THEME ----- */
+        body.light-mode { background: #f4f5f9; color: #1e293b; }
+        body.light-mode .app-container { background-color: #f8fafc; background-image: radial-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px); background-size: 16px 16px; }
+        body.light-mode .header-el { background: rgba(255, 255, 255, 0.85); border-color: rgba(99, 102, 241, 0.08); shadow: 0 4px 30px rgba(0,0,0,0.02); }
+        body.light-mode .msg-bot { background: #ffffff; border-color: rgba(99, 102, 241, 0.12); color: #334155; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.04); }
+        body.light-mode .msg-user { background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%); color: #ffffff; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.2); }
+        body.light-mode .input-container { background: rgba(248, 250, 252, 0.9); border-color: rgba(99, 102, 241, 0.05); }
+        body.light-mode .input-bar { background: #ffffff; border-color: rgba(99, 102, 241, 0.15); color: #1e293b; box-shadow: inset 0 2px 4px rgba(0,0,0,0.01); }
+        body.light-mode .pill-btn { background: #eef2ff; border-color: rgba(99, 102, 241, 0.1); color: #4f46e5; }
+        body.light-mode .popover-menu { background: #ffffff; border-color: rgba(0, 0, 0, 0.06); color: #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        body.light-mode .text-white { color: inherit; }
+        body.light-mode h1 { color: #0f172a; }
 
-        .msg-bot code {
-            font-family: 'JetBrains Mono', monospace;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: #22d3ee;
-        }
+        /* General Common Structural Style Hooks */
+        .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
+        .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; font-weight: 500; }
+        .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.05); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #4f46e5; }
+        body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
 
-        @keyframes premiumFade {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
         .loader-dot { animation: dotPulse 1.2s infinite ease-in-out both; }
         .loader-dot:nth-child(2) { animation-delay: 0.2s; }
         .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotPulse { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
 
-        @keyframes dotPulse {
-            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-
-        .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; }
-        .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
+        .input-bar { border-width: 1px; border-radius: 28px; }
+        .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; }
+        body.light-mode .send-btn { background: #6366f1; color: #fff; }
         
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
-        
         .scroll-hide::-webkit-scrollbar { display: none; }
         .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        .animate-menu { animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
-<body class="flex justify-center items-center">
+<body class="dark-mode flex justify-center items-center">
 
-    <div class="app-wrapper max-w-md bg-[#050508] border-x border-white/5 relative tech-bg">
+    <div class="app-wrapper max-w-md border-x border-white/5 relative app-container transition-all">
         
-        <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#050508]/90 backdrop-blur-md shrink-0 z-10">
+        <header class="h-14 flex items-center justify-between px-4 border-b header-el backdrop-blur-md shrink-0 z-20 relative">
             <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                    <i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>
+                <button id="backToMainBtn" onclick="routeToSession('main')" class="hidden p-1.5 mr-1 rounded-lg bg-gray-500/10 text-gray-400 hover:text-white flex items-center justify-center transition-all">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <div class="w-7 h-7 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                    <i data-lucide="zap" class="w-4 h-4 text-indigo-500"></i>
                 </div>
-                <h1 class="font-bold text-base tracking-tight text-white">Rixo AI</h1>
+                <div class="flex flex-col">
+                    <h1 class="font-bold text-sm tracking-tight text-white transition-all" id="headerTitle">Rixo AI</h1>
+                    <span class="text-[9px] text-gray-500 uppercase font-mono tracking-wider hidden" id="headerContextTag">Context Room</span>
+                </div>
             </div>
             
-            <button onclick="triggerClear()" class="p-2 text-gray-500 hover:text-red-400 bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 rounded-lg transition-colors flex items-center justify-center" title="Clear Chat">
-                <i data-lucide="trash-2" class="w-4 h-4"></i>
-            </button>
+            <div class="flex items-center gap-1.5">
+                <button onclick="triggerClearCurrentSession()" class="p-2 text-gray-500 hover:text-red-400 rounded-lg transition-colors flex items-center justify-center" title="Clear This Space">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                </button>
+                <button onclick="toggleThreeDotsMenu(event)" class="p-2 text-gray-400 hover:text-white rounded-lg flex items-center justify-center transition-colors">
+                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <div id="threeDotsMenu" class="hidden absolute right-4 top-13 w-44 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
+                <button onclick="switchTheme('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-medium rounded-lg hover:bg-indigo-500/10 transition-all">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-500"></i> Pastel Light Mode
+                </button>
+                <button onclick="switchTheme('dark')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-medium rounded-lg hover:bg-cyan-500/10 transition-all">
+                    <i data-lucide="moon" class="w-3.5 h-3.5 text-cyan-400"></i> Absolute Dark
+                </button>
+            </div>
         </header>
 
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
-            
-            <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
-                <div class="flex justify-start w-full">
-                    <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today?</div>
-                </div>
-
-                <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                    <button onclick="useSuggestion('Tell me a funny modern joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                        <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>Tell a Joke</span>
-                    </button>
-                    <button onclick="useSuggestion('trigger_code_help_prompt')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                        <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>Code Help</span>
-                    </button>
-                    <button onclick="useSuggestion('Share some interesting insights about AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                        <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                        <span>AI Insights</span>
-                    </button>
-                </div>
             </div>
 
-        </div>
-
-        <div class="p-4 bg-[#050508]/95 backdrop-blur-md border-t border-white/[0.02] shrink-0">
+        <div class="p-4 backdrop-blur-md border-t input-container shrink-0">
             <div class="input-bar flex items-center px-2 py-1.5">
                 <input id="userInput" type="text" 
-                    class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm placeholder-gray-500" 
+                    class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-gray-500" 
                     placeholder="Message Rixo...">
-                <button onclick="sendMessage()" class="send-btn">
+                <button onclick="handleUserMessageTransmission()" class="send-btn">
                     <i data-lucide="arrow-up" class="w-5 h-5 stroke-[3px]"></i>
                 </button>
             </div>
         </div>
 
-        <div id="actionMenu" class="hidden fixed inset-x-0 bottom-0 max-w-md mx-auto bg-[#0d1017] border-t border-white/10 rounded-t-2xl z-50 p-4 shadow-[0_-10px_40px_rgba(0,0,0,0.9)] animate-menu">
-            <div class="w-12 h-1 bg-gray-700 rounded-full mx-auto mb-4"></div>
-            <div class="flex flex-col gap-2">
-                <button onclick="triggerCopy()" class="flex items-center justify-between w-full p-3 bg-white/[0.03] hover:bg-white/[0.08] text-sm font-semibold rounded-xl transition-all">
-                    <span class="flex items-center gap-2 text-gray-200"><i data-lucide="copy" class="w-4 h-4 text-cyan-400"></i> Copy Response</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
-                </button>
-                <button onclick="closeMenu()" class="w-full text-center py-2.5 mt-2 text-xs font-bold text-gray-500 hover:text-white tracking-wide uppercase">
-                    Cancel
-                </button>
-            </div>
-        </div>
-        
-        <div id="menuOverlay" class="hidden fixed inset-0 bg-black/60 z-40 max-w-md mx-auto" onclick="closeMenu()"></div>
-
     </div>
 
     <script>
-        lucide.createIcons();
+        // Session memory tracks separate historical routes in real-time
+        let activeRoomRoute = "main"; 
+        
+        let sessionStore = {
+            main: { historyArray: [], welcomeActive: true },
+            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me a funny modern joke" },
+            code: { historyArray: [], welcomeActive: false, initialPrompt: "Ask me what language or project I need help coding right now. Do not generate code yet." },
+            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Share some interesting insights about AI scaling" }
+        };
 
-        const SERVER_URL = "/chat"; 
-        let currentTargetMessage = null;
-        let pressTimer = null;
-        let apiHistoryArray = []; 
+        const SERVER_URL = "/chat";
 
         window.addEventListener("DOMContentLoaded", () => {
-            loadChatHistory();
-            scrollChatToBottom();
+            loadAllStateFromStorage();
+            renderActiveRoomStage();
+            switchTheme(localStorage.getItem("rixo_style_theme") || "dark");
         });
 
-        window.visualViewport?.addEventListener('resize', () => {
-            scrollChatToBottom();
+        function switchTheme(themeMode) {
+            if(themeMode === "light") {
+                document.body.classList.remove("dark-mode");
+                document.body.classList.add("light-mode");
+            } else {
+                document.body.classList.remove("light-mode");
+                document.body.classList.add("dark-mode");
+            }
+            localStorage.setItem("rixo_style_theme", themeMode);
+            document.getElementById("threeDotsMenu").classList.add("hidden");
+        }
+
+        function toggleThreeDotsMenu(e) {
+            e.stopPropagation();
+            document.getElementById("threeDotsMenu").classList.toggle("hidden");
+        }
+
+        window.addEventListener("click", () => {
+            document.getElementById("threeDotsMenu").classList.add("hidden");
         });
 
-        function scrollChatToBottom() {
-            const messages = document.getElementById("messages");
-            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 30);
-        }
-
-        function startPress(element) {
-            currentTargetMessage = element;
-            pressTimer = setTimeout(() => { openMenu(); }, 600);
-        }
-
-        function endPress() { clearTimeout(pressTimer); }
-        function openMenu() {
-            document.getElementById("actionMenu").classList.remove("hidden");
-            document.getElementById("menuOverlay").classList.remove("hidden");
-        }
-        function closeMenu() {
-            document.getElementById("actionMenu").classList.add("hidden");
-            document.getElementById("menuOverlay").classList.add("hidden");
-        }
-
-        function triggerCopy() {
-            if (currentTargetMessage) {
-                navigator.clipboard.writeText(currentTargetMessage.innerText).then(() => { closeMenu(); });
+        // Router engine manages separate sandboxed visual stacks
+        function routeToSession(targetRoom) {
+            activeRoomRoute = targetRoom;
+            renderActiveRoomStage();
+            
+            // Auto run engine execution if room space is clean and requires automated initialization prompt
+            if(targetRoom !== 'main' && sessionStore[targetRoom].historyArray.length === 0) {
+                executeEngineBackendOperation(sessionStore[targetRoom].initialPrompt);
             }
         }
 
-        function triggerClear() {
-            const messages = document.getElementById("messages");
-            messages.innerHTML = `
-                <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
-                    <div class="flex justify-start w-full">
-                        <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">Hi! I am Rixo. How can I help you today?</div>
-                    </div>
-                    <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
-                        <button onclick="useSuggestion('Tell me a funny modern joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                            <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>Tell a Joke</span>
-                        </button>
-                        <button onclick="useSuggestion('trigger_code_help_prompt')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                            <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>Code Help</span>
-                        </button>
-                        <button onclick="useSuggestion('Share some interesting insights about AI scaling')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                            <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                            <span>AI Insights</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-            localStorage.removeItem("rixo_chat_history");
-            localStorage.removeItem("rixo_api_array");
-            apiHistoryArray = [];
-            closeMenu();
+        function renderActiveRoomStage() {
+            const container = document.getElementById("messages");
+            container.innerHTML = ""; // Wipe active frame canvas view
+            
+            const backBtn = document.getElementById("backToMainBtn");
+            const ctxTag = document.getElementById("headerContextTag");
+            const mainTitle = document.getElementById("headerTitle");
+
+            if(activeRoomRoute === "main") {
+                backBtn.classList.add("hidden");
+                ctxTag.classList.add("hidden");
+                mainTitle.innerText = "Rixo AI";
+
+                if(sessionStore.main.welcomeActive) {
+                    container.innerHTML = `
+                        <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
+                            <div class="flex justify-start w-full">
+                                <div class="msg-bot">Hi! I am Rixo. How can I help you today?</div>
+                            </div>
+                            <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
+                                <button onclick="routeToSession('joke')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                                    <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
+                                    <span>Tell a Joke</span>
+                                </button>
+                                <button onclick="routeToSession('code')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                                    <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
+                                    <span>Code Help</span>
+                                </button>
+                                <button onclick="routeToSession('insights')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
+                                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
+                                    <span>AI Insights</span>
+                                </button>
+                            </div>
+                        </div>`;
+                }
+            } else {
+                backBtn.classList.remove("hidden");
+                ctxTag.classList.remove("hidden");
+                ctxTag.innerText = `${activeRoomRoute} session window`;
+                mainTitle.innerText = activeRoomRoute === 'joke' ? 'Jokes Station' : activeRoomRoute === 'code' ? 'Code Matrix' : 'AI Lab';
+            }
+
+            // Repopulate messages specifically saved to the individual sandboxed database flow Array
+            sessionStore[activeRoomRoute].historyArray.forEach(msg => {
+                appendUIMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
+            });
+
             lucide.createIcons();
             scrollChatToBottom();
         }
 
-        async function executeBackendCall(promptText, systemContext = null) {
+        async function executeEngineBackendOperation(userInputPromptText) {
             const loaderId = "l-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
@@ -255,16 +232,13 @@
             document.getElementById("messages").appendChild(loader);
             scrollChatToBottom();
 
-            // Use context instruction if provided for strict assistant behavior steering
-            const finalMessageToSend = systemContext ? systemContext : promptText;
-
             try {
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
-                        message: finalMessageToSend,
-                        history: apiHistoryArray 
+                        message: userInputPromptText,
+                        history: sessionStore[activeRoomRoute].historyArray 
                     })
                 });
 
@@ -272,42 +246,44 @@
                 document.getElementById(loaderId).remove();
 
                 if (data.reply) {
-                    addMessage(data.reply, "bot");
-                    apiHistoryArray.push({ role: "assistant", content: data.reply });
-                    saveChatHistory(); 
+                    appendUIMessageNode(data.reply, "bot");
+                    sessionStore[activeRoomRoute].historyArray.push({ role: "assistant", content: data.reply });
+                    saveAllStateToStorage(); 
                 } else {
-                    addMessage("Server issue. Please try again.", "bot");
+                    appendUIMessageNode("Server issue. Please try again.", "bot");
                 }
-
             } catch (err) {
                 document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed.</div>`;
             }
         }
 
-        async function sendMessage() {
+        async function handleUserMessageTransmission() {
             const input = document.getElementById("userInput");
             const text = input.value.trim();
             if (!text) return;
 
-            const suggestions = document.getElementById("suggestions");
-            if (suggestions) suggestions.style.display = "none";
+            if (activeRoomRoute === 'main' && sessionStore.main.welcomeActive) {
+                sessionStore.main.welcomeActive = false;
+                const element = document.getElementById("suggestions");
+                if (element) element.style.display = "none";
+            }
 
-            addMessage(text, "user");
-            apiHistoryArray.push({ role: "user", content: text });
-            saveChatHistory(); 
+            appendUIMessageNode(text, "user");
+            sessionStore[activeRoomRoute].historyArray.push({ role: "user", content: text });
+            saveAllStateToStorage(); 
             input.value = "";
 
-            await executeBackendCall(text);
+            await executeEngineBackendOperation(text);
         }
 
-        function addMessage(text, sender) {
+        function appendUIMessageNode(text, sender) {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
             div.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
             
             if (sender === "bot") {
                 let processedText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-                div.innerHTML = `<div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">${processedText}</div>`;
+                div.innerHTML = `<div class="msg-bot">${processedText}</div>`;
             } else {
                 div.innerHTML = `<div class="msg-user">${text}</div>`;
             }
@@ -316,62 +292,32 @@
             scrollChatToBottom();
         }
 
-        function useSuggestion(phrase) {
-            const suggestions = document.getElementById("suggestions");
-            if (suggestions) suggestions.style.display = "none";
+        function triggerClearCurrentSession() {
+            sessionStore[activeRoomRoute].historyArray = [];
+            if(activeRoomRoute === 'main') {
+                sessionStore.main.welcomeActive = true;
+            }
+            renderActiveRoomStage();
+            saveAllStateToStorage();
+        }
 
-            if (phrase === 'trigger_code_help_prompt') {
-                // Steering instruction tells server to just ask the user what they want to code
-                const systemPrompt = "Ask me what language or project I need help coding right now. Do not generate code yet.";
-                apiHistoryArray.push({ role: "user", content: "I need code help" });
-                executeBackendCall("I need code help", systemPrompt);
-            } else {
-                apiHistoryArray.push({ role: "user", content: phrase });
-                executeBackendCall(phrase);
+        function saveAllStateToStorage() {
+            localStorage.setItem("rixo_multiverse_store", JSON.stringify(sessionStore));
+        }
+
+        function loadAllStateFromStorage() {
+            const savedStateData = localStorage.getItem("rixo_multiverse_store");
+            if(savedStateData) {
+                sessionStore = JSON.parse(savedStateData);
             }
         }
 
-        function saveChatHistory() {
-            const messagesContainer = document.getElementById("messages");
-            const dynamicMessages = [];
-            
-            const children = messagesContainer.children;
-            for (let i = 0; i < children.length; i++) {
-                if (children[i].id === "welcomeStack") continue;
-                
-                const userMsg = children[i].querySelector(".msg-user");
-                const botMsg = children[i].querySelector(".msg-bot");
-                
-                if (userMsg) {
-                    dynamicMessages.push({ sender: "user", text: userMsg.innerText });
-                } else if (botMsg) {
-                    dynamicMessages.push({ sender: "bot", text: botMsg.innerText });
-                }
-            }
-            localStorage.setItem("rixo_chat_history", JSON.stringify(dynamicMessages));
-            localStorage.setItem("rixo_api_array", JSON.stringify(apiHistoryArray));
+        function scrollChatToBottom() {
+            const messages = document.getElementById("messages");
+            setTimeout(() => { messages.scrollTop = messages.scrollHeight; }, 30);
         }
 
-        function loadChatHistory() {
-            const savedData = localStorage.getItem("rixo_chat_history");
-            const savedApiArray = localStorage.getItem("rixo_api_array");
-            
-            if (savedApiArray) {
-                apiHistoryArray = JSON.parse(savedApiArray);
-            }
-            
-            if (savedData) {
-                const messages = JSON.parse(savedData);
-                if (messages.length > 0) {
-                    const suggestions = document.getElementById("suggestions");
-                    if (suggestions) suggestions.style.display = "none";
-                    
-                    messages.forEach(msg => { addMessage(msg.text, msg.sender); });
-                }
-            }
-        }
-        
-        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") sendMessage(); });
+        document.getElementById("userInput").addEventListener("keypress", (e) => { if(e.key === "Enter") handleUserMessageTransmission(); });
     </script>
 </body>
 </html>
