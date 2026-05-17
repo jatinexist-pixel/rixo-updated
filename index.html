@@ -30,26 +30,26 @@
         body.dark-mode .icon-highlight { color: #06b6d4; }
         body.dark-mode .footer-text { color: #475569; }
 
-        /* ----- PREMIUM HIGH-CONTRAST LIGHT MODE (NO WHITE, NO CYAN) ----- */
+        /* ----- PREMIUM HIGH-CONTRAST LIGHT MODE (STRICTLY NO WHITE, NO CYAN, NO PINK) ----- */
         body.light-mode { background: #eae9df; color: #2e2c2f; }
         body.light-mode .app-container { background-color: #eae9df; background-image: radial-gradient(rgba(46, 44, 47, 0.05) 1px, transparent 1px); background-size: 16px 16px; }
-        body.light-mode .header-el { background: #f3cfd3; border-color: #c2b2b4; }
-        body.light-mode .status-bar { background: #f4f3ea; border-color: #c2b2b4; color: #524f54; font-weight: 600; }
-        body.light-mode .msg-bot { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 4px 10px rgba(0,0,0,0.04); font-weight: 500; }
+        body.light-mode .header-el { background: #eae9df; border-color: #c2b2b4; }
+        body.light-mode .status-bar { background: #c2b2b4; border-color: #a6a49a; color: #2e2c2f; font-weight: 600; }
+        body.light-mode .msg-bot { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 4px 10px rgba(0,0,0,0.04); font-weight: 500; }
         body.light-mode .msg-user { background: #c5b3ce; color: #2e2c2f; box-shadow: 0 4px 12px rgba(197, 179, 206, 0.4); font-weight: 600; border: 1px solid #b69fc2; }
-        body.light-mode .input-container { background: #f3cfd3; border-color: #c2b2b4; }
-        body.light-mode .input-bar { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; }
-        body.light-mode .pill-card { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; }
-        body.light-mode .popover-menu { background: #f4f3ea; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        body.light-mode .input-container { background: #eae9df; border-color: #c2b2b4; }
+        body.light-mode .input-bar { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; }
+        body.light-mode .pill-card { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; }
+        body.light-mode .popover-menu { background: #eae9df; border-color: #c2b2b4; color: #2e2c2f; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
         body.light-mode .popover-menu button { color: #2e2c2f !important; }
-        body.light-mode .popover-menu button:hover { background: #f3cfd3; }
-        body.light-mode .clear-btn:hover { color: #8a7376; background: rgba(0, 0, 0, 0.05); }
+        body.light-mode .popover-menu button:hover { background: #c5b3ce; }
+        body.light-mode .clear-btn:hover { color: #2e2c2f; background: rgba(0, 0, 0, 0.05); }
         body.light-mode .text-white { color: #2e2c2f; }
         body.light-mode h1 { color: #2e2c2f; }
-        body.light-mode .icon-highlight { color: #8a7376; }
+        body.light-mode .icon-highlight { color: #2e2c2f; }
         body.light-mode .footer-text { color: #757169; font-weight: 600; }
 
-        /* Common Core Structural Elements */
+        /* Structural Essentials */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; border-width: 1px; }
@@ -106,7 +106,7 @@
         <div class="status-bar h-7 border-b text-[10px] tracking-wider px-4 flex items-center justify-between font-mono shrink-0 transition-all">
             <div class="flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span>
-                <span>SYSTEM: READY</span>
+                <span>SYSTEM: LOGGED</span>
             </div>
             <div>CORE V3.0 • SECURE</div>
         </div>
@@ -118,15 +118,24 @@
                 
                 <div class="grid grid-cols-1 gap-2 w-full mt-1">
                     <button onclick="injectPresetPromptTask('joke')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
-                        <span class="text-xs font-semibold">Tell a Joke</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="smile" class="w-4 h-4 text-neutral-400 icon-highlight"></i>
+                            <span class="text-xs font-semibold">Tell a Joke</span>
+                        </div>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                     <button onclick="injectPresetPromptTask('code')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
-                        <span class="text-xs font-semibold">Code Help</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="code-2" class="w-4 h-4 text-neutral-400 icon-highlight"></i>
+                            <span class="text-xs font-semibold">Code Help</span>
+                        </div>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                     <button onclick="injectPresetPromptTask('insights')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
-                        <span class="text-xs font-semibold">AI Insights</span>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="brain" class="w-4 h-4 text-neutral-400 icon-highlight"></i>
+                            <span class="text-xs font-semibold">AI Insights</span>
+                        </div>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                 </div>
@@ -182,7 +191,6 @@
             document.getElementById("threeDotsMenu").classList.add("hidden");
         });
 
-        // Fixed: Integrated feature auto-triggers on the single dashboard plane frame array
         async function injectPresetPromptTask(type) {
             document.getElementById("welcomeDashboard").style.display = "none";
             
@@ -204,7 +212,7 @@
             globalChatHistory.push({ role: "user", content: userDisplayMessage });
             saveSavedEngineLogs();
 
-            await transmissionLogEngine(systemInstructionString, type);
+            await transmissionLogEngine(systemInstructionString);
         }
 
         async function handleManualUserSubmission() {
@@ -221,10 +229,10 @@
 
             let injectionPrompt = text + " (Note: Respond in English language by default. However, if the user input phrase is explicitly written in Hindi/Hinglish language, then match that language structure directly in your response.)";
             
-            await transmissionLogEngine(injectionPrompt, "normal");
+            await transmissionLogEngine(injectionPrompt);
         }
 
-        async function transmissionLogEngine(promptInstructionText, type) {
+        async function transmissionLogEngine(promptInstructionText) {
             const loaderId = "loader-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId;
