@@ -72,8 +72,8 @@
                 <button id="backToMainBtn" onclick="routeToSession('main')" class="hidden p-1.5 mr-1 rounded-lg bg-gray-500/10 text-gray-400 hover:text-white flex items-center justify-center transition-all">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 </button>
-                <div class="w-7 h-7 rounded-lg bg-indigo-500/10 flex items-center justify-center">
-                    <i data-lucide="zap" class="w-4 h-4 text-indigo-500"></i>
+                <div id="dynamicIconContainer" class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                    <i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>
                 </div>
                 <div class="flex flex-col">
                     <h1 class="font-bold text-sm tracking-tight text-white transition-all" id="headerTitle">Rixo AI</h1>
@@ -122,9 +122,9 @@
         
         let sessionStore = {
             main: { historyArray: [], welcomeActive: true },
-            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me a funny modern joke" },
-            code: { historyArray: [], welcomeActive: false, initialPrompt: "Ask me what language or project I need help coding right now. Do not generate code yet." },
-            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Share some interesting insights about AI scaling" }
+            joke: { historyArray: [], welcomeActive: false, initialPrompt: "Tell me a extremely funny modern joke. Use funny emojis like 😂 or 🤣 in the response.", headerIcon: "smile" },
+            code: { historyArray: [], welcomeActive: false, initialPrompt: "Ask me what language or project I need help coding right now. Do not generate code yet.", headerIcon: "code-2" },
+            insights: { historyArray: [], welcomeActive: false, initialPrompt: "Share some mind-blowing futuristic insights about advanced AI scaling models", headerIcon: "brain" }
         };
 
         const SERVER_URL = "/chat";
@@ -161,7 +161,7 @@
             activeRoomRoute = targetRoom;
             renderActiveRoomStage();
             
-            // Auto run engine execution if room space is clean and requires automated initialization prompt
+            // Fixed: Auto run engine execution if room space is clean and requires automated initialization prompt
             if(targetRoom !== 'main' && sessionStore[targetRoom].historyArray.length === 0) {
                 executeEngineBackendOperation(sessionStore[targetRoom].initialPrompt);
             }
@@ -174,30 +174,33 @@
             const backBtn = document.getElementById("backToMainBtn");
             const ctxTag = document.getElementById("headerContextTag");
             const mainTitle = document.getElementById("headerTitle");
+            const iconContainer = document.getElementById("dynamicIconContainer");
 
             if(activeRoomRoute === "main") {
                 backBtn.classList.add("hidden");
                 ctxTag.classList.add("hidden");
                 mainTitle.innerText = "Rixo AI";
+                // Fixed: Default Main Lightning Bolt Icon with forced Cyan color
+                iconContainer.innerHTML = `<i data-lucide="zap" class="w-4 h-4 text-cyan-500"></i>`;
 
                 if(sessionStore.main.welcomeActive) {
                     container.innerHTML = `
                         <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                             <div class="flex justify-start w-full">
-                                <div class="msg-bot">Hi! I am Rixo. How can I help you today?</div>
+                                <div class="msg-bot">Hi! I am Rixo. How can I help you today? ✨</div>
                             </div>
                             <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
                                 <button onclick="routeToSession('joke')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                                     <i data-lucide="smile" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>Tell a Joke</span>
+                                    <span>Tell a Joke 🔥</span>
                                 </button>
                                 <button onclick="routeToSession('code')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
                                     <i data-lucide="code-2" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>Code Help</span>
+                                    <span>Code Help 💻</span>
                                 </button>
                                 <button onclick="routeToSession('insights')" class="pill-btn flex items-center gap-1.5 border text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all">
-                                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-500"></i>
-                                    <span>AI Insights</span>
+                                    <i data-lucide="brain" class="w-3.5 h-3.5 text-cyan-500"></i>
+                                    <span>AI Insights 🚀</span>
                                 </button>
                             </div>
                         </div>`;
@@ -207,6 +210,10 @@
                 ctxTag.classList.remove("hidden");
                 ctxTag.innerText = `${activeRoomRoute} session window`;
                 mainTitle.innerText = activeRoomRoute === 'joke' ? 'Jokes Station' : activeRoomRoute === 'code' ? 'Code Matrix' : 'AI Lab';
+                
+                // Fixed: Dynamic Session Icons with specific forced Cyan color
+                const currentIcon = sessionStore[activeRoomRoute].headerIcon;
+                iconContainer.innerHTML = `<i data-lucide="${currentIcon}" class="w-4 h-4 text-cyan-500"></i>`;
             }
 
             // Repopulate messages specifically saved to the individual sandboxed database flow Array
