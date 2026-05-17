@@ -27,9 +27,9 @@ app.post('/chat', async (req, res) => {
             return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
         }
 
-        // Switching to Meta Llama 3 70B (Instruct) for robust custom prompt parsing and perfect coding output
+        // Fixed URL String: Removed raw brackets which caused the parsing crash
         const response = await fetch(
-            "[https://openrouter.ai/api/v1/chat/completions](https://openrouter.ai/api/v1/chat/completions)",
+            "https://openrouter.ai/api/v1/chat/completions",
             {
                 method: "POST",
                 headers: {
@@ -41,15 +41,15 @@ app.post('/chat', async (req, res) => {
                     messages: [
                         {
                             role: "system",
-                            content: "You are Rixo, a cool AI friend. For casual talk or greetings, reply in just 1-2 friendly sentences. Never use paragraphs for basic chit-chat. If the user asks for a joke, tell a completely unique, fresh, and modern joke, using distinct creative contexts each time so it never repeats. CRITICAL: If the user explicitly asks for code, programming scripts, algorithms, or technical queries, you MUST write the complete, clean code block wrapped inside triple backticks (`) so it can render properly. Never refuse to write code."
+                            content: "You are Rixo, a cool AI friend. For casual talk or greetings, reply in just 1-2 friendly sentences. Never use paragraphs for basic chit-chat. If the user asks for a joke, tell a completely unique, fresh, and modern joke, using distinct creative contexts each time so it never repeats. CRITICAL: If the user explicitly asks for code, programming scripts, algorithms, or technical queries, you MUST write the complete, clean code block wrapped inside triple backticks (```) so it can render properly. Never refuse to write code."
                         },
                         {
                             role: "user",
                             content: message
                         }
                     ],
-                    temperature: 0.95, // Maximize creativity to avoid joke repetition entirely
-                    max_tokens: 1000 // Increased tokens so full code snippets don't get cut off
+                    temperature: 0.95,
+                    max_tokens: 1000
                 })
             }
         );
