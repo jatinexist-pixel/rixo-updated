@@ -27,6 +27,7 @@ app.post('/chat', async (req, res) => {
             return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
         }
 
+        // Fast aur stable global model use kiya hai jo instantly reply karega
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
@@ -36,18 +37,19 @@ app.post('/chat', async (req, res) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "openrouter/auto", 
+                    model: "google/gemini-2.5-flash", // Super fast model, delay nahi karega
                     messages: [
                         {
-                            // SYSTEM PROMPT ADDED: Ab ye dost ki tarah chote reply dega, bas technical sawaal par bade paragraphs dega
                             role: "system",
-                            content: "You are Rixo, a close friend of the user. Keep your casual chat greetings and regular conversation extremely short, witty, and friendly (just like a friend on WhatsApp). Do not write paragraphs for normal talks. However, if the user asks for pure knowledge, programming, logic, definitions, or college-related educational questions, then provide comprehensive, clear, and structured long paragraphs or code blocks as an expert guide."
+                            content: "You are Rixo, a friendly and cool companion. For casual talks, greetings, 'hi', 'hello', or normal chat, reply extremely shortly in just 1 or 2 lines like a friend on WhatsApp. Do not use heavy vocabulary or long paragraphs for general chat. However, if the user asks an educational, technical, coding, mathematical, or knowledge-based question, provide a detailed, well-structured paragraph or code explanation."
                         },
                         {
                             role: "user",
                             content: message
                         }
-                    ]
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 500 // Tokens limit set ki taaki faltu lamba reply block ho sake
                 })
             }
         );
@@ -60,7 +62,7 @@ app.post('/chat', async (req, res) => {
 
         const botReply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content
             ? data.choices[0].message.content
-            : "No response from OpenRouter Auto routing.";
+            : "Sorry, I couldn't process that.";
 
         res.json({
             reply: botReply
