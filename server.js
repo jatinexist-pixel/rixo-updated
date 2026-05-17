@@ -8,53 +8,43 @@ app.use(express.json());
 
 app.use(express.static(__dirname));
 
-const API_KEY = process.env.GEMINI_API_KEY;
-console.log(API_KEY);
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
+const API_KEY = process.env.OPENROUTER_API_KEY;
 
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
 
-        if (!message) {
-            return res.status(400).json({
-                reply: "Message is required"
-            });
-        }
-
-        const url =
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        parts: [{ text: message }]
-                    }
-                ]
-            })
-        });
+        const response = await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": Bearer ${API_KEY},
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "deepseek/deepseek-chat-v3-0324:free",
+                    messages: [
+                        {
+                            role: "user",
+                            content: message
+                        }
+                    ]
+                })
+            }
+        );
 
         const data = await response.json();
+
         console.log(data);
 
-        if (data.error) {
-            return res.status(500).json({
-    reply: `API Error: ${data.error.message || 'Unknown'}`
-});
-        }
-
         const botReply =
-            data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+            data?.choices?.[0]?.message?.content ||
             "No response";
 
-        res.json({ reply: botReply });
+        res.json({
+            reply: botReply
+        });
 
     } catch (error) {
         console.error(error);
@@ -64,5 +54,3 @@ app.post('/chat', async (req, res) => {
         });
     }
 });
-
-module.exports = app;
