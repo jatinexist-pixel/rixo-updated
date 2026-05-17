@@ -9,7 +9,7 @@
     
     <style>
         html, body { 
-            background: #090a0f; 
+            background: #07080c; 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             color: #e2e8f0; 
             margin: 0; 
@@ -18,7 +18,7 @@
             overflow: hidden;
         }
         .app-bg {
-            background: #090a0f;
+            background: #07080c;
         }
         .app-wrapper {
             height: 100vh;
@@ -31,27 +31,27 @@
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 18px 18px 4px 18px;
             padding: 10px 15px; font-size: 0.9rem; max-width: 80%; width: fit-content; align-self: flex-end;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             color: #000;
             font-weight: 600;
         }
-        /* Crisp Clean Non-Glow Chat Card Style */
+        /* Solid Matte Premium Bot Bubble */
         .msg-bot {
-            background: #131722; 
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #121520; 
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 4px 18px 18px 18px;
             padding: 12px 16px; font-size: 0.95rem; max-width: 100%; width: fit-content; line-height: 1.5;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
         }
         .msg-bot pre {
-            background: #090c14;
+            background: #080a10;
             padding: 12px;
             border-radius: 8px;
             overflow-x: auto;
             margin: 8px 0;
             font-family: monospace;
             font-size: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.05);
         }
         .msg-bot code {
             font-family: monospace;
@@ -61,13 +61,12 @@
             font-size: 0.85rem;
         }
         .input-bar { 
-            background: #131722; 
+            background: #121520; 
             border: 1px solid rgba(255, 255, 255, 0.08); 
             border-radius: 24px; 
             width: 100%; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.4);
         }
-        /* Restored to Original Vibrant Solid Cyan Circle */
         .send-btn { 
             background: #06b6d4; 
             color: #000; 
@@ -78,7 +77,7 @@
             align-items: center; 
             justify-content: center; 
             shrink: 0; 
-            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 2px 6px rgba(6, 182, 212, 0.2);
         }
         .send-btn:active { transform: scale(0.92); }
         
@@ -87,15 +86,15 @@
         #messages::-webkit-scrollbar { width: 0; }
 
         .typing-bubble {
-            background: #131722;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #121520;
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 4px 16px 16px 16px;
             padding: 14px 18px;
             display: inline-flex;
         }
         .typing-indicator { display: flex; align-items: center; gap: 5px; height: 10px; }
         .typing-indicator span {
-            display: block; width: 5px; height: 5px; background: #64748b; border-radius: 50%; opacity: 0.5;
+            display: block; width: 5px; height: 5px; background: #52617a; border-radius: 50%; opacity: 0.5;
             animation: premium-bounce 1.4s infinite ease-in-out;
         }
         .typing-indicator span:nth-child(1) { animation-delay: 0s; }
@@ -110,19 +109,14 @@
 </head>
 <body class="flex justify-center bg-black">
 
-    <div class="app-wrapper app-bg max-w-md sm:border-x border-white/5">
+    <div class="app-wrapper app-bg max-w-md border-x border-white/[0.04]">
         
-        <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#090a0f]/90 backdrop-blur-md shrink-0">
-            <div class="flex items-center gap-3">
-                <button class="text-gray-400 hover:text-white transition-colors p-0.5">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="15" y2="18"></line></svg>
-                </button>
-                <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                        <svg class="w-4 h-4 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </div>
-                    <h1 class="font-bold text-base tracking-tight text-white">Rixo AI</h1>
+        <header class="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-[#07080c]/90 backdrop-blur-md shrink-0">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </div>
+                <h1 class="font-bold text-base tracking-tight text-white">Rixo AI</h1>
             </div>
             <button onclick="clearChat()" class="text-gray-400 hover:text-red-400 p-1.5 rounded-lg transition-colors bg-white/5 border border-white/5 hover:bg-white/10">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/></svg>
@@ -131,29 +125,27 @@
 
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-5">
             <div class="flex flex-col gap-1 items-start max-w-[85%]">
-                <div class="flex justify-start items-center gap-2 w-full px-0.5 mb-1 text-xs text-gray-400 font-semibold">
-                    <span class="text-cyan-400 tracking-wide font-bold">Rixo AI</span>
-                    <button onclick="copyToClipboard(this)" class="text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full transition-all text-[10px] font-mono flex items-center gap-1 shadow-sm">
-                        <span>Copy</span>
-                        <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <div class="flex justify-start items-center w-full px-0.5 mb-1.5">
+                    <button onclick="copyToClipboard(this)" class="text-gray-400 hover:text-cyan-400 bg-white/5 hover:bg-white/10 border border-white/5 p-1.5 rounded-lg transition-all shadow-sm flex items-center justify-center" title="Copy response">
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                     </button>
                 </div>
                 <div class="msg-bot text-white">Hi! I am Rixo. How can I help you?</div>
             </div>
         </div>
 
-        <div class="p-4 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/95 to-transparent shrink-0">
+        <div class="p-4 bg-gradient-to-t from-[#07080c] via-[#07080c]/95 to-transparent shrink-0">
             
-            <div id="suggestions" class="flex gap-2 mb-3 overflow-x-auto pb-1 scroll-hide w-full">
-                <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#131722] border border-white/5 hover:border-cyan-500/20 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
+            <div id="suggestions" class="flex gap-2 mb-4 overflow-x-auto pb-1 scroll-hide w-full">
+                <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#121520] border border-white/5 hover:border-cyan-500/20 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                     Tell a Joke
                 </button>
-                <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#131722] border border-white/5 hover:border-cyan-500/20 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
+                <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#121520] border border-white/5 hover:border-cyan-500/20 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
                     Code Help
                 </button>
-                <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#131722] border border-white/5 hover:border-cyan-500/20 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
+                <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#121520] border border-white/5 hover:border-cyan-500/20 text-xs text-gray-400 hover:text-white px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
                     AI Insights
                 </button>
@@ -239,11 +231,9 @@
                 let parsedText = formatAIResponse(text);
                 
                 div.innerHTML = `
-                    <div class="flex justify-start items-center gap-2 w-full px-0.5 mb-1 text-xs text-gray-400 font-semibold">
-                        <span class="text-cyan-400 tracking-wide font-bold">Rixo AI</span>
-                        <button onclick="copyToClipboard(this)" class="text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full transition-all text-[10px] font-mono flex items-center gap-1 shadow-sm">
-                            <span>Copy</span>
-                            <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    <div class="flex justify-start items-center w-full px-0.5 mb-1.5">
+                        <button onclick="copyToClipboard(this)" class="text-gray-400 hover:text-cyan-400 bg-white/5 hover:bg-white/10 border border-white/5 p-1.5 rounded-lg transition-all shadow-sm flex items-center justify-center" title="Copy response">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                         </button>
                     </div>
                     <div class="msg-bot text-white">${parsedText}</div>
@@ -266,8 +256,10 @@
             const messages = document.getElementById("messages");
             messages.innerHTML = `
                 <div class="flex flex-col gap-1 items-start max-w-[85%]">
-                    <div class="flex justify-start items-center gap-2 w-full px-0.5 mb-1 text-xs text-gray-400 font-semibold">
-                        <span class="text-cyan-400 tracking-wide font-bold">Rixo AI</span>
+                    <div class="flex justify-start items-center w-full px-0.5 mb-1.5">
+                        <button onclick="copyToClipboard(this)" class="text-gray-400 hover:text-cyan-400 bg-white/5 hover:bg-white/10 border border-white/5 p-1.5 rounded-lg transition-all shadow-sm flex items-center justify-center" title="Copy response">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        </button>
                     </div>
                     <div class="msg-bot text-white">Chat cleared! How can I help you now?</div>
                 </div>
@@ -276,16 +268,16 @@
             chatHistory = [];
         }
 
+        // Updated Minimalist Icon Feedback State
         function copyToClipboard(button) {
             const textToCopy = button.parentElement.nextElementSibling.innerText;
             navigator.clipboard.writeText(textToCopy).then(() => {
-                const textSpan = button.firstElementChild;
-                textSpan.innerText = "Copied!";
-                button.classList.add("text-green-400");
+                button.innerHTML = `<svg class="w-3.5 h-3.5 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                button.classList.add("border-green-500/20", "bg-green-500/5");
                 
                 setTimeout(() => {
-                    textSpan.innerText = "Copy";
-                    button.classList.remove("text-green-400");
+                    button.innerHTML = `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+                    button.classList.remove("border-green-500/20", "bg-green-500/5");
                 }, 1500);
             });
         }
