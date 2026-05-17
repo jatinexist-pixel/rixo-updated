@@ -7,6 +7,9 @@ app.use(cors());
 app.use(express.json());
 
 const API_KEY = process.env.GEMINI_API_KEY;
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
 
 app.post('/chat', async (req, res) => {
     try {
