@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const axios = require('axios');
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
@@ -19,45 +17,34 @@ app.post('/chat', async (req, res) => {
     try {
         const { history } = req.body;
 
-        if (!history || !Array.isArray(history) || history.length === 0) {
-            return res.status(400).json({ reply: "History data array is required" });
-        }
-
-        if (!API_KEY) {
-            return res.status(500).json({ reply: "OpenRouter API Key is missing in Vercel settings!" });
+        if (!history || !API_KEY) {
+            return res.status(400).json({ reply: "Missing history or API key" });
         }
 
         const systemPrompt = {
             role: "system",
-            content: "You are Rixo, a cool, witty AI friend. CRITICAL: Keep casual talk, jokes, or greetings strictly to 1-2 short sentences. NEVER use paragraphs for basic chat. Remember the chat history context to answer continuous questions like 'another one' or 'why?'. If the user asks for code, provide the full clean code wrapped in triple backticks (```)."
+            content: "You are Rixo, a cool AI companion. Keep answers short (1-2 sentences). Always remember the chat history to handle follow-up words like 'another'. If the user asks for code, provide the full code wrapped inside triple backticks (```)."
         };
 
-        const combinedMessages = [systemPrompt, ...history];
-
-        const response = await axios.post(
-            "[https://openrouter.ai/api/v1/chat/completions](https://openrouter.ai/api/v1/chat/completions)",
-            {
-                model: "meta-llama/llama-3-70b-instruct", 
-                messages: combinedMessages,
-                temperature: 0.85,
-                max_tokens: 1000
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + API_KEY.trim(),
+                "Content-Type": "application/json"
             },
-            {
-                headers: {
-                    "Authorization": `Bearer ${API_KEY}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+            body: JSON.stringify({
+                model: "meta-llama/llama-3-70b-instruct",
+                messages: [systemPrompt, ...history],
+                temperature: 0.7
+            })
+        });
 
-        const botReply = response.data?.choices?.[0]?.message?.content || "Sorry, I couldn't process that.";
-        res.json({ reply: botReply });
+        const data = await response.json();
+        const reply = data?.choices?.[0]?.message?.content || "Sorry, I couldn't get that.";
+        res.json({ reply });
 
     } catch (error) {
-        console.error("Server Error:", error.response?.data || error.message);
-        res.status(500).json({
-            reply: "Server error: " + (error.response?.data?.error?.message || error.message)
-        });
+        res.status(500).json({ reply: "Server error: " + error.message });
     }
 });
 
