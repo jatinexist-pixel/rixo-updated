@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Static files (HTML, CSS, JS) serve karne ke liye setup
+// Static files serve karne ke liye perfect setup
 app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req, res) => {
@@ -24,13 +24,13 @@ app.post('/chat', async (req, res) => {
             return res.status(400).json({ reply: "Message is required" });
         }
 
-        // FIXED: Authorization header me proper backticks () laga diye hain
+        // FIXED: Pure code se backticks hata diye hain, ab simple single quotes aur + use kiya hai
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
                 method: "POST",
                 headers: {
-                    "Authorization": Bearer ${API_KEY}`,
+                    "Authorization": "Bearer " + API_KEY,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
@@ -49,8 +49,10 @@ app.post('/chat', async (req, res) => {
 
         console.log("OpenRouter Response:", JSON.stringify(data, null, 2));
 
-        // Response reading perfectly fixed
-        const botReply = data?.choices?.[0]?.message?.content || "No response from AI";
+        // Safe response checking
+        const botReply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content
+            ? data.choices[0].message.content
+            : "No response from AI";
 
         res.json({
             reply: botReply
@@ -65,4 +67,3 @@ app.post('/chat', async (req, res) => {
 });
 
 module.exports = app;
-
