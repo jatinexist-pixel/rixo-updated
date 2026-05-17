@@ -99,12 +99,12 @@
                 <button onclick="clearChatHistoryStream()" class="p-2 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
-                <button onclick="toggleThreeDotsMenu(event)" class="p-2 header-icon-btn rounded-lg flex items-center justify-center transition-colors">
+                <button onclick="toggleThreeDotsMenu(event)" id="threeDotsButton" class="p-2 header-icon-btn rounded-lg flex items-center justify-center transition-colors">
                     <i data-lucide="more-vertical" class="w-4 h-4"></i>
                 </button>
             </div>
 
-            <div id="threeDotsMenu" class="hidden absolute right-2 top-13 w-40 border rounded-xl p-1.5 z-30 flex flex-col gap-0.5 popover-menu transition-all">
+            <div id="threeDotsMenu" class="hidden fixed w-40 border rounded-xl p-1.5 z-50 flex flex-col gap-0.5 popover-menu transition-all">
                 <button onclick="switchThemeModeEngine('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
                     <i data-lucide="sun" class="w-3.5 h-3.5 icon-highlight"></i> Light Mode
                 </button>
@@ -180,7 +180,21 @@
                     handleManualUserSubmission();
                 }
             });
+            
+            // Dynamic absolute positioning handler recalculating dynamic anchor bounds
+            window.addEventListener('resize', repositionSettingsPopover);
+            window.addEventListener('scroll', repositionSettingsPopover);
         });
+
+        function repositionSettingsPopover() {
+            const menu = document.getElementById("threeDotsMenu");
+            const btn = document.getElementById("threeDotsButton");
+            if(menu && btn && !menu.classList.contains("hidden")) {
+                const rect = btn.getBoundingClientRect();
+                menu.style.top = (rect.bottom + 4) + "px";
+                menu.style.left = (rect.right - 160) + "px"; // Forced container offset within absolute bounds
+            }
+        }
 
         function switchThemeModeEngine(themeMode) {
             if(themeMode === "light") {
@@ -199,7 +213,9 @@
 
         function toggleThreeDotsMenu(e) {
             e.stopPropagation();
-            document.getElementById("threeDotsMenu").classList.toggle("hidden");
+            const menu = document.getElementById("threeDotsMenu");
+            menu.classList.toggle("hidden");
+            repositionSettingsPopover();
             lucide.createIcons();
         }
 
