@@ -59,7 +59,10 @@
                 </div>
                 <h1 class="font-bold text-base tracking-tight text-white">Rixo AI</h1>
             </div>
-            <i data-lucide="more-horizontal" class="text-gray-500"></i>
+            
+            <button onclick="triggerClear()" class="p-2 text-gray-500 hover:text-red-400 bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 rounded-lg transition-colors flex items-center justify-center" title="Clear Conversation">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
         </header>
 
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
@@ -107,10 +110,6 @@
                     <span class="flex items-center gap-2 text-gray-200"><i data-lucide="copy" class="w-4 h-4 text-cyan-400"></i> Copy Response</span>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
                 </button>
-                <button onclick="triggerClear()" class="flex items-center justify-between w-full p-3 bg-red-500/5 hover:bg-red-500/10 text-sm font-semibold rounded-xl transition-all border border-red-500/10">
-                    <span class="flex items-center gap-2 text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i> Clear Conversation</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-500"></i>
-                </button>
                 <button onclick="closeMenu()" class="w-full text-center py-2.5 mt-2 text-xs font-bold text-gray-500 hover:text-white tracking-wide uppercase">
                     Cancel
                 </button>
@@ -154,14 +153,14 @@
             }
         }
 
-        // Fixed Clear Functionality with Instant UI Reset
+        // Independent, fully functional UI Clear
         function triggerClear() {
             const messages = document.getElementById("messages");
             messages.innerHTML = `
                 <div class="flex flex-col gap-3 items-start w-full" id="welcomeStack">
                     <div class="flex justify-start w-full">
                         <div class="msg-bot text-white" onmousedown="startPress(this)" onmouseup="endPress()" ontouchstart="startPress(this)" ontouchend="endPress()">
-                            Chat cleared! How can I help you now?
+                            Hi! I am Rixo. How can I help you?
                         </div>
                     </div>
                     <div id="suggestions" class="flex gap-2 overflow-x-auto w-full pb-1 mt-1 scroll-hide">
