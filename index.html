@@ -11,7 +11,6 @@
     <style>
         body { background: #050508; font-family: 'Plus Jakarta Sans', sans-serif; color: #e2e8f0; margin: 0; }
         
-        /* Premium Micro-Dot Pattern to fill empty space naturally */
         .tech-bg {
             background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 16px 16px;
@@ -42,7 +41,6 @@
         .scroll-hide::-webkit-scrollbar { display: none; }
         .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Slide up animation for Long Press Menu */
         @keyframes slideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
@@ -129,29 +127,22 @@
         const SERVER_URL = "/chat"; 
         let currentTargetMessage = null;
         let pressTimer = null;
+        let apiHistoryArray = []; // State controller for accurate historical API structures
 
-        // Load chat history on startup
         window.addEventListener("DOMContentLoaded", () => {
             loadChatHistory();
         });
 
-        // Long Press Logic Implementation
         function startPress(element) {
             currentTargetMessage = element;
-            pressTimer = setTimeout(() => {
-                openMenu();
-            }, 600);
+            pressTimer = setTimeout(() => { openMenu(); }, 600);
         }
 
-        function endPress() {
-            clearTimeout(pressTimer);
-        }
-
+        function endPress() { clearTimeout(pressTimer); }
         function openMenu() {
             document.getElementById("actionMenu").classList.remove("hidden");
             document.getElementById("menuOverlay").classList.remove("hidden");
         }
-
         function closeMenu() {
             document.getElementById("actionMenu").classList.add("hidden");
             document.getElementById("menuOverlay").classList.add("hidden");
@@ -159,9 +150,7 @@
 
         function triggerCopy() {
             if (currentTargetMessage) {
-                navigator.clipboard.writeText(currentTargetMessage.innerText).then(() => {
-                    closeMenu();
-                });
+                navigator.clipboard.writeText(currentTargetMessage.innerText).then(() => { closeMenu(); });
             }
         }
 
@@ -176,8 +165,8 @@
                     </div>
                 </div>
             `;
-            // Clear Saved History from localStorage
             localStorage.removeItem("rixo_chat_history");
+            apiHistoryArray = [];
             closeMenu();
             lucide.createIcons();
         }
@@ -187,12 +176,14 @@
             const text = input.value.trim();
             if (!text) return;
 
-            // Hide initial layout suggestions on first interaction
             const suggestions = document.getElementById("suggestions");
             if (suggestions) suggestions.style.display = "none";
 
             addMessage(text, "user");
-            saveChatHistory(); // Save user message
+            
+            // Push structured payload standard schema
+            apiHistoryArray.push({ role: "user", content: text });
+            saveChatHistory(); 
             input.value = "";
 
             const loaderId = "l-" + Date.now();
@@ -204,10 +195,14 @@
             document.getElementById("messages").scrollTo({ top: document.getElementById("messages").scrollHeight, behavior: 'smooth' });
 
             try {
+                // Combines both naming keys so server matching won't ever fail
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: text })
+                    body: JSON.stringify({ 
+                        message: text,
+                        history: apiHistoryArray 
+                    })
                 });
 
                 const data = await response.json();
@@ -215,13 +210,14 @@
 
                 if (data.reply) {
                     addMessage(data.reply, "bot");
-                    saveChatHistory(); // Save bot response
+                    apiHistoryArray.push({ role: "assistant", content: data.reply });
+                    saveChatHistory(); 
                 } else {
                     addMessage("Server issue. Please try again.", "bot");
                 }
 
             } catch (err) {
-                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Could not connect to Rixo server.</div>`;
+                document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-400 text-xs">Error: Connection failed.</div>`;
             }
         }
 
@@ -245,13 +241,10 @@
             sendMessage();
         }
 
-        // Feature: Save Chat History to LocalStorage
         function saveChatHistory() {
             const messagesContainer = document.getElementById("messages");
-            // Welcome message ke alawa jo naye messages hain unhe save karenge
             const dynamicMessages = [];
             
-            // Loop through all divs except the default welcomeStack if it's untouched
             const children = messagesContainer.children;
             for (let i = 0; i < children.length; i++) {
                 if (children[i].id === "welcomeStack") continue;
@@ -266,21 +259,24 @@
                 }
             }
             localStorage.setItem("rixo_chat_history", JSON.stringify(dynamicMessages));
+            localStorage.setItem("rixo_api_array", JSON.stringify(apiHistoryArray));
         }
 
-        // Feature: Load Chat History from LocalStorage
         function loadChatHistory() {
             const savedData = localStorage.getItem("rixo_chat_history");
+            const savedApiArray = localStorage.getItem("rixo_api_array");
+            
+            if (savedApiArray) {
+                apiHistoryArray = JSON.parse(savedApiArray);
+            }
+            
             if (savedData) {
                 const messages = JSON.parse(savedData);
                 if (messages.length > 0) {
-                    // Hide suggestions if previous history exists
                     const suggestions = document.getElementById("suggestions");
                     if (suggestions) suggestions.style.display = "none";
                     
-                    messages.forEach(msg => {
-                        addMessage(msg.text, msg.sender);
-                    });
+                    messages.forEach(msg => { addMessage(msg.text, msg.sender); });
                 }
             }
         }
