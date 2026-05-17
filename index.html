@@ -28,31 +28,22 @@
         .msg-user {
             background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
             border-radius: 18px 18px 4px 18px;
-            padding: 10px 14px; font-size: 0.9rem; max-width: 80%; width: fit-content; align-self: flex-end;
+            padding: 10px 14px; font-size: 0.9rem; max-width: 80%; width: fit-content;
             box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
         }
         .msg-bot {
             background: #11141b; border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 18px 18px 18px 4px;
             padding: 12px 16px; font-size: 0.9rem; max-width: 85%; width: fit-content; line-height: 1.5;
-            position: relative;
         }
         .msg-bot pre {
-            background: #090b0f;
-            padding: 10px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 8px 0;
-            font-family: monospace;
-            font-size: 0.85rem;
+            background: #090b0f; padding: 10px; border-radius: 8px;
+            overflow-x: auto; margin: 8px 0; font-family: monospace; font-size: 0.85rem;
             border: 1px solid rgba(255,255,255,0.05);
         }
         .msg-bot code {
-            font-family: monospace;
-            background: rgba(255,255,255,0.1);
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            font-family: monospace; background: rgba(255,255,255,0.1);
+            padding: 2px 4px; border-radius: 4px; font-size: 0.85rem;
         }
         .input-bar { background: #0d0f14; border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; width: 100%; }
         .send-btn { background: #06b6d4; color: #000; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; }
@@ -62,13 +53,8 @@
         #messages::-webkit-scrollbar { width: 0; }
 
         .typing-bubble {
-            background: #11141b;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px 16px 16px 4px;
-            padding: 14px 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            background: #11141b; border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px 16px 16px 4px; padding: 14px 18px; display: inline-flex;
         }
         .typing-indicator { display: flex; align-items: center; gap: 5px; height: 10px; }
         .typing-indicator span {
@@ -110,25 +96,18 @@
         <div class="p-4 bg-[#050508] border-t border-white/5 shrink-0">
             
             <div id="suggestions" class="flex gap-2 mb-3 overflow-x-auto pb-1 scroll-hide w-full">
-                <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
+                <button onclick="useSuggestion('Tell me a funny joke')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 text-xs text-gray-400 px-3 py-1.5 rounded-full whitespace-nowrap shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                     Tell a Joke
                 </button>
-                <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
+                <button onclick="useSuggestion('Give me a short coding tip')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 text-xs text-gray-400 px-3 py-1.5 rounded-full whitespace-nowrap shrink-0">
                     <svg class="w-3.5 h-3.5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
                     Code Help
-                </button>
-                <button onclick="useSuggestion('What is the most interesting thing about AI?')" class="flex items-center gap-1.5 bg-[#11141b] border border-white/5 hover:border-cyan-500/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full whitespace-nowrap transition-all shrink-0">
-                    <svg class="w-3.5 h-3.5 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                    AI Insights
                 </button>
             </div>
 
             <div class="input-bar flex items-center px-2 py-1.5">
-                <input id="userInput" type="text" 
-                    class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm" 
-                    placeholder="Message Rixo..."
-                    autocomplete="off">
+                <input id="userInput" type="text" class="flex-1 bg-transparent border-none outline-none text-white px-3 py-2 text-sm" placeholder="Message Rixo..." autocomplete="off">
                 <button onclick="sendMessage()" class="send-btn">
                     <svg class="w-5 h-5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
                 </button>
@@ -138,7 +117,7 @@
 
     <script>
         const SERVER_URL = "/chat"; 
-        let chatHistory = []; // Local dynamic conversation logs
+        let chatHistory = [];
 
         function formatAIResponse(text) {
             let clean = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -156,8 +135,8 @@
 
             addMessage(text, "user");
             input.value = "";
-            
             document.getElementById("suggestions").style.display = "none";
+            
             chatHistory.push({ role: "user", content: text });
 
             const loaderId = "l-" + Date.now();
@@ -196,7 +175,6 @@
             }
         }
 
-        // Clean layout dynamic message node loader
         function addMessage(text, sender) {
             const messages = document.getElementById("messages");
             const div = document.createElement("div");
