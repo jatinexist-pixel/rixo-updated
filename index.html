@@ -239,11 +239,11 @@
                 userDisplayMessage = "Tell me a joke";
                 systemInstructionString = "Tell me an extremely funny fresh joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor. Default response language must be English unless user text context implies otherwise.";
             } else if (type === 'code') {
-                userDisplayMessage = "How can I help you with coding?";
-                systemInstructionString = "Respond exactly with: 'How can I help you with coding? 💻' (Do not use any other text or additional emojis outside this layout rule constraint)";
+                userDisplayMessage = "Give me some coding help";
+                systemInstructionString = "Provide coding guidance or ask how you can assist the user with programming. Keep it premium, direct, and structured.";
             } else if (type === 'insights') {
-                userDisplayMessage = "What would you like to know about AI?";
-                systemInstructionString = "Respond exactly with: 'What would you like to know about AI? 🚀' (Do not use any other text or additional emojis outside this layout rule constraint)";
+                userDisplayMessage = "Give me some AI insights";
+                systemInstructionString = "Share interesting facts, recent trends, or high-level insights about Artificial Intelligence. Keep the tone professional and forward-looking.";
             }
 
             appendChatMessageNode(userDisplayMessage, "user");
@@ -325,7 +325,7 @@
             
             dumpContainer.appendChild(wrapperDiv);
             scrollTimelineToBottom();
-            lucide.createIcons(); // Instantly process freshly added SVG icon frames
+            lucide.createIcons(); 
         }
 
         function clearChatHistoryStream() {
