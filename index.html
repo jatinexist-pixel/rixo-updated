@@ -190,21 +190,15 @@
         window.addEventListener("click", () => { document.getElementById("threeDotsMenu").classList.add("hidden"); });
         async function injectPresetPromptTask(type) {
             document.getElementById("welcomeDashboard").classList.add("collapsed");
-            let systemInstructionString = ""; let userDisplayMessage = "";
-            if (type === 'joke') {
-                userDisplayMessage = "Tell me a joke";
-                systemInstructionString = "Tell an extremely funny joke. Respond in English unless the chat history indicates a preference for Hinglish/Hindi.";
-            } else if (type === 'code') {
-                userDisplayMessage = "Give me some coding help";
-                systemInstructionString = "Ask how you can help the user with coding or programming. Respond in English by default.";
-            } else if (type === 'insights') {
-                userDisplayMessage = "Give me some AI insights";
-                systemInstructionString = "Share interesting facts or recent trends about Artificial Intelligence. Respond in English by default.";
-            }
+            let userDisplayMessage = "";
+            if (type === 'joke') userDisplayMessage = "Tell me a joke";
+            else if (type === 'code') userDisplayMessage = "Give me some coding help";
+            else if (type === 'insights') userDisplayMessage = "Give me some AI insights";
+            
             appendChatMessageNode(userDisplayMessage, "user");
             globalChatHistory.push({ role: "user", content: userDisplayMessage });
             saveSavedEngineLogs();
-            await transmissionLogEngine(systemInstructionString);
+            await transmissionLogEngine(userDisplayMessage);
         }
         async function handleManualUserSubmission() {
             const input = document.getElementById("userInput");
@@ -215,12 +209,9 @@
             globalChatHistory.push({ role: "user", content: text });
             saveSavedEngineLogs();
             input.value = "";
-            
-            // Fixed Conditional Language Prompt: Tells the model to check if input is Hindi/Hinglish, then respond in casual Hinglish, else stay in English.
-            let injectionPrompt = text + " (Instruction: Detect the language of this prompt. If it is written in Hindi or Hinglish, respond casually in Hinglish using Roman script. If it is in standard English, respond strictly in English.)";
-            await transmissionLogEngine(injectionPrompt);
+            await transmissionLogEngine(text);
         }
-        async function transmissionLogEngine(promptInstructionText) {
+        async function transmissionLogEngine(textPayload) {
             const loaderId = "loader-" + Date.now();
             const loader = document.createElement("div");
             loader.id = loaderId; loader.className = "flex justify-start mb-2";
@@ -232,11 +223,21 @@
                 </div>`;
             document.getElementById("chatHistoryDumpDeck").appendChild(loader);
             scrollTimelineToBottom();
+            
+            // Clean Global System Rules Payload Structure
+            const systemRuleMessage = {
+                role: "system",
+                content: "You are Rixo AI, an expert virtual assistant. Answer all user queries with high accuracy, detail, and technical depth. Language Constraint: Carefully read the user's input. If the user prompts you in English, respond strictly in professional English. If the user prompts you in Hinglish (Hindi written in Roman alphabets) or Hindi script, you MUST respond casually and naturally in Hinglish using the Roman alphabet only. Never output Devanagari script."
+            };
+
+            // Combine System Instructions + Chat History for Backend Processing
+            const optimizedPayload = [systemRuleMessage, ...globalChatHistory];
+
             try {
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: promptInstructionText, history: globalChatHistory })
+                    body: JSON.stringify({ message: textPayload, history: optimizedPayload })
                 });
                 const data = await response.json();
                 document.getElementById(loaderId).remove();
