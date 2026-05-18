@@ -7,15 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
     <style>
         html, body { 
             margin: 0; padding: 0; height: 100%; overflow: hidden;
             font-family: 'Plus Jakarta Sans', sans-serif;
             transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        /* ----- DARK THEME (DEFAULT) ----- */
         body.dark-mode { background: #000000; color: #e2e8f0; }
         body.dark-mode .app-container { background-color: #050508; background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 16px 16px; }
         body.dark-mode .header-el { background: rgba(5, 5, 8, 0.95); border-color: rgba(255, 255, 255, 0.06); }
@@ -33,7 +30,6 @@
         body.dark-mode .header-icon-btn { color: #94a3b8; }
         body.dark-mode .header-icon-btn:hover { color: #ffffff; }
 
-        /* ----- PREMIUM ANTI-GLARE LIGHT MODE (PASTEL BROWN / SOOTHING SAND) ----- */
         body.light-mode { background: #dfdacb; color: #2e2c2f; }
         body.light-mode .app-container { background-color: #dfdacb; background-image: radial-gradient(rgba(46, 44, 47, 0.06) 1px, transparent 1px); background-size: 16px 16px; }
         body.light-mode .header-el { background: #d0c9b5; border-color: #b0a790; }
@@ -56,34 +52,28 @@
         body.light-mode .header-icon-btn { color: #2e2c2f; }
         body.light-mode .header-icon-btn:hover { opacity: 0.8; }
 
-        /* Structural Layout Configuration */
         .app-wrapper { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; width: 100%; }
         .msg-user { border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 0.9rem; max-width: 80%; align-self: flex-end; }
         .msg-bot { border-radius: 18px 18px 18px 4px; padding: 12px 16px; font-size: 0.9rem; max-width: 85%; line-height: 1.6; position: relative; white-space: pre-wrap; word-break: break-word; animation: premiumFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; border-width: 1px; }
         .msg-bot code { font-family: 'JetBrains Mono', monospace; background: rgba(0, 0, 0, 0.06); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #2e2c2f; }
         body.dark-mode .msg-bot code { background: rgba(0, 0, 0, 0.4); color: #22d3ee; }
-
         @keyframes premiumFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
         .loader-dot { animation: dotPulse 1.2s infinite ease-in-out both; }
         .loader-dot:nth-child(2) { animation-delay: 0.2s; }
         .loader-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes dotPulse { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
-
         .input-bar { border-width: 1px; border-radius: 28px; transition: all 0.2s; }
         .send-btn { border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; shrink: 0; transition: all 0.2s; cursor: pointer; }
-        
         #messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
         #messages { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Smooth Drawer Slide Animations */
         .welcome-drawer { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); max-height: 400px; opacity: 1; overflow: hidden; }
         .welcome-drawer.collapsed { max-height: 0; opacity: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; transform: translateY(-10px); }
+        
+        #userInput { color: inherit !important; }
     </style>
 </head>
 <body class="dark-mode flex justify-center items-center">
-
     <div class="app-wrapper max-w-md border-x border-white/5 relative app-container transition-all">
-        
         <header class="h-14 flex items-center justify-between px-4 border-b header-el shrink-0 z-20 relative">
             <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/5 flex items-center justify-center">
@@ -91,19 +81,17 @@
                 </div>
                 <h1 class="font-bold text-sm tracking-tight text-white transition-all">Rixo AI</h1>
             </div>
-            
             <div class="flex items-center gap-1">
-                <button onclick="toggleFeaturePillDeckDrawer()" class="p-2 header-icon-btn rounded-lg transition-all flex items-center justify-center" title="Toggle Feature Panel">
+                <button onclick="toggleFeaturePillDeckDrawer()" class="p-2 header-icon-btn rounded-lg transition-all flex items-center justify-center">
                     <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
                 </button>
-                <button onclick="clearChatHistoryStream()" class="p-2 clear-btn rounded-lg transition-all flex items-center justify-center" title="Clear Chat">
+                <button onclick="clearChatHistoryStream()" class="p-2 clear-btn rounded-lg transition-all flex items-center justify-center">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
                 <button onclick="toggleThreeDotsMenu(event)" id="threeDotsButton" class="p-2 header-icon-btn rounded-lg flex items-center justify-center transition-colors">
                     <i data-lucide="more-vertical" class="w-4 h-4"></i>
                 </button>
             </div>
-
             <div id="threeDotsMenu" class="hidden fixed w-40 border rounded-xl p-1.5 z-50 flex flex-col gap-0.5 popover-menu transition-all">
                 <button onclick="switchThemeModeEngine('light')" class="flex items-center gap-2 w-full px-2.5 py-2 text-xs font-semibold rounded-lg transition-all text-left">
                     <i data-lucide="sun" class="w-3.5 h-3.5 icon-highlight"></i> Light Mode
@@ -113,89 +101,68 @@
                 </button>
             </div>
         </header>
-
         <div id="messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
-            
             <div class="flex flex-col gap-3 items-start w-full welcome-drawer mb-2" id="welcomeDashboard">
-                <div class="msg-bot w-full">Hi! I am Rixo. How can I help you today?</div>
-                
+                <div class="msg-bot w-full">Hi! I am Rixo. How can I help you today? / Yo, mai Rixo hu. Aaj kya help chahiye?</div>
                 <div class="grid grid-cols-1 gap-2 w-full mt-1">
                     <button onclick="injectPresetPromptTask('joke')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="smile" class="w-4 h-4 text-neutral-400 icon-highlight"></i>
-                            <span class="text-xs font-semibold">Tell a Joke</span>
+                            <span class="text-xs font-semibold">Tell a Joke / Mast Chutkula Sunao</span>
                         </div>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                     <button onclick="injectPresetPromptTask('code')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="code-2" class="w-4 h-4 text-neutral-400 icon-highlight"></i>
-                            <span class="text-xs font-semibold">Code Help</span>
+                            <span class="text-xs font-semibold">Code Help / Coding me help chahiye</span>
                         </div>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                     <button onclick="injectPresetPromptTask('insights')" class="pill-card border text-left px-4 py-3 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-2.5">
                             <i data-lucide="brain" class="w-4 h-4 text-neutral-400 icon-highlight"></i>
-                            <span class="text-xs font-semibold">AI Insights</span>
+                            <span class="text-xs font-semibold">AI Insights / AI trends batao</span>
                         </div>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 transition-opacity"></i>
                     </button>
                 </div>
             </div>
-
             <div id="chatHistoryDumpDeck" class="flex flex-col gap-4 w-full"></div>
-
         </div>
-
         <div class="p-4 border-t input-container shrink-0 flex flex-col gap-2">
             <div class="input-bar flex items-center px-2 py-1.5">
-                <input id="userInput" type="text" 
-                    class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-neutral-500" 
-                    placeholder="Message Rixo...">
-                <button id="sendBtnSubmit" onclick="handleManualUserSubmission()" class="send-btn" title="Send Message">
+                <input id="userInput" type="text" class="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder-neutral-500" placeholder="Message Rixo / Sandesh bheje...">
+                <button id="sendBtnSubmit" onclick="handleManualUserSubmission()" class="send-btn">
                     <i data-lucide="arrow-up" class="w-5 h-5 stroke-[3px]"></i>
                 </button>
             </div>
-            
             <div class="text-center text-[10px] uppercase tracking-widest font-mono font-medium opacity-70 footer-text py-0.5">
                 Rixo AI Engine Matrix • Powered by Local Architecture
             </div>
         </div>
-
     </div>
-
     <script>
         let globalChatHistory = [];
         const SERVER_URL = "/chat";
-
         window.addEventListener("DOMContentLoaded", () => {
             loadSavedEngineLogs();
             switchThemeModeEngine(localStorage.getItem("rixo_style_theme") || "dark");
-            
-            // Hardbind explicit listener targeting submission text execution pipeline
             document.getElementById("userInput").addEventListener("keydown", (e) => {
-                if(e.key === "Enter") {
-                    e.preventDefault();
-                    handleManualUserSubmission();
-                }
+                if(e.key === "Enter") { e.preventDefault(); handleManualUserSubmission(); }
             });
-            
-            // Dynamic absolute positioning handler recalculating dynamic anchor bounds
             window.addEventListener('resize', repositionSettingsPopover);
             window.addEventListener('scroll', repositionSettingsPopover);
         });
-
         function repositionSettingsPopover() {
             const menu = document.getElementById("threeDotsMenu");
             const btn = document.getElementById("threeDotsButton");
             if(menu && btn && !menu.classList.contains("hidden")) {
                 const rect = btn.getBoundingClientRect();
                 menu.style.top = (rect.bottom + 4) + "px";
-                menu.style.left = (rect.right - 160) + "px"; // Forced container offset within absolute bounds
+                menu.style.left = (rect.right - 160) + "px";
             }
         }
-
         function switchThemeModeEngine(themeMode) {
             if(themeMode === "light") {
                 document.body.classList.remove("dark-mode");
@@ -206,11 +173,8 @@
             }
             localStorage.setItem("rixo_style_theme", themeMode);
             document.getElementById("threeDotsMenu").classList.add("hidden");
-            
-            // Explicitly force full-tree re-render of vector nodes to preserve asset visibility
             lucide.createIcons();
         }
-
         function toggleThreeDotsMenu(e) {
             e.stopPropagation();
             const menu = document.getElementById("threeDotsMenu");
@@ -218,63 +182,48 @@
             repositionSettingsPopover();
             lucide.createIcons();
         }
-
         function toggleFeaturePillDeckDrawer() {
             document.getElementById("welcomeDashboard").classList.toggle("collapsed");
             scrollTimelineToBottom();
             lucide.createIcons();
         }
-
-        window.addEventListener("click", () => {
-            document.getElementById("threeDotsMenu").classList.add("hidden");
-        });
-
+        window.addEventListener("click", () => { document.getElementById("threeDotsMenu").classList.add("hidden"); });
         async function injectPresetPromptTask(type) {
             document.getElementById("welcomeDashboard").classList.add("collapsed");
-            
-            let systemInstructionString = "";
-            let userDisplayMessage = "";
-
+            let systemInstructionString = ""; let userDisplayMessage = "";
             if (type === 'joke') {
-                userDisplayMessage = "Tell me a joke";
-                systemInstructionString = "Tell me an extremely funny fresh joke. Use highly expressive funny emojis like 😂 or 🤣 inside the response text to emphasize the humor. Default response language must be English unless user text context implies otherwise.";
+                userDisplayMessage = "Mast Chutkula Sunao";
+                systemInstructionString = "Tell an extremely funny joke. You MUST respond ONLY in Hinglish language (Hindi written in Roman English script). Use expressive emojis like 😂 or 🤣.";
             } else if (type === 'code') {
-                userDisplayMessage = "Give me some coding help";
-                systemInstructionString = "Provide coding guidance or ask how you can assist the user with programming. Keep it premium, direct, and structured.";
+                userDisplayMessage = "Coding me help chahiye";
+                systemInstructionString = "Ask how you can help the user with coding or programming. You MUST respond ONLY in Hinglish language (Hindi written in Roman English script).";
             } else if (type === 'insights') {
-                userDisplayMessage = "Give me some AI insights";
-                systemInstructionString = "Share interesting facts, recent trends, or high-level insights about Artificial Intelligence. Keep the tone professional and forward-looking.";
+                userDisplayMessage = "AI trends batao";
+                systemInstructionString = "Share interesting facts or recent trends about Artificial Intelligence. You MUST respond ONLY in Hinglish language (Hindi written in Roman English script).";
             }
-
             appendChatMessageNode(userDisplayMessage, "user");
             globalChatHistory.push({ role: "user", content: userDisplayMessage });
             saveSavedEngineLogs();
-
             await transmissionLogEngine(systemInstructionString);
         }
-
         async function handleManualUserSubmission() {
             const input = document.getElementById("userInput");
             const text = input.value.trim();
             if (!text) return;
-
             document.getElementById("welcomeDashboard").classList.add("collapsed");
-
             appendChatMessageNode(text, "user");
             globalChatHistory.push({ role: "user", content: text });
             saveSavedEngineLogs();
             input.value = "";
-
-            let injectionPrompt = text + " (Note: Respond in English language by default. However, if the user input phrase is explicitly written in Hindi/Hinglish language, then match that language structure directly in your response.)";
             
+            // System prompt strictly enforced for Romanized Hinglish replies
+            let injectionPrompt = text + " (STRICT INSTRUCTION: Respond ONLY in Hinglish language. Use English script/alphabet but speak in casual Hindi language. Strictly avoid Devnagari/Hindi script text.)";
             await transmissionLogEngine(injectionPrompt);
         }
-
         async function transmissionLogEngine(promptInstructionText) {
             const loaderId = "loader-" + Date.now();
             const loader = document.createElement("div");
-            loader.id = loaderId;
-            loader.className = "flex justify-start mb-2";
+            loader.id = loaderId; loader.className = "flex justify-start mb-2";
             loader.innerHTML = `
                 <div class="msg-bot flex items-center gap-1.5 px-4 py-3">
                     <span class="w-2 h-2 rounded-full bg-neutral-400 loader-dot"></span>
@@ -283,51 +232,41 @@
                 </div>`;
             document.getElementById("chatHistoryDumpDeck").appendChild(loader);
             scrollTimelineToBottom();
-
             try {
                 const response = await fetch(SERVER_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        message: promptInstructionText,
-                        history: globalChatHistory 
-                    })
+                    body: JSON.stringify({ message: promptInstructionText, history: globalChatHistory })
                 });
-
                 const data = await response.json();
                 document.getElementById(loaderId).remove();
-
                 if (data.reply) {
                     appendChatMessageNode(data.reply, "bot");
                     globalChatHistory.push({ role: "assistant", content: data.reply });
                     saveSavedEngineLogs(); 
                 } else {
-                    appendChatMessageNode("Server connection timeout. Please check console logs.", "bot");
+                    appendChatMessageNode("Server connection error. Please try again.", "bot");
                 }
             } catch (err) {
                 if(document.getElementById(loaderId)) {
-                    document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-500 text-xs">Error: Engine terminal pipeline failure.</div>`;
+                    document.getElementById(loaderId).innerHTML = `<div class="msg-bot text-red-500 text-xs">Error.</div>`;
                 }
             }
         }
-
         function appendChatMessageNode(text, sender) {
             const dumpContainer = document.getElementById("chatHistoryDumpDeck");
             const wrapperDiv = document.createElement("div");
             wrapperDiv.className = "flex w-full " + (sender === "user" ? "justify-end" : "justify-start");
-            
             if (sender === "bot") {
                 let formattedMarkdownText = text.replace(/`([^`]+)`/g, '<code>$1</code>');
                 wrapperDiv.innerHTML = `<div class="msg-bot">${formattedMarkdownText}</div>`;
             } else {
                 wrapperDiv.innerHTML = `<div class="msg-user">${text}</div>`;
             }
-            
             dumpContainer.appendChild(wrapperDiv);
             scrollTimelineToBottom();
-            lucide.createIcons(); 
+            lucide.createIcons();
         }
-
         function clearChatHistoryStream() {
             globalChatHistory = [];
             localStorage.removeItem("rixo_single_timeline_store");
@@ -337,25 +276,18 @@
             scrollTimelineToBottom();
             lucide.createIcons();
         }
-
-        function saveSavedEngineLogs() {
-            localStorage.setItem("rixo_single_timeline_store", JSON.stringify(globalChatHistory));
-        }
-
+        function saveSavedEngineLogs() { localStorage.setItem("rixo_single_timeline_store", JSON.stringify(globalChatHistory)); }
         function loadSavedEngineLogs() {
             const databaseLogLogs = localStorage.getItem("rixo_single_timeline_store");
             if(databaseLogLogs) {
                 globalChatHistory = JSON.parse(databaseLogLogs);
                 if(globalChatHistory.length > 0) {
                     document.getElementById("welcomeDashboard").classList.add("collapsed");
-                    globalChatHistory.forEach(msg => {
-                        appendChatMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot');
-                    });
+                    globalChatHistory.forEach(msg => { appendChatMessageNode(msg.content, msg.role === 'user' ? 'user' : 'bot'); });
                 }
             }
             lucide.createIcons();
         }
-
         function scrollTimelineToBottom() {
             const messagesWindow = document.getElementById("messages");
             setTimeout(() => { messagesWindow.scrollTop = messagesWindow.scrollHeight; }, 30);
